@@ -3,11 +3,17 @@
 import xml.dom.minidom
 import sys
 
+
+# TODO: argparse
+
+
 doc = xml.dom.minidom.parse(sys.argv[1])
 
 states = {}
 initial = []
 final = []
+
+out: str = ""
 
 for st in doc.getElementsByTagName("state"):
     id = st.getAttribute("id")
@@ -19,10 +25,12 @@ for st in doc.getElementsByTagName("state"):
     if st.getElementsByTagName("final").length > 0:
         final.append(name)
 
+machine_name = ".".join(sys.argv[1].split(".")[:-1])
 
-print(f"name: {sys.argv[1]}")
-print(f"init: {','.join(initial)}")
-print(f"accept: {','.join(final)}")
+out += f"name: {machine_name}\n"
+out += f"init: {','.join(initial)}\n"
+out += f"accept: {','.join(final)}\n"
+out += "\n"
 
 
 for tr in doc.getElementsByTagName("transition"):
@@ -59,6 +67,19 @@ for tr in doc.getElementsByTagName("transition"):
     rds = ",".join(str(v or "_") for k,v in sorted(read.items()))
     wrs = ",".join(str(v or "_") for k,v in sorted(write.items()))
     mvs = ",".join(mconv[v] for k,v in sorted(move.items()))
-    print(f"{states[fr]},{rds}")
-    print(f"{states[to]},{wrs},{mvs}")
+
+    out += f"{states[fr]},{rds}\n"
+    out += f"{states[to]},{wrs},{mvs}\n"
+    out += "\n"
+
+
+# save
+
+if len(sys.argv) > 2:
+    file_name = sys.argv[2]
+else:
+    file_name = f"{machine_name}.txt"
+
+with open(file_name, "+wt") as fd:
+    fd.write(out.strip())
 
