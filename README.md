@@ -5,18 +5,18 @@ Bachelor's Degree in Computer Science and Engineering
 Universidad Carlos III de Madrid
 
 
-## Project statement
+## Enunciado de la práctica
 
-La práctica propone el uso de la herramienta JFLAP para diseñar y evaluar diversas Máquinas de Turing. El objetivo es que asimiléis los conceptos impartidos en Magistral para tener un conocimiento claro sobre qué son y para qué sirven Máquinas de Turing Multicinta y No Deterministas, cómo se pueden aplicar al Análisis de Coste Computacional de Algoritmos, las implicaciones que tiene usar una u otra variante, o el uso de una base u otra relacionado con el tamaño de las instancias y la complejidad que se deriva de ellas, etc.  
+La práctica propone el uso de la herramienta JFLAP para diseñar y evaluar diversas Máquinas de Turing, para tener un conocimiento claro sobre qué son y para qué sirven Máquinas de Turing Multicinta y No Deterministas, cómo se pueden aplicar al Análisis de Coste Computacional de Algoritmos, las implicaciones que tiene usar una u otra variante, o el uso de una base u otra relacionado con el tamaño de las instancias y la complejidad que se deriva de ellas, etc.  
 
-Las máquinas de Turing deben ser diseñadas y validadas con JFLAP. Para ello usaremos el modo de Input  Multiple Run (Trasducer). Damos por supuesto que todas las máquinas empiezan y terminan con el cabezal situado sobre el símbolo significativo más a la izquierda. De otra forma, la transducción no funcionará correctamente.  
+Las máquinas de Turing deben ser diseñadas y validadas con JFLAP. Para ello usaremos el modo de ``Input`` $\rightarrow$ ``Multiple Run (Trasducer)``. Damos por supuesto que todas las máquinas empiezan y terminan con el cabezal situado sobre el símbolo significativo más a la izquierda. De otra forma, la transducción no funcionará correctamente.  
 En las versiones multicinta consideraremos que la primera es la que debe contener tanto la palabra inicial como los posibles resultados. Utilizaremos JFLAP 7.1 para el trabajo (JFLAP 7.0 tiene algún problema con las MTND).  
 
 Para facilitar el proceso de contar los pasos de la Máquina de Turing podéis usar
-el simulador https://turingmachinesimulator.com/. Podéis usar el script [`jf2txt.py`](src/jf2txt.py) para convertir los diseños de jflap. El simulador sólo sirve para máquinas deterministas, y sólo funciona con JFLAP 7.1.  
-Alternativamente se puede usar algún programa para contar clicks de teclado (autoclickers), o para programar series de clicks.  
+el simulador [Turing Machine Simulator](https://turingmachinesimulator.com/). Podéis usar el script [`jf2txt.py`](src/jf2txt.py) para convertir los diseños de jflap. El simulador sólo sirve para máquinas deterministas, y sólo funciona con JFLAP 7.1.  
+Alternativamente se puede usar algún programa para contar clicks de teclado (_autoclickers_), o para programar series de clicks.  
 
-No se recomienda el uso de Building Block por los problemas que puede causar. Y además dificulta obtener el coste total necesarios para el Análisis de Coste Computacional. 
+No se recomienda el uso de _Building Block_ por los problemas que puede causar. Además, dificulta obtener el coste total necesarios para el Análisis de Coste Computacional. 
 
 
 ### 0. Palíndromos
@@ -28,8 +28,8 @@ Ejemplos de palabras:
 - Válidas: λ, aa, bb, aaaa, bbbb, abba, baab, aaaaaa, aabbaa
 - Inválidas: ab, ba, aaa, aba, bbb, abb, aabb, abab, baba
 
-Realizar las siguientes tareas para una MT determinista de 1 cinta, de 2 cintas, y para una no determinista de 2 cintas:
-1. Implementar el diseño propuesto
+Realizar las siguientes tareas para una MT determinista de 1 cinta ([`src/MT-0A.jff`](src/MT-0A.jff)), de 2 cintas([`src/MT-0B.jff`](src/MT-0B.jff)), y para una no determinista de 2 cintas ([`src/MT-0C.jff`](src/MT-0C.jff)):
+1. Implementar el diseño propuesto.
 2. Determinar cuál es el peor caso en cuanto a coste computacional para un tamaño _n_ dado.
 3. Realizar las simulaciones para palabras de diferente tamaño (usando _step_). Preparad la tabla de tamaños de problema y con los pasos obtenidos.
 4. Calcular las diferencias finitas.
@@ -63,9 +63,8 @@ Finalmente evaluar la mejora obtenida con la MT de dos cintas.
 ### 3. Comparativa de los Ejercicios 1 y 2
 1. Determinar la eficiencia de cada algoritmo:
 Mediante una tabla para comparar los pasos realizados para las sumas con los mismos valores. Es decir, para comparar resultados hay que evaluar en ambas máquinas la misma suma, por ejemplo $3+5$, traducida a la base correspondiente.  
-Incluid gráficas superpuestas de los costes para facilitar la comparativa.
-
-La comparativa debe realizarse para máquinas de 1 cinta por un lado, y para las de dos cintas por otro lado.rs
+Incluid gráficas superpuestas de los costes para facilitar la comparativa.  
+La comparativa debe realizarse para máquinas de 1 cinta por un lado, y para las de dos cintas por otro lado.  
 2. ¿Por qué la diferencia de complejidades?
 3. ¿Cómo se interpretan las diferencias en complejidad y en eficiencia?
 
