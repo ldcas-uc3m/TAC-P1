@@ -71,9 +71,10 @@ La comparativa debe realizarse para máquinas de 1 cinta por un lado, y para las
 
 ## Installation and execution
 
+### Running inside JFLAP
 1. Check you have Java 8 or higher installed, with `java --version`.  
 If you don't, download and install Java Runtime Enviroment with JDK 8+, either the official one or [OpenJDK](https://openjdk.org/).
-2. Download [JFLAP](https://www.jflap.org/) 7.1:
+1. Download [JFLAP](https://www.jflap.org/) 7.1:
    ```bash
    wget https://www.jflap.org/jflaptmp/july27-18/JFLAP7.1.jar
    ```
@@ -86,4 +87,38 @@ You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `jav
 
 
 <!-- TODO: exec -->
+
+
+### Running the Python tests
+
+1. Create a Python virtual enviroment in the `venv` folder.
+    ```bash
+    python3 -m venv ./venv
+    ```
+2. Activate the venv
+   - Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+    - Windows (PowerShell):
+        ```powershell
+        & .\venv\Scripts\Activate.ps1
+        ```
+3. Install the dependencies
+   ```
+   pip install -r requirements.txt
+   ```
+4. Compile the Turing Machine simulator with `make`.  
+If you're in Windows, we recommend you to instal [WSL2](https://learn.microsoft.com/es-es/windows/wsl/install) and run "in Linux", or use GCC through [MinGW-W64](https://www.mingw-w64.org/), you can find compiled binaries [here](https://github.com/niXman/mingw-builds-binaries) (you'll have to compile it manually by running the `gcc` command found in [`turing-machine-simulator/Makefile`](turing-machine-simulator/Makefile)).
+
+   ```bash
+   cd turing-machine-simulator
+   make
+   cd ..
+   ```
+1. Run the script.
+   ```
+   python3 src/test.py
+   ```
+
 

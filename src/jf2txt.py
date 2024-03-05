@@ -21,7 +21,7 @@ class JFLAPException(Exception):
 
 
 
-def convert(file_path: str | io.TextIOWrapper, machine_name: str) -> str:
+def convert(file_path: str | io.TextIOWrapper | pathlib.Path, machine_name: str) -> str:
     """
     Converts a JFLAP Turing Machine file into the turingmachinesimulator format.
 
@@ -36,7 +36,10 @@ def convert(file_path: str | io.TextIOWrapper, machine_name: str) -> str:
     @author: Diego Devesa
     """
 
-    doc = xml.dom.minidom.parse(file_path)
+    if isinstance(file_path, pathlib.Path):
+        doc = xml.dom.minidom.parse(str(file_path.absolute()))
+    else:
+        doc = xml.dom.minidom.parse(file_path)
 
     # check type
     if doc.getElementsByTagName("type")[0].firstChild.nodeValue != "turing":
