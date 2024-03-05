@@ -60,12 +60,19 @@ if __name__ == "__main__":
         machine_name = ".".join(machine_file.name.split(".")[:-1])
 
         # convert & save to file
-        output = Path(f"{machine_file.parent}/{machine_name}.tm")
-        with open(output, "+wt") as fd:
+        tm_file = Path(f"{machine_file.parent}/{machine_name}.tm")
+        with open(tm_file, "+wt") as fd:
             fd.write(jf2txt.convert(machine_file, machine_name))
 
         # run tests
-        df = tests(output, ["abba", "babababa", "aaaaaaaa"])
+
+        match machine_name:
+            case "MT-0A" | "MT-0B":
+                inputs = ["abba", "babababa", "aaaaaaaa"]
+            case _:
+                inputs = []
+
+        df = tests(tm_file, inputs)
 
         # save results
         df.to_csv(DATA_FOLDER / f"{machine_name}.csv")

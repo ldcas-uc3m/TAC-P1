@@ -90,6 +90,7 @@ You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `jav
 
 
 ### Running the Python tests
+This requires Python 3.10+.
 
 1. Create a Python virtual enviroment in the `venv` folder.
     ```bash
