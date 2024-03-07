@@ -13,7 +13,7 @@ Las máquinas de Turing deben ser diseñadas y validadas con JFLAP. Para ello us
 En las versiones multicinta consideraremos que la primera es la que debe contener tanto la palabra inicial como los posibles resultados. Utilizaremos JFLAP 7.1 para el trabajo (JFLAP 7.0 tiene algún problema con las MTND).  
 
 Para facilitar el proceso de contar los pasos de la Máquina de Turing podéis usar
-el simulador [Turing Machine Simulator](https://turingmachinesimulator.com/). Podéis usar el script [`jf2txt.py`](src/jf2txt.py) para convertir los diseños de jflap. El simulador sólo sirve para máquinas deterministas, y sólo funciona con JFLAP 7.1.  
+el simulador [Turing Machine Simulator](https://turingmachinesimulator.com/). Podéis usar el script [`jf2tm.py`](src/jf2tm.py) para convertir los diseños de jflap. El simulador sólo sirve para máquinas deterministas, y sólo funciona con JFLAP 7.1.  
 Alternativamente se puede usar algún programa para contar clicks de teclado (_autoclickers_), o para programar series de clicks.  
 
 No se recomienda el uso de _Building Block_ por los problemas que puede causar. Además, dificulta obtener el coste total necesarios para el Análisis de Coste Computacional. 
@@ -90,7 +90,7 @@ You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `jav
 
 
 ### Running the Python tests
-This requires Python 3.10+.
+This requires Python 3.12, but should work on python 3.10+.
 
 1. Create a Python virtual enviroment in the `venv` folder.
     ```bash

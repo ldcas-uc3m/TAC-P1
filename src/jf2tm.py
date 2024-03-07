@@ -1,5 +1,5 @@
 # conversor de MT deterministas de JFLAP a https://turingmachinesimulator.com/
-# uso: python jf2txt.py <MT.jff>
+# uso: python jf2tm.py <MT.jff>
 
 # Autor: Diego Devesa
 # CLI por Luis Daniel Casais Mezquida <https://github.com/ldcas-uc3m/>

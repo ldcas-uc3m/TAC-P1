@@ -4,7 +4,7 @@ import json
 
 import pandas as pd
 
-import jf2txt
+import jf2tm
 
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         # convert & save to file
         tm_file = Path(f"{machine_file.parent}/{machine_name}.tm")
         with open(tm_file, "+wt") as fd:
-            fd.write(jf2txt.convert(machine_file, machine_name))
+            fd.write(jf2tm.convert(machine_file, machine_name))
 
         # run tests
 
