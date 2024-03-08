@@ -25,6 +25,8 @@ def tests(file: Path, inputs: list[str]) -> pd.DataFrame:
 
     results = pd.DataFrame(columns=['n', 'steps', 'result'])
 
+     # TODO: multitape results
+
     for i in inputs:
         tm_result = json.loads(subprocess.check_output([TURING_EXEC, str(file), i, "--json"]))
 
@@ -35,7 +37,7 @@ def tests(file: Path, inputs: list[str]) -> pd.DataFrame:
         r = {
             'n': len(i),
             'steps': tm_result["steps"],
-            'result': tm_result["final_word"].strip("_")
+            'result': tm_result["tapes"][0].strip("_")
         }
 
         # append to results
@@ -98,4 +100,4 @@ if __name__ == "__main__":
         df = tests(tm_file, inputs)
 
         # save results
-        df.to_csv(DATA_FOLDER / f"{machine_name}.csv")
+        df.to_csv(DATA_FOLDER / f"{machine_name}.csv", index=False)
