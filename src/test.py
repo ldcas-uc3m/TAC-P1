@@ -72,6 +72,7 @@ if __name__ == "__main__":
         match machine_name:
             case "MT-0A" | "MT-0B":
                 inputs = [
+                    "",
                     "aa",
                     "abba",
                     "abaaba",
@@ -79,6 +80,17 @@ if __name__ == "__main__":
                     "bbaabbaabb",
                     "bbbbbaabbbbb"
                 ]
+
+            case "MT-1A":
+                inputs = [
+                    "1$",
+                    "$1",
+                    "11$",
+                    "$11",
+                    "$111",
+                    "$1111"
+                ]
+            
             case _:
                 inputs = []
 
