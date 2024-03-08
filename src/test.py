@@ -53,7 +53,10 @@ if __name__ == "__main__":
 
     jff_files = [
         REPO_ROOT / "src/MT-0A.jff",
-        REPO_ROOT / "src/MT-0B.jff"
+        REPO_ROOT / "src/MT-0B.jff",
+        # REPO_ROOT / "src/MT-0C.jff",  # non-deterministic, cannot test
+        REPO_ROOT / "src/MT-1A.jff",
+        REPO_ROOT / "src/MT-2A.jff"
     ]
 
     for machine_file in jff_files:
@@ -68,10 +71,18 @@ if __name__ == "__main__":
 
         match machine_name:
             case "MT-0A" | "MT-0B":
-                inputs = ["abba", "babababa", "aaaaaaaa"]
+                inputs = [
+                    "aa",
+                    "abba",
+                    "abaaba",
+                    "aaabbaaa",
+                    "bbaabbaabb",
+                    "bbbbbaabbbbb"
+                ]
             case _:
                 inputs = []
 
+        print(f"Performing tests for {machine_name}.")
         df = tests(tm_file, inputs)
 
         # save results
