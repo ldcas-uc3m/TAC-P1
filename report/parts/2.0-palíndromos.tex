@@ -24,7 +24,7 @@ El algoritmo de resolución es el siguiente:
     \end{enumerate}
 \end{itemize}
 
-La implementación en JFLAP queda representada en la Figura \ref{fig:MT-0A}.
+El diseño de la máquina queda representado en la Figura \ref{fig:MT-0A}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{MT-0A.png}
@@ -36,39 +36,40 @@ La implementación en JFLAP queda representada en la Figura \ref{fig:MT-0A}.
 \subsubsection*{Peor caso}
 El peor caso sería cuando es un palíndromo, dado que en el momento en el que una letra no coincida, deja de buscar el resto de letras. Dentro de los palíndromos, el peor caso es cuando es un palíndromo de tamaño par, ya que tiene que hacer una comprobación extra.
 
-\subsubsection*{Análisis empírico}
+\subsubsection*{Evaluación empírica}
 
-Realizamos el análisis empírico en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0A.csv}.}:
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0A.csv}.}:
 
+% TODO: use CSVsimple to generate table from csv files
 \begin{table}[h]
     \centering
     \begin{tabular}{lcc}
         Entrada & $n$ & Pasos \\
         \hline
         $\lambda$      & 0  & 1  \\
-        aa             & 2  & 6  \\
-        abba           & 4  & 15 \\
-        abaaba         & 6  & 28 \\
-        aaabbaaa       & 8  & 45 \\
-        bbaabbaabb     & 10 & 66 \\
-        bbbbbaabbbbb   & 12 & 91
+        \texttt{aa}             & 2  & 6  \\
+        \texttt{abba}           & 4  & 15 \\
+        \texttt{abaaba}         & 6  & 28 \\
+        \texttt{aaabbaaa}       & 8  & 45 \\
+        \texttt{bbaabbaabb}     & 10 & 66 \\
+        \texttt{bbbbbaabbbbb}   & 12 & 91
     \end{tabular}
 \end{table}
 
 
-\subsubsection*{Evaluación analítica}
-Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas:
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
         $n$ & \textbf{0} & \textbf{2} & \textbf{4} & \textbf{5} & \textbf{8} & \textbf{10} & \textbf{12} \\ \hline
-        Pasos & \textbf{1} & \textbf{6} & \textbf{15} & \textbf{28} & \textbf{45} & \textbf{66} & \textbf{91} \\ \hline
+        $T(n)$ & \textbf{1} & \textbf{6} & \textbf{15} & \textbf{28} & \textbf{45} & \textbf{66} & \textbf{91} \\ \hline
         \hline
         $A(n) = T(n) - T(n-2)$ &    &  5 &  9 & 13 & 17 & 21 & 25 \\ \hline
-        $B(n) = A(n) - A(n-2)$ &    &  4 &  4 &  4 &  4 &  4 &    \\ \hline
-        $C(n) = B(n) - B(n-2)$ &    &    &  0 &  0 &  0 &  0 &    \\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &    &  4 &  4 &  4 &  4 &  4 \\ \hline
+        $C(n) = B(n) - B(n-2)$ &    &    &    &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
 \end{table}
 
@@ -87,16 +88,16 @@ Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ ob
 Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
 
 \begin{equation}
-    T_{0A}(n) = 2N^2 + 6N + 2
+    T_{0A}(n) = 2n^2 + 6n + 2
 \end{equation}
 
 
 \subsubsection*{Cota asintótica}
-
 La cota asintótica queda defida como:
 
 \begin{equation}
     O(n) = k \cdot g(n) \geq T(n)
+    \label{eq:On}
 \end{equation}
 
 Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n^2$.\\
@@ -110,6 +111,7 @@ Al conocer $T_{0A}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}
 % TODO: Pintar cota asintótica y coste computacional
 
 
+
 \subsection{MT Determinista de 2 cintas}
 
 \subsubsection*{Diseño propuesto}
@@ -118,14 +120,14 @@ El algoritmo de resolución es el siguiente:
 \begin{enumerate}
     \item Copiar los símbolos de la cinta 0 a la cinta 1.
     \item Rebobinar la cinta 1.
-    \item Cotejar los símbolos de la cinta 0 y la cinta 1, avanzando ambas cintas paso a paso.
+    \item Cotejar los símbolos de la cinta 0 y la cinta 1, avanzando ambas cintas paso a paso, y borrando los símbolos.
     \begin{enumerate}[1.]
         \item Si en algún punto no coinciden, rebobinar la cinta 0, limpiar la cinta 1, poner un \texttt{0} (no son palíndromos) y \textbf{parar}.
     \end{enumerate}
-    \item Rebobinar la cinta 0, limpiar la cinta 1, poner un \texttt{1} (son palíndromos) y \textbf{parar}.
+    \item Poner un \texttt{1} (son palíndromos) y \textbf{parar}.
 \end{enumerate}
 
-La implementación en JFLAP queda representada en la Figura \ref{fig:MT-0B}.
+El diseño de la máquina queda representado en la Figura \ref{fig:MT-0B}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{MT-0B.png}
@@ -136,9 +138,8 @@ La implementación en JFLAP queda representada en la Figura \ref{fig:MT-0B}.
 \subsubsection*{Peor caso}
 El peor caso vuelve a ser un palíndromo par, puesto que tiene que comprobar toda la cadena.
 
-\subsubsection*{Análisis empírico}
-
-Realizamos el análisis empírico en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0B.csv}.}:
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0B.csv}.}:
 
 \begin{table}[h]
     \centering
@@ -146,63 +147,50 @@ Realizamos el análisis empírico en el peor caso, tomando como $n$ el tamaño d
         Entrada & $n$ & Pasos \\
         \hline
         $\lambda$      & 0  & 1  \\
-        aa             & 2  & 9  \\
-        abba           & 4  & 15 \\
-        abaaba         & 6  & 21 \\
-        aaabbaaa       & 8  & 27 \\
-        bbaabbaabb     & 10 & 33 \\
-        bbbbbaabbbbb   & 12 & 39
+        \texttt{aa}             & 2  & 9  \\
+        \texttt{abba}           & 4  & 15 \\
+        \texttt{abaaba}         & 6  & 21 \\
+        \texttt{aaabbaaa}       & 8  & 27 \\
+        \texttt{bbaabbaabb}     & 10 & 33 \\
+        \texttt{bbbbbaabbbbb}   & 12 & 39
     \end{tabular}
 \end{table}
 
 
-\subsubsection*{Evaluación analítica}
-Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas:
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
         $n$ & \textbf{0} & \textbf{2} & \textbf{4} & \textbf{5} & \textbf{8} & \textbf{10} & \textbf{12} \\ \hline
-        Pasos & \textbf{1} & \textbf{6} & \textbf{15} & \textbf{28} & \textbf{45} & \textbf{66} & \textbf{91} \\ \hline
+        $T(n)$ & \textbf{1} & \textbf{9} & \textbf{15} & \textbf{21} & \textbf{27} & \textbf{33} & \textbf{39} \\ \hline
         \hline
-        $A(n) = T(n) - T(n-2)$ &    &  5 &  9 & 13 & 17 & 21 & 25 \\ \hline
-        $B(n) = A(n) - A(n-2)$ &    &  4 &  4 &  4 &  4 &  4 &    \\ \hline
-        $C(n) = B(n) - B(n-2)$ &    &    &  0 &  0 &  0 &  0 &    \\ \hline
+        $A(n) = T(n) - T(n-2)$ &    &  8 &  6 &  6 &  6 &  6 &  6 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &    & -2 &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
 \end{table}
 
-Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\\
+% TODO: y cómo interpretamos estos resultados?
 
-Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+También podemos calcular el coste computacional mediante una evaluación analítica del algoritmo. MT-0B realiza tres recorridos, en el peor de los casos:
+\begin{enumerate}
+    \item Copia los datos de la cinta 0 a la cinta 1 $\rightarrow n+1$ pasos
+    \item Rebobina la cinta 1 $\rightarrow n+1$ pasos
+    \item Coteja la cinta 1 con la cinta 2, en reverso $\rightarrow n+1$ pasos
+\end{enumerate}
 
-\begin{subequations}
-    \begin{gather}
-        n = 0,\ T(0) = 1 \rightarrow c = 1 \\
-        n = 2,\ T(0) = 6 \rightarrow 4a + 2b + c = 6 \\
-        n = 4,\ T(0) = 15 \rightarrow 16a + 4b + c = 6
-    \end{gather}
-\end{subequations}
-
-Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
-
+Sumando los tres recorridos, nos queda:
 \begin{equation}
-    T_{0A}(n) = 2N^2 + 6N + 2
+    T_{0B}(n) = 3n + 3
 \end{equation}
 
 
 \subsubsection*{Cota asintótica}
-
-La cota asintótica queda defida en 
-
+Al conocer $T_{0B}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{33}{10}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    O(n) = k \cdot g(n) \geq T(n)
+    O_{0B}(n) = \frac{33}{10} n
 \end{equation}
 
-Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n^2$.\\
-
-Al conocer $T_{0A}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}$, por lo que la cota asintótica para esta máquina es:
-\begin{equation}
-    O_{0A}(n) = \frac{131}{50} n^2
-\end{equation}
-
+% TODO: Pintar cota asintótica y coste computacional

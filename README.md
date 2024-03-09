@@ -109,7 +109,11 @@ This requires Python 3.12, but should work on python 3.10+.
    ```
    pip install -r requirements.txt
    ```
-4. Compile the Turing Machine simulator with `make`.  
+4. Make sure you have initialized all submodules:
+   ```
+   git submodule update --init --recursive
+   ```
+5. Compile the Turing Machine simulator with `make`.  
 If you're in Windows, we recommend you to instal [WSL2](https://learn.microsoft.com/es-es/windows/wsl/install) and run "in Linux", or use GCC through [MinGW-W64](https://www.mingw-w64.org/), you can find compiled binaries [here](https://github.com/niXman/mingw-builds-binaries) (you'll have to compile it manually by running the `gcc` command found in [`turing-machine-simulator/Makefile`](turing-machine-simulator/Makefile)).
 
    ```bash

@@ -1,44 +1,60 @@
 import subprocess
 from pathlib import Path
 import json
+import platform
+import logging
 
 import pandas as pd
 
 import jf2tm
 
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+handler.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
+logger.addHandler(handler)
+
+
 REPO_ROOT = Path(__file__).parent.parent
-TURING_EXEC: Path = REPO_ROOT / "turing-machine-simulator/turing"
+TURING_EXEC: Path = REPO_ROOT / f"turing-machine-simulator/turing{".exe" if platform.system() == "Windows" else ""}"
 DATA_FOLDER = REPO_ROOT / "data/"
 
 
-
-def tests(file: Path, inputs: list[str]) -> pd.DataFrame:
+def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
     """
     Runs the specified `inputs` through the Turing Machine in `file`, on the Turing Machine simulator in `TURING_EXEC`, and returns the results.
 
     :param file: Turing machine definition file path, in turingmachinesimulator.com format.
     :param inputs: List of inputs to the TM.
+    :param ntapes: Number of tapes of the TM.
 
     :return: DataFrame with columns {n, steps, result}
     """
 
-    results = pd.DataFrame(columns=['n', 'steps', 'result'])
+    results = pd.DataFrame(
+        columns=[
+            'input',
+            'n',
+            'steps',
+            *[f'result{i}' for i in range(ntapes)]
+        ]
+    )
 
-     # TODO: multitape results
-
-    for i in inputs:
-        tm_result = json.loads(subprocess.check_output([TURING_EXEC, str(file), i, "--json"]))
+    for input in inputs:
+        tm_result = json.loads(subprocess.check_output([TURING_EXEC, str(file), input, "--json"]))
 
         if not tm_result["accepted"]:
-            print(f"ERROR: Input {i} for TM {file} was not accepted")
+            logger.error(f"Input '{input}' for TM {file} was not accepted")
             continue
 
         r = {
-            'n': len(i),
+            'input': input,
+            'n': len(input),
             'steps': tm_result["steps"],
-            'result': tm_result["tapes"][0].strip("_")
+            **{f'result{i}': tm_result["tapes"][i].strip("_") for i in range(ntapes)}
         }
+
 
         # append to results
         results.loc[len(results)] = r
@@ -71,8 +87,8 @@ if __name__ == "__main__":
 
         # run tests
 
-        match machine_name:
-            case "MT-0A" | "MT-0B":
+        match machine_name[:-1]:
+            case "MT-0":
                 inputs = [
                     "",
                     "aa",
@@ -83,8 +99,9 @@ if __name__ == "__main__":
                     "bbbbbaabbbbb"
                 ]
 
-            case "MT-1A":
+            case "MT-1":
                 inputs = [
+                    "",
                     "1$",
                     "$1",
                     "11$",
@@ -92,12 +109,15 @@ if __name__ == "__main__":
                     "$111",
                     "$1111"
                 ]
-            
             case _:
-                inputs = []
+                logger.warning(f"There are no predefined inputs for {machine_name}!")
+                continue
 
-        print(f"Performing tests for {machine_name}.")
-        df = tests(tm_file, inputs)
+        tapes = 2 if machine_name.endswith("B") else 1
+
+        logger.info(f"Performing tests for {machine_name}...")
+        df = tests(tm_file, inputs, ntapes=tapes)
 
         # save results
+        logger.info(f"Saving results to {DATA_FOLDER / f"{machine_name}.csv"}...")
         df.to_csv(DATA_FOLDER / f"{machine_name}.csv", index=False)
