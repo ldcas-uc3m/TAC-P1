@@ -8,7 +8,7 @@ El algoritmo de resolución es el siguiente:
 \begin{itemize}
     \item Ciclo:
     \begin{enumerate}[1.]
-        \item Comenzar desde la izquierda y desplazarse hata el extremo derecho.
+        \item Comenzar desde la izquierda y desplazarse hasta el extremo derecho.
         \item Si el último elemnto es un 1:
         \begin{enumerate}[1.]
             \item Borrarlo.
@@ -37,20 +37,21 @@ El diseño de la máquina queda representado en la Figura \ref{fig:MT-1A}.
 Dado que el formato de palabra que acepta la Máquina de Turing son dos conjuntos de 1 separados por el simbolo \$, el peor caso sería aquel en el que haya una mayor cantidad de 1 a la derecha del \$, ya que por cada 1 se requerirá una iteración para eliminarlo de la derecha y añadirlo en la izquierda, por lo que a más 1 más iteraciones serán necesarias.
 
 \subsubsection*{Evaluación empírica}
-Realizamos la evaluación empírica en el peor caso, tomando como $n_i$ el numero de 1 a la izquierda de \$, $n_d$ el número de 1 a la derecha de \$, y midiendo el número de pasos realizados para resolver el problema:
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el número de 1 a la derecha de \$, ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema:
 
 \begin{table}[h]
     \centering
     \begin{tabular}{lccc}
-        Entrada & $n_i$ & $n_d$ & Pasos \\
+        Entrada & $n_d$ & Pasos \\
         \hline
-        $\lambda$               & 0  & 0  & N/A \\
-        1\$                     & 1  & 0  & 6   \\
-        \$1                     & 0  & 1  & 11  \\
-        11\$                    & 2  & 0  & 8   \\
-        \$11                    & 0  & 2  & 22  \\
-        \$111                   & 0  & 3  & 37  \\
-        \$1111                  & 0  & 4  & 56  \\
+        $\lambda$               & 0  & N/A \\
+        \$1                     & 1  & 11  \\
+        \$11                    & 2  & 22  \\
+        \$111                   & 3  & 37  \\
+        \$1111                  & 4  & 56  \\
+        \$11111                 & 5  & 79  \\
+        
+
     \end{tabular}
 \end{table}
 
@@ -58,6 +59,87 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n_i$ el numer
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|}
+        \hline
+        $n$ & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}\\ \hline
+        $T(n)$ & \textbf{11} & \textbf{22} & \textbf{37} & \textbf{56} & \textbf{79}      \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &    & 11 & 15 & 19 & 23\\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &    &  4 &  4 &  4\\ \hline
+        $C(n) = B(n) - B(n-2)$ &    &    &    &  0 &  0 \\ \hline
+    \end{tabular}
+\end{table}
+
+Se obsrerva que las diferencias finitas segundas son constantes y nulas las terceras. Por podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\\
+
+Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 1,\ T(0) = 11 \rightarrow a + b + c = 11 \\
+        n = 2,\ T(0) = 15 \rightarrow 4a + 2b + c = 15 \\
+        n = 3,\ T(0) = 19 \rightarrow 9a + 3b + c = 19
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=0$, $b=4$ y $b=7$, por lo que:
+
+\begin{equation}
+    T_{0A}(n) = 4n + 7
+\end{equation}
+
+\subsubsection*{Cota asintótica}
+La cota asintótica queda defida como:
+
+\begin{equation}
+    O(n) = k \cdot g(n) \geq T(n)
+    \label{eq:On}
+\end{equation}
+
+Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n$.\\
+
+Al conocer $T_{0A}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{47}{10}$, por lo que la cota asintótica para esta máquina es:
+\begin{equation}
+    O_{0A}(n) = \frac{47}{10} n
+\end{equation}
+
+
+%----------
+%Sección 2
+%----------
+
+\subsection{MT Determinista de 2 cintas}
+
+\subsubsection*{Diseño propuesto}
+El algoritmo de resolución es el siguiente:
 
 
 
+\begin{itemize}
+    \item Ciclo:
+    \begin{enumerate}[1.]
+        \item Comenzar desde la izquierda en ambas cintas e ir desplazandose hasta el extremo derecho.
+        \item Si se encuentra un 1 en la cinta 1:
+        \begin{enumerate}[1.]
+            \item Borrarlo de la cinta 1.
+            \item Añadir un 1 en la cinta 2.
+        \end{enumerate}
+        \item Si se encuentra un \$ en la cinta 1:
+        \begin{enumerate}[1.]
+            \item Borrarlo de la cinta 1.
+            \item No añadir nada en la cinta 2 y no avanzar en dicha cinta
+        \end{enumerate}
+        \item Cuando se llega al final de la cinta 2, \textbf{Parar}.:
+    \end{enumerate}
+\end{itemize}
+De esta forma la primera cinta quedaría vacía y la solución resultante de la suma quedaría en la segunda cinta\\
+
+El diseño de la máquina queda representado en la Figura \ref{fig:MT-1A}.
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{MT-1B.png}
+    \caption{Implementación en JFLAP de MT-1B}
+    \label{fig:MT-1B}
+\end{figure}
