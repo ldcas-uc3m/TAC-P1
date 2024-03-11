@@ -1,5 +1,9 @@
 \section{Palíndromos}
 
+%----------
+% MT-0A
+%----------
+
 \subsection{MT Determinista de 1 cinta}
 
 \subsubsection*{Diseño propuesto}
@@ -27,7 +31,8 @@ El algoritmo de resolución es el siguiente:
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-0A}.
 
 \begin{figure}[h]
-    \includegraphics[width=\textwidth]{MT-0A.png}
+    \centering
+    \includegraphics[width=0.7\textwidth]{MT-0A.png}
     \caption{Implementación en JFLAP de MT-0A}
     \label{fig:MT-0A}
 \end{figure}
@@ -37,7 +42,6 @@ El diseño de la máquina queda representado en la Figura \ref{fig:MT-0A}.
 El peor caso sería cuando es un palíndromo, dado que en el momento en el que una letra no coincida, deja de buscar el resto de letras. Dentro de los palíndromos, el peor caso es cuando es un palíndromo de tamaño par, ya que tiene que hacer una comprobación extra.
 
 \subsubsection*{Evaluación empírica}
-
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0A.csv}.}:
 
 % TODO: use CSVsimple to generate table from csv files
@@ -111,6 +115,9 @@ Al conocer $T_{0A}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}
 % TODO: Pintar cota asintótica y coste computacional
 
 
+%----------
+% MT-0B
+%----------
 
 \subsection{MT Determinista de 2 cintas}
 
@@ -130,7 +137,8 @@ El algoritmo de resolución es el siguiente:
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-0B}.
 
 \begin{figure}[h]
-    \includegraphics[width=\textwidth]{MT-0B.png}
+    \centering
+    \includegraphics[width=0.8\textwidth]{MT-0B.png}
     \caption{Implementación en JFLAP de MT-0B}
     \label{fig:MT-0B}
 \end{figure}
