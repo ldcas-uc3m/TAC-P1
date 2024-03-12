@@ -50,7 +50,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
     \begin{tabular}{lcc}
         Entrada & $n$ & Pasos \\
         \hline
-        $\lambda$      & 0  & 1  \\
+        $\lambda$               & 0  & 1  \\
         \texttt{aa}             & 2  & 6  \\
         \texttt{abba}           & 4  & 15 \\
         \texttt{abaaba}         & 6  & 28 \\
@@ -64,7 +64,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
@@ -75,6 +75,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &    &  4 &  4 &  4 &  4 &  4 \\ \hline
         $C(n) = B(n) - B(n-2)$ &    &    &    &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
+    \label{tab:0A}
 \end{table}
 
 Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\\
@@ -84,15 +85,15 @@ Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ ob
 \begin{subequations}
     \begin{gather}
         n = 0,\ T(0) = 1 \rightarrow c = 1 \\
-        n = 2,\ T(0) = 6 \rightarrow 4a + 2b + c = 6 \\
-        n = 4,\ T(0) = 15 \rightarrow 16a + 4b + c = 6
+        n = 2,\ T(2) = 6 \rightarrow 4a + 2b + c = 6 \\
+        n = 4,\ T(4) = 15 \rightarrow 16a + 4b + c = 6
     \end{gather}
 \end{subequations}
 
 Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
 
 \begin{equation}
-    T_{0A}(n) = 2n^2 + 6n + 2
+    T_{\mathrm{0A}}(n) = 2n^2 + 6n + 2
 \end{equation}
 
 
@@ -106,9 +107,9 @@ La cota asintótica queda defida como:
 
 Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n^2$.\\
 
-Al conocer $T_{0A}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}$, por lo que la cota asintótica para esta máquina es:
+Al conocer $T_{\mathrm{0A}}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}$, por lo que la cota asintótica para esta máquina es:
 \begin{equation}
-    O_{0A}(n) = \frac{131}{50} n^2
+    O_{\mathrm{0A}}(n) = \frac{131}{50} n^2
 \end{equation}
 
 
@@ -154,7 +155,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
     \begin{tabular}{lcc}
         Entrada & $n$ & Pasos \\
         \hline
-        $\lambda$      & 0  & 1  \\
+        $\lambda$               & 0  & 3  \\
         \texttt{aa}             & 2  & 9  \\
         \texttt{abba}           & 4  & 15 \\
         \texttt{abaaba}         & 6  & 21 \\
@@ -168,19 +169,36 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
         $n$ & \textbf{0} & \textbf{2} & \textbf{4} & \textbf{5} & \textbf{8} & \textbf{10} & \textbf{12} \\ \hline
-        $T(n)$ & \textbf{1} & \textbf{9} & \textbf{15} & \textbf{21} & \textbf{27} & \textbf{33} & \textbf{39} \\ \hline
+        $T(n)$ & \textbf{3} & \textbf{9} & \textbf{15} & \textbf{21} & \textbf{27} & \textbf{33} & \textbf{39} \\ \hline
         \hline
-        $A(n) = T(n) - T(n-2)$ &    &  8 &  6 &  6 &  6 &  6 &  6 \\ \hline
-        $B(n) = A(n) - A(n-2)$ &    &    & -2 &  0 &  0 &  0 &  0 \\ \hline
+        $A(n) = T(n) - T(n-2)$ &    &  6 &  6 &  6 &  6 &  6 &  6 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &    & 0 &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
+    \label{tab:0B}
 \end{table}
 
-% TODO: y cómo interpretamos estos resultados?
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an + b$.\\
+
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 0,\ T(0) = 3 \rightarrow b = 3 \\
+        n = 2,\ T(2) = 9 \rightarrow 2a + b = 9
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=b=3$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{0B}}(n) = 3n + 3
+    \label{eq:Tn0B}
+\end{equation}
 
 También podemos calcular el coste computacional mediante una evaluación analítica del algoritmo. MT-0B realiza tres recorridos, en el peor de los casos:
 \begin{enumerate}
@@ -189,16 +207,49 @@ También podemos calcular el coste computacional mediante una evaluación analí
     \item Coteja la cinta 1 con la cinta 2, en reverso $\rightarrow n+1$ pasos
 \end{enumerate}
 
-Sumando los tres recorridos, nos queda:
-\begin{equation}
-    T_{0B}(n) = 3n + 3
-\end{equation}
+Sumando los tres recorridos, nos queda el mismo resultado que en la ecuación \ref{eq:Tn0B}.
 
 
 \subsubsection*{Cota asintótica}
-Al conocer $T_{0B}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{33}{10}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+Al conocer $T_{\mathrm{0B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{33}{10}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    O_{0B}(n) = \frac{33}{10} n
+    O_{\mathrm{0B}}(n) = \frac{33}{10} n
 \end{equation}
 
 % TODO: Pintar cota asintótica y coste computacional
+
+
+%----------
+% MT-0C
+%----------
+
+\subsection{MT No Determinista de 2 cintas}
+
+\subsubsection*{Diseño propuesto}
+El algoritmo de resolución es el siguiente:
+
+\begin{enumerate}
+    \item Copiar la primera mitad de la palabra a la segunda cinta. Al ser no determinista, asumimos a cada paso que hemos llegado a la mitad y pasamos al siguiente paso.
+    \item Cotejar ambas cintas, leyendo la cinta 1 en reverso y avanzando la cinta 0, y borrando ambas cintas a su paso. En el momento en el que no coincidan los elementos de ambas cintas, acaba sin llegar a un estado final, por lo que la palabra no es aceptada.
+    \item Poner un 1 en la cinta 0 y \textbf{parar}.
+\end{enumerate}
+
+\subsubsection*{Peor caso}
+El peor caso vuelve a ser un palíndromo par, puesto que tiene que comprobar toda la cadena, y en caso de que no sea un palíndromo acaba antes.
+
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-0B.csv}.}:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        $\lambda$               & 0  &   \\
+        \texttt{aa}             & 2  &  \\
+        \texttt{abba}           & 4  &  \\
+        \texttt{abaaba}         & 6  &  \\
+        \texttt{aaabbaaa}       & 8  &  \\
+    \end{tabular}
+\end{table}
