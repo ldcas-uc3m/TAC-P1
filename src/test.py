@@ -74,6 +74,7 @@ if __name__ == "__main__":
         REPO_ROOT / "src/MT-0B.jff",
         # REPO_ROOT / "src/MT-0C.jff",  # non-deterministic, cannot test
         REPO_ROOT / "src/MT-1A.jff",
+        REPO_ROOT / "src/MT-1B.jff",
         REPO_ROOT / "src/MT-2A.jff"
     ]
 
@@ -87,8 +88,8 @@ if __name__ == "__main__":
 
         # run tests
 
-        match machine_name[:-1]:
-            case "MT-0":
+        match machine_name:
+            case "MT-0A" | "MT-0B":
                 inputs = [
                     "",
                     "aa",
@@ -99,16 +100,23 @@ if __name__ == "__main__":
                     "bbbbbaabbbbb"
                 ]
 
-            case "MT-1":
+            case "MT-1A":
                 inputs = [
-                    "",
-                    "1$",
                     "$1",
-                    "11$",
                     "$11",
                     "$111",
-                    "$1111"
+                    "$1111",
+                    "$11111"
                 ]
+
+            case "MT-1B":
+                inputs = [
+                    "1$1",
+                    "1$11",
+                    "1$111",
+                    "1$1111",
+                ]
+
             case _:
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
                 continue
