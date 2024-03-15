@@ -107,7 +107,7 @@ def plot_results(
     # Agregar etiquetas y título
     ax.set_xlabel('n')
     ax.set_ylabel('steps')
-    ax.set_title(f'Gráfico {machine_name} de {x_column} y {y_column}')
+    # ax.set_title(f'Gráfico {machine_name} de {x_column} y {y_column}')
 
     ax.legend()
 
@@ -145,7 +145,7 @@ def plot_complexity(
     # Agregar etiquetas y título
     ax.set_xlabel('n')
     ax.set_ylabel('steps')
-    ax.set_title(f'Gráfico {machine_name} de O(n) y T(n)')
+    # ax.set_title(f'Gráfico {machine_name} de O(n) y T(n)')
 
     ax.legend()
 
@@ -253,4 +253,8 @@ if __name__ == "__main__":
 
         plot_results(df, "n", "steps", machine_name, IMAGE_FOLDER / f"plot_{machine_name}_results.png")
         plot_complexity(t_n, o_n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+
+
+    # non-deterministic machines
+    plot_complexity(lambda n : n + 2, lambda n : (12/10)*n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
 
