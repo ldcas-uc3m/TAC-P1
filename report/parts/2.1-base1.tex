@@ -38,6 +38,7 @@ El diseño de la máquina queda representado en la Figura \ref{fig:MT-1A}.
 \end{figure}
 
 
+
 \subsubsection*{Peor caso}
 Dado que el formato de palabra que acepta la Máquina de Turing son dos conjuntos de 1 separados por el simbolo \$, el peor caso sería aquel en el que haya una mayor cantidad de 1 a la derecha del \$, ya que por cada 1 se requerirá una iteración para eliminarlo de la derecha y añadirlo en la izquierda, por lo que a más 1 más iteraciones serán necesarias.
 
@@ -121,12 +122,16 @@ El algoritmo de resolución es el siguiente:
         \item Si se encuentra un \$ en la cinta 0:
         \begin{enumerate}[1.]
             \item Borrarlo de la cinta 0.
-            \item No añadir nada en la cinta 1 y no avanzar en dicha cinta
+            \item No añadir nada en la cinta 1 y no avanzar en dicha cinta.
+            \item Retroceder hacia la izquierda en ambas cintas.
+            \item Por cada 1 en la cinta 1 borrarlo y añadir un 1 en la cinta 0
+            \item Cuando la cinta 1 queda vacia, \textbf{parar}.
         \end{enumerate}
-        \item Cuando se llega al final de la cinta 0, \textbf{parar}.
     \end{enumerate}
 \end{itemize}
-De esta forma la primera cinta quedaría vacía y la solución resultante de la suma quedaría en la segunda cinta\\
+De esta forma al finalizar la ejecución, la primera cinta contiene el resultado de la suma de ambos números y la segunda cinta queda vacía. \\
+
+Se ha aplicado una optimización respecto al algortimo original, por el cual una vez se ha copiado el primer número en la segunda cinta, tras eliminarse el \$ de la primera cinta, se empiezan a pasar el número de la segunda cinta a la primera desde la izquierda, en vez de copiarlo desde la derecha ya que que en este caso concreto no influye el orden de los digitos.\\
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-1B}.
 
@@ -139,7 +144,7 @@ El diseño de la máquina queda representado en la Figura \ref{fig:MT-1B}.
 
 
 \subsubsection*{Peor caso}
-En este algoritmo, el peor caso es independiente de si es mayor el número de la derecha que el de la izquierda, puesto que realiza el mismo recorrido, sin embargo el hecho de que haya números en ambos lados le añade un paso extra frente al hecho de que solo los haya en uno de los dos.
+En este algoritmo, el pero caso será aquel en el que el primer número, esto es a al izquierda del \$, tenga un mayor numero de digitos. Esto se debe a que para cada digito a la izquierda del \$, este deberá copiarse a la sgunda cinta  para posteioriormente escribirse de nuevo en la primera
 
 
 \subsubsection*{Evaluación empírica}
@@ -151,10 +156,10 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ la longitu
         Entrada                    & $n$ & Pasos \\
         \hline
         1\$1                       & 3  &  4  \\
-        1\$11                      & 4  &  5  \\
-        1\$111                     & 5  &  6  \\
-        1\$1111                    & 6  &  7  \\
-        1\$11111                   & 7  &  8  \\
+        11\$1                      & 4  &  6  \\
+        111\$1                     & 5  &  8  \\
+        1111\$1                    & 6  &  10  \\
+        11111\$1                   & 7  &  12  \\
     \end{tabular}
 \end{table}
 
@@ -167,9 +172,9 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
         $n$ & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7}\\ \hline
-        $T(n)$ & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8}      \\ \hline
+        $T(n)$ & \textbf{4} & \textbf{6} & \textbf{8} & \textbf{10} & \textbf{12}      \\ \hline
         \hline
-        $A(n) = T(n) - T(n-2)$ &    & 1 & 1 & 1 & 1 \\ \hline
+        $A(n) = T(n) - T(n-2)$ &    & 2 & 2 & 2 & 2 \\ \hline
         $B(n) = A(n) - A(n-2)$ &    &   & 0 & 0 & 0 \\ \hline
     \end{tabular}
 \end{table}
@@ -181,18 +186,18 @@ Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenido
 \begin{subequations}
     \begin{gather}
         n = 3,\ T(3) = 4 \rightarrow 3a + b = 4 \\
-        n = 4,\ T(4) = 5 \rightarrow 4a + b = 5 \\
+        n = 4,\ T(4) = 6 \rightarrow 4a + b = 6 \\
     \end{gather}
 \end{subequations}
 
-Resolviendo, $a = b = 1$, por lo que:
+Resolviendo, $a = 2$ y $b = -2$, por lo que:
 
 \begin{equation}
-    T_{\mathrm{1B}}(n) = n + 1
+    T_{\mathrm{1B}}(n) = 2n - 2
 \end{equation}
 
 \subsubsection*{Cota asintótica}
 Al conocer $T_{\mathrm{1B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{11}{10}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    T_{\mathrm{1A}}(n) = \frac{11}{10} n
+    T_{\mathrm{1A}}(n) = \frac{18}{10} n
 \end{equation}
