@@ -12,6 +12,7 @@ import pandas as pd
 import jf2tm
 
 
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
@@ -25,6 +26,11 @@ DATA_FOLDER = REPO_ROOT / "data/"
 IMAGE_FOLDER = REPO_ROOT / "report/img/"
 
 
+
+
+# ==============
+# TEST FUNCTIONS
+# ==============
 
 def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
     """
@@ -68,24 +74,33 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
     return results
 
 
+# ==============
+# PLOT FUNCTIONS
+# ==============
 
 
-def plot_scatter_from_csv(
-    csv_file,
-    x_column,
-    y_column,
-    machine_name,
-    save_file=None
+def plot_results(
+    df: pd.DataFrame,
+    x_column: str,
+    y_column: str,
+    machine_name: str,
+    save_file: str | None = None
 ):
-   
-    # Cargar los datos del archivo CSV en un DataFrame
-    df = pd.read_csv(csv_file)
-        
+    """
+    Plots results from a DataFrame.
+
+    :param df: DataFrame to read.
+    :param x_column: Column from `df` to represent on the X axis.
+    :param y_column: Column from `df` to represent on the Y axis.
+    :param machine_name: Name of the machine.
+    :param save_file: File to save the image to. If `None`, shows the plot.
+    """
+
     # Extraer las columnas x e y del DataFrame
     x = df[x_column]
     y = df[y_column]
 
-    # Crear el gráfico 
+    # Crear el gráfico
     fig, ax = plt.subplots()
     ax.plot(x, y, marker="o", color='blue',label='Puntos de datos')
 
@@ -102,17 +117,27 @@ def plot_scatter_from_csv(
         fig.show()
 
 
-def plot_scatter_function(
-    t_n: Callable,
-    o_n: Callable,
+def plot_complexity(
+    t_n: Callable[[np.ndarray], np.ndarray],
+    o_n: Callable[[np.ndarray], np.ndarray],
     machine_name: str,
     save_file: str | Path | None = None,
     n0: int = 10,
-    max_n: int = 100
+    n_max: int = 100
 ):
-   
+    """
+    Plots complexity functions.
+
+    :param t_n: Complexity function (T(n)).
+    :param o_n: Big O function (O(n)).
+    :param machine_name: Name of the machine.
+    :param save_file: File to save the image to. If `None`, shows the plot.
+    :param n0: Initial value of n.
+    :param n_max: Maximum value of n to plot.
+    """
+
     fig, ax = plt.subplots()
-    x = np.linspace(n0, max_n, max_n - n0) 
+    x = np.linspace(n0, n_max, n_max - n0)
 
     ax.plot(x, t_n(x), color='blue', label='T(n)')
     ax.plot(x, o_n(x), color='red', label='O(n)')
@@ -128,8 +153,8 @@ def plot_scatter_function(
         fig.savefig(save_file)
     else:
         fig.show()
-    
-    
+
+
 
 
 
@@ -190,14 +215,15 @@ if __name__ == "__main__":
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
                 continue
 
-        tapes = 2 if machine_name.endswith("B") else 1
+        ntapes = 2 if machine_name.endswith("B") else 1
 
         logger.info(f"Performing tests for {machine_name}...")
-        df = tests(tm_file, inputs, ntapes=tapes)
+        df = tests(tm_file, inputs, ntapes=ntapes)
 
         # save results
-        logger.info(f"Saving results to {DATA_FOLDER / f'{machine_name}.csv'}...")
+        logger.debug(f"Saving results to {DATA_FOLDER / f'{machine_name}.csv'}...")
         df.to_csv(DATA_FOLDER / f'{machine_name}.csv', index=False)
+
 
         # plot results
 
@@ -225,19 +251,6 @@ if __name__ == "__main__":
             # case "MT-2A":
             # case "MT-2B":
 
-        plot_scatter_from_csv(DATA_FOLDER / f'{machine_name}.csv', "n", "steps", machine_name, IMAGE_FOLDER / f"plot_{machine_name}_results.png")
-        plot_scatter_function(t_n, o_n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
-IMAGE_FOLDER
+        plot_results(df, "n", "steps", machine_name, IMAGE_FOLDER / f"plot_{machine_name}_results.png")
+        plot_complexity(t_n, o_n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
 
-
-    # plot_scatter_from_csv('data/MT-0A.csv', 'n', 'steps', 'MT-0A', save_file='report/img/scatter_plot_MT-0A.png')
-
-
-    # # Graph plot of MT-0A T(n) v O(n)
-    # plot_scatter_function(save_file='report/img/scatter_plot_MT-0A_T(n-O(n).png', TM='MT-0A')
-
-    # # Graph plot of MT-0B T(n)v O(n)
-    # plot_scatter_function(save_file='report/img/scatter_plot_MT-0B_T(n)-O(n).png', TM='MT-0B')
-
-    # # Graph plot of MT-0C T(n)v O(n)
-    # plot_scatter_function(save_file='report/img/scatter_plot_MT-0C_T(n)-O(n).png', TM='MT-0C')
