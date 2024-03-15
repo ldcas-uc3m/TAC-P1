@@ -256,5 +256,6 @@ if __name__ == "__main__":
 
 
     # non-deterministic machines
-    plot_complexity(lambda n : n + 2, lambda n : (12/10)*n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+    for machine_name in ("MT-0C",):
+        plot_complexity(lambda n : n + 2, lambda n : (12/10)*n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
 
