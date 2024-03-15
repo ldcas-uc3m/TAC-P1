@@ -8,6 +8,7 @@ from typing import Callable
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.colors as mcolors
 
 import jf2tm
 
@@ -74,42 +75,33 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
     return results
 
 
+
 # ==============
 # PLOT FUNCTIONS
 # ==============
 
-
-def plot_results(
+def plot_df(
     df: pd.DataFrame,
     x_column: str,
     y_column: str,
-    machine_name: str,
     save_file: str | None = None
 ):
     """
-    Plots results from a DataFrame.
+    Plots a DataFrame.
 
-    :param df: DataFrame to read.
+    :param df: DataFrame to plot.
     :param x_column: Column from `df` to represent on the X axis.
     :param y_column: Column from `df` to represent on the Y axis.
-    :param machine_name: Name of the machine.
     :param save_file: File to save the image to. If `None`, shows the plot.
     """
-
-    # Extraer las columnas x e y del DataFrame
-    x = df[x_column]
-    y = df[y_column]
 
     # Crear el gráfico
     fig, ax = plt.subplots()
-    ax.plot(x, y, marker="o", color='blue',label='Puntos de datos')
+    ax.plot(df[x_column], df[y_column], marker='o', color='blue')
 
-    # Agregar etiquetas y título
-    ax.set_xlabel('n')
-    ax.set_ylabel('steps')
-    # ax.set_title(f'Gráfico {machine_name} de {x_column} y {y_column}')
-
-    ax.legend()
+    # Agregar etiquetas
+    ax.set_xlabel(x_column)
+    ax.set_ylabel(y_column)
 
     if save_file:
         fig.savefig(save_file)
@@ -117,35 +109,39 @@ def plot_results(
         fig.show()
 
 
-def plot_complexity(
-    t_n: Callable[[np.ndarray], np.ndarray],
-    o_n: Callable[[np.ndarray], np.ndarray],
-    machine_name: str,
-    save_file: str | Path | None = None,
+def plot_functions(
+    funcs: dict[str, Callable[[np.ndarray], np.ndarray]],
     n0: int = 10,
-    n_max: int = 100
+    n_max: int = 100,
+    save_file: str | Path | None = None
 ):
     """
-    Plots complexity functions.
+    Plots functions refering to the complexity of turing machines (in terms of n and number of steps).
 
-    :param t_n: Complexity function (T(n)).
-    :param o_n: Big O function (O(n)).
-    :param machine_name: Name of the machine.
-    :param save_file: File to save the image to. If `None`, shows the plot.
+    :param funcs: Map of function name and function (`{"f(n)": f_n, ...}`).
     :param n0: Initial value of n.
     :param n_max: Maximum value of n to plot.
+    :param save_file: File to save the image to. If `None`, shows the plot.
     """
 
     fig, ax = plt.subplots()
+
     x = np.linspace(n0, n_max, n_max - n0)
 
-    ax.plot(x, t_n(x), color='blue', label='T(n)')
-    ax.plot(x, o_n(x), color='red', label='O(n)')
+    for name, fn in funcs.items():
+        ax.plot(x, fn(x), label=name)
 
-    # Agregar etiquetas y título
+    # automatic colors
+    if len(funcs) <= len(mcolors.BASE_COLORS):
+        pallete = mcolors.BASE_COLORS
+    else:
+        pallete = mcolors.XKCD_COLORS
+
+    ax.set_prop_cycle(color=pallete)
+
+    # Agregar etiquetas
     ax.set_xlabel('n')
     ax.set_ylabel('steps')
-    # ax.set_title(f'Gráfico {machine_name} de O(n) y T(n)')
 
     ax.legend()
 
@@ -153,7 +149,6 @@ def plot_complexity(
         fig.savefig(save_file)
     else:
         fig.show()
-
 
 
 
@@ -224,38 +219,44 @@ if __name__ == "__main__":
         logger.debug(f"Saving results to {DATA_FOLDER / f'{machine_name}.csv'}...")
         df.to_csv(DATA_FOLDER / f'{machine_name}.csv', index=False)
 
-
         # plot results
-
-        match machine_name:
-            case "MT-0A":
-                t_n = lambda n : 2*n**2 + 6*n + 2
-                o_n = lambda n : (131/50)*n**2
-
-            case "MT-0B":
-                t_n = lambda n : 3*n + 3
-                o_n = lambda n : (33/10)*n
-
-            case "MT-0C":
-                t_n = lambda n : n + 2
-                o_n = lambda n : (12/10)*n
-
-            case "MT-1A":
-                t_n = lambda n : 4*n + 7
-                o_n = lambda n : (47/10)*n
-
-            case "MT-1B":
-                t_n = lambda n : n + 1
-                o_n = lambda n : (11/10)*n
-
-            # case "MT-2A":
-            # case "MT-2B":
-
-        plot_results(df, "n", "steps", machine_name, IMAGE_FOLDER / f"plot_{machine_name}_results.png")
-        plot_complexity(t_n, o_n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+        plot_df(df, 'n', 'steps', IMAGE_FOLDER / f"plot_{machine_name}_results.png")
 
 
-    # non-deterministic machines
-    for machine_name in ("MT-0C",):
-        plot_complexity(lambda n : n + 2, lambda n : (12/10)*n, machine_name, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+    # plot complexity
+    logger.info("Plotting complexity functions...")
+
+    COMPLEXITY_FUNCTIONS = {
+        'MT-0A': {
+            "T(n)": lambda n : 2*n**2 + 6*n + 2,
+            "O(n)": lambda n : (131/50)*n**2
+        },
+        'MT-0B': {
+            "T(n)": lambda n : 3*n + 3,
+            "O(n)": lambda n : (33/10)*n
+        },
+        'MT-0C': {
+            "T(n)": lambda n : n + 2,
+            "O(n)": lambda n : (12/10)*n
+        },
+        'MT-1A': {
+            "T(n)": lambda n : 4*n + 7,
+            "O(n)": lambda n : (47/10)*n
+        },
+        'MT-1B':{
+            "T(n)": lambda n : n + 1,
+            "O(n)": lambda n : (11/10)*n
+        }
+    }
+
+    for machine_name, funcs in COMPLEXITY_FUNCTIONS.items():
+        plot_functions(funcs, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+
+
+    # plot all
+    plot_functions(
+        {name: functions['T(n)'] for name, functions in COMPLEXITY_FUNCTIONS.items()},
+        save_file=IMAGE_FOLDER / f"plot_all_complexity.png",
+        n_max=40
+    )
 
