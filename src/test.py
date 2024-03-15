@@ -4,6 +4,7 @@ import json
 import platform
 import logging
 
+import matplotlib as plt
 import pandas as pd
 
 import jf2tm
@@ -17,7 +18,7 @@ logger.addHandler(handler)
 
 
 REPO_ROOT = Path(__file__).parent.parent
-TURING_EXEC: Path = REPO_ROOT / f"turing-machine-simulator/turing{".exe" if platform.system() == "Windows" else ""}"
+TURING_EXEC: Path = REPO_ROOT / f"turing-machine-simulator/turing{'.exe' if platform.system() == 'Windows' else ''}"
 DATA_FOLDER = REPO_ROOT / "data/"
 
 
@@ -61,6 +62,35 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
 
 
     return results
+
+
+
+
+def plot_scatter_from_csv(csv_file, x_column, y_column, save_file=None):
+   
+    # Cargar los datos del archivo CSV en un DataFrame
+    df = pd.read_csv(csv_file)
+
+    # Extraer las columnas x e y del DataFrame
+    x = df[x_column]
+    y = df[y_column]
+
+    # Crear el gráfico 
+    plt.scatter(x, y, color='blue', label='Puntos de datos')
+
+    # Agregar etiquetas y título
+    plt.xlabel('Eje X')
+    plt.ylabel('Eje Y')
+    plt.title('Gráfico de dispersión de {} y {}'.format(x_column, y_column))
+
+    plt.legend()
+
+    if save_file:
+        plt.savefig(save_file)
+
+    plt.show()
+    
+    
 
 
 
@@ -127,5 +157,5 @@ if __name__ == "__main__":
         df = tests(tm_file, inputs, ntapes=tapes)
 
         # save results
-        logger.info(f"Saving results to {DATA_FOLDER / f"{machine_name}.csv"}...")
-        df.to_csv(DATA_FOLDER / f"{machine_name}.csv", index=False)
+        logger.info(f"Saving results to {DATA_FOLDER / f'{machine_name}.csv'}...")
+        df.to_csv(DATA_FOLDER / f'{machine_name}.csv', index=False)

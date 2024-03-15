@@ -1,0 +1,79 @@
+\section{Suma de enteros en base dos}
+
+%----------
+% MT-2A
+%----------
+
+\subsection{MT Determinista de 1 cinta}
+
+\subsubsection*{Diseño propuesto}
+El algoritmo de resolución es el siguiente:
+
+\begin{itemize}
+    \item Ciclo:
+    \begin{enumerate}[1.]
+        \item Comienzo desde la izquierda, desplazamiento hasta el extremo derecho.
+        \item Si el último elemento es un 1:
+        \begin{enumerate}[1.]
+            \item Borrarlo.
+            \item Volver al extremo izquierdo.
+            \item Añadir un 1 en la primera posición.
+        \end{enumerate}
+        \item Si el último elemento es un 0:
+        \begin{enumerate}[1.]
+            \item Borrarlo y sustituirlo por un 1.
+            \item Volver hacia la izquierda.
+            \item Si se encuentra un 1 
+            \begin{enumerate}[1.] 
+                \item sustituirlo por un 0
+            \end{enumerate}
+            \item Si se encuentra un 0
+            \begin{enumerate}[1.]
+                \item sustituirlo por un 1
+                \item Si se encuntra un \$
+                \begin{enumerate}[1.]
+                    \item Avanzar hatsa el extremo derecho
+                    \item Volver hacia la izquierda eliminando todo los elementos hasta el \$ incluido
+                    \item \textbf{Parar}.
+                \end{enumerate}
+            \end{enumerate}
+            \item \textbf{Parar}.
+        \end{enumerate}
+    \end{enumerate}
+\end{itemize}
+
+El diseño de la máquina queda representado en la Figura \ref{fig:MT-2A}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{MT-2A.png}
+    \caption{Implementación en JFLAP de MT-2A}
+    \label{fig:MT-2A}
+\end{figure}
+
+
+\subsubsection*{Peor caso}
+Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el número de 1 a la derecha de \$, ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-1A.csv}.}:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccc}
+        Entrada & $n_d$ & Pasos \\
+        \hline
+        $\lambda$               &   & N/A \\
+        \$                     &   &   \\
+        \$                    &   &   \\
+        \$                   &   &   \\
+        \$                  &   &   \\
+        \$                 &   &   \\
+    \end{tabular}
+\end{table}
+
+
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+
+
