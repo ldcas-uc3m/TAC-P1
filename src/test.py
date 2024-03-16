@@ -205,7 +205,6 @@ if __name__ == "__main__":
                     "111$1",
                     "1111$1",
                     "11111$1"
-
                 ]
 
             case _:
@@ -246,8 +245,8 @@ if __name__ == "__main__":
             "O(n)": lambda n : (47/10)*n
         },
         'MT-1B':{
-            "T(n)": lambda n : n + 1,
-            "O(n)": lambda n : (11/10)*n
+            "T(n)": lambda n : 2*n - 2,
+            "O(n)": lambda n : (18/10)*n
         }
     }
 
