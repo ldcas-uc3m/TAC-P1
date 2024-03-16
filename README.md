@@ -92,18 +92,18 @@ You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `jav
 ### Running the Python tests
 This requires Python 3.12, but should work on python 3.10+.
 
-1. Create a Python virtual enviroment in the `venv` folder.
+1. Create a Python virtual enviroment in the `.venv` folder.
     ```bash
-    python3 -m venv ./venv
+    python3 -m venv ./.venv
     ```
 2. Activate the venv
    - Linux:
         ```bash
-        source venv/bin/activate
+        source .venv/bin/activate
         ```
     - Windows (PowerShell):
         ```powershell
-        & .\venv\Scripts\Activate.ps1
+        & .\.venv\Scripts\Activate.ps1
         ```
 3. Install the dependencies
    ```
@@ -121,7 +121,7 @@ If you're in Windows, we recommend you to instal [WSL2](https://learn.microsoft.
    make
    cd ..
    ```
-1. Run the script.
+6. Run the script.
    ```
    python3 src/test.py
    ```

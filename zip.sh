@@ -2,7 +2,7 @@
 # Bash script to zip the whole project in order to make it deriverable
 # please make sure zip, pv and texlive are installed
 
-OUTFILE="../MT01_3_Arnaiz_Casais.zip"
+OUTFILE="../MT02_3_Arnaiz_Casais.zip"
 
 
 # generate data

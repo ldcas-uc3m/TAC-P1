@@ -257,6 +257,10 @@ if __name__ == "__main__":
         'MT-1B':{
             "T(n)": lambda n : 2*n - 2,
             "O(n)": lambda n : (18/10)*n
+        },
+        'MT-2A':{
+            "T(n)": lambda n : 16*n**2 - 55*n + 63,
+            "O(n)": lambda n : (1113/100)*n**2
         }
     }
 
