@@ -207,6 +207,16 @@ if __name__ == "__main__":
                     "11111$1"
                 ]
 
+            case "MT-2A":
+                inputs = [
+                    "$1",
+                    "$11",
+                    "$111",
+                    "$1111",
+                    "$11111",
+                    "$111111"
+                ]
+
             case _:
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
                 continue

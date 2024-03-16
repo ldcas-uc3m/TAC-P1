@@ -83,21 +83,21 @@ Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ ob
 \begin{subequations}
     \begin{gather}
         n = 1,\ T(1) = 11 \rightarrow a + b + c = 11 \\
-        n = 2,\ T(2) = 15 \rightarrow 4a + 2b + c = 15 \\
-        n = 3,\ T(3) = 19 \rightarrow 9a + 3b + c = 19
+        n = 2,\ T(2) = 22 \rightarrow 4a + 2b + c = 22 \\
+        n = 3,\ T(3) = 37 \rightarrow 9a + 3b + c = 37
     \end{gather}
 \end{subequations}
 
-Resolviendo, $a=0$, $b=4$ y $b=7$, por lo que:
+Resolviendo, $a=2$, $b=5$ y $b=4$, por lo que:
 
 \begin{equation}
-    T_{\mathrm{1A}}(n) = 4n + 7
+    T_{\mathrm{1A}}(n) = 2n^2 + 5n + 4
 \end{equation}
 
 \subsubsection*{Cota asintótica}
-Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{47}{10}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{254}{100}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    T_{\mathrm{1A}}(n) = \frac{47}{10} n
+    T_{\mathrm{1A}}(n) = \frac{254}{100} n^2
 \end{equation}
 
 

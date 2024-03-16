@@ -53,27 +53,63 @@ El diseño de la máquina queda representado en la Figura \ref{fig:MT-2A}.
 
 
 \subsubsection*{Peor caso}
-Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán
+Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán.\\
+Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se reuerirán.
 
 \subsubsection*{Evaluación empírica}
-Realizamos la evaluación empírica en el peor caso, tomando como $n$ el número de 1 a la derecha de \$, ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-1A.csv}.}:
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 1 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-1A.csv}.}:
 
 \begin{table}[h]
     \centering
     \begin{tabular}{lccc}
         Entrada & $n_d$ & Pasos \\
         \hline
-        $\lambda$               &   & N/A \\
-        \$                     &   &   \\
-        \$                    &   &   \\
-        \$                   &   &   \\
-        \$                  &   &   \\
-        \$                 &   &   \\
+        \$1                     & 2  & 17   \\
+        \$11                    & 3  & 42   \\
+        \$111                   & 4  & 99  \\
+        \$1111                  & 5  & 228  \\
+        \$11111                 & 6  & 517  \\
     \end{tabular}
 \end{table}
 
 
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|}
+        \hline
+        $n$ & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6}\\ \hline
+        $T(n)$ & \textbf{17} & \textbf{42} & \textbf{99} & \textbf{228} & \textbf{517}      \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &    & 25 & 57 & 129 & 289 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &   & 32 & 72 & 160 \\ \hline
+        $C(n) = B(n) - B(n-2)$ &    &   &    & 40 & 88 \\ \hline
+    \end{tabular}
+\end{table}
+
+Se obsrerva que las diferencias finitas primeras no son constantes y segundas son no nulas, por lo que podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) =  an^2 + bn + c$.\\
+
+\begin{subequations}
+    \begin{gather}
+        n = 2,\ T(5) = 17 \rightarrow 4a + 2b + c = 17\\
+        n = 3,\ T(3) = 42 \rightarrow 9a + 3b + c = 42 \\
+        n = 4,\ T(4) = 99 \rightarrow 16a + 4b + c = 99 \\
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=16$, $b=1-55$ y $c=63$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{1A}}(n) = 16n^2-55n + 63
+\end{equation}
+
+\subsubsection*{Cota asintótica}
+Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{1113}{100}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+\begin{equation}
+    T_{\mathrm{1A}}(n) = \frac{1113}{100} n^2
+\end{equation}
 
 
