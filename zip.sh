@@ -4,6 +4,7 @@
 
 OUTFILE="../MT02_3_Arnaiz_Casais.zip"
 
+[ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
 
 # generate data
 echo "Building turing-machine-simulator/..."
@@ -14,6 +15,7 @@ cd ..
 echo "Performing tests..."
 python3 src/test.py
 
+rm turing-machine-simulator/turing
 
 
 # compile the report (and save it to root folder)
@@ -24,7 +26,7 @@ cp report/report.pdf Memoria_MT_3_Arnaiz_Casais.pdf
 
 # zip it (excluding useless stuff)
 echo "Zipping..."
-zip -r "$OUTFILE" . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* turing-machine-simulator/\* .venv/\* *.xml *.tm *.jar build/\* .vscode/\* LICENSE
+zip -r "$OUTFILE" . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* \*examples/\* .venv/\* *.xml *.tm *.jar build/\* .vscode/\* \*LICENSE
 
 # cleanup
 echo "Cleaning up..."
