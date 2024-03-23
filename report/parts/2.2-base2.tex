@@ -90,46 +90,13 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \end{tabular}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras no son constantes y segundas son no nulas, por lo que podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) =  an^2 + bn + c$.\\
-
-\begin{subequations}
-    \begin{gather}
-        n = 2,\ T(5) = 17 \rightarrow 4a + 2b + c = 17 \\
-        n = 3,\ T(3) = 42 \rightarrow 9a + 3b + c = 42 \\
-        n = 4,\ T(4) = 99 \rightarrow 16a + 4b + c = 99
-    \end{gather}
-\end{subequations}
-
-Resolviendo, $a=16$, $b=-55$ y $c=63$, por lo que:
-
-\begin{equation}
-    T_{\mathrm{2A}}(n) = 16n^2 - 55n + 63
-\end{equation}
-
-
-\subsubsection*{Cota asintótica}
-La ecuación \ref{eq:On} no es aplicable para polinomios con términos negativos ($a,\ b,\ c < 0$), cuando $n_0$ es pequeño ($n \rightarrow 0$), por lo que para aproximar $O(n)$ podemos suprimir esos términos, es decir, $T'_{\mathrm{2A}}(n) = 16n^2 + 63$.
-
-Al conocer $T_{\mathrm{2A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $n_0 = 10$, usando $T'_{\mathrm{2A}}(n)$, obtenemos $k \geq \frac{1663}{100}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
-\begin{equation}
-    O_{\mathrm{2A}}(n) = \frac{1663}{100}n^2
-\end{equation}
-
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-2A_plot} (asumiendo $n_0 = 10$).
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-2A_complexity.png}
-    \caption{Coste computacional de MT-2A}
-    \label{fig:MT-2A_plot}
-\end{figure}
-
+Se obsrerva que ni las diferencias finitas primeras ni las segundas o terceras son no nulas, esto se debe a que el funcionamiento de la máquina de Turing es recursivo, por lo que no es posible aproximarlo a un polinomio con exactitud\\
 
 
 %----------
 % MT-2B
 %----------
+
 
 \subsection{MT Determinista de 2 cintas}
 
