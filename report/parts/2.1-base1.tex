@@ -95,9 +95,9 @@ Resolviendo, $a=2$, $b=5$ y $b=4$, por lo que:
 \end{equation}
 
 \subsubsection*{Cota asintótica}
-Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{254}{100}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{127}{50}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    T_{\mathrm{1A}}(n) = \frac{254}{100} n^2
+    O_{\mathrm{1A}}(n) = \frac{127}{50} n^2
 \end{equation}
 
 
@@ -109,6 +109,7 @@ Se puede observar la cota en comparación con el coste computacional en la Figur
     \caption{Coste computacional de MT-1A}
     \label{fig:MT-1A_plot}
 \end{figure}
+
 
 
 %----------
@@ -211,7 +212,7 @@ La ecuación \ref{eq:On} no es aplicable para polinomios con términos negativos
 
 Al conocer $T_{\mathrm{1B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, usando $T'_{\mathrm{1B}}(n)$, obtenemos $k \geq 2$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
 \begin{equation}
-    T_{\mathrm{1A}}(n) = 2n
+    O_{\mathrm{1A}}(n) = 2n
 \end{equation}
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-1B_plot} (asumiendo $n_0 = 10$).

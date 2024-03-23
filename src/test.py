@@ -236,8 +236,8 @@ if __name__ == "__main__":
             "O(n)": lambda n : (12/10)*n
         },
         'MT-1A': {
-            "T(n)": lambda n : 4*n + 7,
-            "O(n)": lambda n : (47/10)*n
+            "T(n)": lambda n : 2*n**2 + 5*n + 4,
+            "O(n)": lambda n : (127/50)*n**2
         },
         'MT-1B':{
             "T(n)": lambda n : 2*n - 2,
