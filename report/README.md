@@ -7,6 +7,8 @@ The report consists of a main file [`report.tex`](report.tex), which includes a 
 
 ## Compilation
 
+**NOTE:** Some of the images included are generated through the [`test.py`](../src/test.py) script, so make sure to execute that before compiling.
+
 First you must install LaTeX.
 
 - For Linux, install `texlive-full`.

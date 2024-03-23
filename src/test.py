@@ -164,7 +164,8 @@ if __name__ == "__main__":
         # REPO_ROOT / "src/MT-0C.jff",  # non-deterministic, cannot test
         REPO_ROOT / "src/MT-1A.jff",
         REPO_ROOT / "src/MT-1B.jff",
-        REPO_ROOT / "src/MT-2A.jff"
+        REPO_ROOT / "src/MT-2A.jff",
+        REPO_ROOT / "src/MT-5A.jff"
     ]
 
     for machine_file in jff_files:
@@ -190,32 +191,16 @@ if __name__ == "__main__":
                 ]
 
             case "MT-1A":
-                inputs = [
-                    "$1",
-                    "$11",
-                    "$111",
-                    "$1111",
-                    "$11111"
-                ]
+                inputs = [f"${'1'*i}" for i in range(1,6)]
 
             case "MT-1B":
-                inputs = [
-                    "1$1",
-                    "11$1",
-                    "111$1",
-                    "1111$1",
-                    "11111$1"
-                ]
+                inputs = [f"{'1'*i}$1" for i in range(1,6)]
 
             case "MT-2A":
-                inputs = [
-                    "$1",
-                    "$11",
-                    "$111",
-                    "$1111",
-                    "$11111",
-                    "$111111"
-                ]
+                inputs = [f"${'1'*i}" for i in range(1,7)]
+
+            case "MT-5A":
+                inputs = ["a"*3*i for i in range(1, 5)]
 
             case _:
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
@@ -261,6 +246,10 @@ if __name__ == "__main__":
         'MT-2A':{
             "T(n)": lambda n : 16*n**2 - 55*n + 63,
             "O(n)": lambda n : (1663/100)*n**2
+        },
+        'MT-5A':{
+            "T(n)": lambda n : 2*n + 4,
+            "O(n)": lambda n : (12/5)*n
         }
     }
 
