@@ -1,0 +1,5 @@
+input,n,steps,result0,result1
+aa,2,4,1,
+abba,4,6,1,
+abaaba,6,8,1,
+aaabbaaa,8,10,1,

@@ -14,7 +14,7 @@
 		</state>
 		<state id="2" name="q2">
 			<x>450.0</x>
-			<y>84.0</y>
+			<y>81.0</y>
 		</state>
 		<state id="3" name="q3">
 			<x>601.0</x>
@@ -23,7 +23,7 @@
 		</state>
 		<state id="4" name="q4">
 			<x>234.0</x>
-			<y>270.0</y>
+			<y>268.0</y>
 		</state>
 		<!--The list of transitions.-->
 		<transition>

@@ -9,15 +9,15 @@
 		</state>
 		<state id="1" name="q1">
 			<x>229.0</x>
-			<y>102.0</y>
+			<y>98.0</y>
 		</state>
 		<state id="2" name="q2">
 			<x>353.0</x>
-			<y>106.0</y>
+			<y>98.0</y>
 		</state>
 		<state id="3" name="q3">
 			<x>469.0</x>
-			<y>104.0</y>
+			<y>98.0</y>
 			<final/>
 		</state>
 		<state id="4" name="q4">

@@ -250,6 +250,10 @@ if __name__ == "__main__":
         'MT-5A':{
             "T(n)": lambda n : 2*n + 4,
             "O(n)": lambda n : (12/5)*n
+        },
+        'MT-5B':{
+            "T(n)": lambda n : n + 2,
+            "O(n)": lambda n : (6/5)*n
         }
     }
 

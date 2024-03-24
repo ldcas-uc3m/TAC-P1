@@ -1,1 +1,5 @@
 *.csv
+
+# don't ignore bc they have to be done by hand
+!MT-0C.csv
+!MT-5B.csv
