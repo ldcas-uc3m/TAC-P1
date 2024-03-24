@@ -1,0 +1,22 @@
+\ProvidesPackage{mymacros}[Auxiliary helper macros for the report]
+
+% \plotcomplexity{machine}
+\newcommand{\plotcomplexity}[1] {
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{plot_#1_complexity.png}
+        \caption{Coste computacional de #1}
+        \label{fig:#1_plot}
+    \end{figure}
+}
+
+
+% \plotimplementation[width]{machine}
+\newcommand{\plotimplementation}[2][0.6] {
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#1\textwidth]{#2.png}
+        \caption{Implementación en JFLAP de #2}
+        \label{fig:#2}
+    \end{figure}
+}

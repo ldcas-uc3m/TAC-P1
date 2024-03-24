@@ -13,9 +13,12 @@
 \usepackage{hyperref}
 \usepackage{markdown}
 \usepackage{enumerate}
+\usepackage{import}
 % \usepackage{svg}
 
 \usepackage[spanish]{babel}  % españita
+
+\usepackage{mymacros}
 
 \definecolor{azulUC3M}{RGB}{0,0,102}
 \graphicspath{ {./img/} }
@@ -31,11 +34,11 @@
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}  % subsections using letters
 
 % Put here all the LaTeX files to include (in order)
-\input{parts/1-resumen.tex}
-\input{parts/2-desarrollo.tex}
-\input{parts/3-conclusiones.tex}
-%\input{parts/4-referencias.tex}
-% \input{parts/appendix.tex}
+\import{parts/}{1-resumen.tex}
+\import{parts/}{2-desarrollo.tex}
+\import{parts/}{3-conclusiones.tex}
+% \import{parts/}{4-referencias.tex}
+% \import{parts/}{appendix.tex}
 
 
 \end{document}

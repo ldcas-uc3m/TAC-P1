@@ -30,13 +30,7 @@ El algoritmo de resolución es el siguiente:
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-1A}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{MT-1A.png}
-    \caption{Implementación en JFLAP de MT-1A}
-    \label{fig:MT-1A}
-\end{figure}
-
+\plotimplementation{MT-1A}
 
 
 \subsubsection*{Peor caso}
@@ -103,12 +97,7 @@ Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-1A_plot} (asumiendo $n_0 = 10$).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-1A_complexity.png}
-    \caption{Coste computacional de MT-1A}
-    \label{fig:MT-1A_plot}
-\end{figure}
+\plotcomplexity{MT-1A}
 
 
 
@@ -146,12 +135,7 @@ Se ha aplicado una optimización respecto al algortimo original, por el cual una
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-1B}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{MT-1B.png}
-    \caption{Implementación en JFLAP de MT-1B}
-    \label{fig:MT-1B}
-\end{figure}
+\plotimplementation[0.5]{MT-1B}
 
 
 \subsubsection*{Peor caso}
@@ -217,10 +201,4 @@ Al conocer $T_{\mathrm{1B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-1B_plot} (asumiendo $n_0 = 10$).
 
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-1B_complexity.png}
-    \caption{Coste computacional de MT-1B}
-    \label{fig:MT-1B_plot}
-\end{figure}
+\plotcomplexity{MT-1B}

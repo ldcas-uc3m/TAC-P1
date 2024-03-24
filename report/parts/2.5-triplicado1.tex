@@ -29,12 +29,7 @@ El algoritmo de resolución es el siguiente:
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-5A}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MT-5A.png}
-    \caption{Implementación en JFLAP de MT-5A}
-    \label{fig:MT-5A}
-\end{figure}
+\plotimplementation[0.8]{MT-5A}
 
 
 \subsubsection*{Peor caso}
@@ -97,9 +92,4 @@ Al conocer $T_{\mathrm{5A}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-5A_plot} (asumiendo $n_0 = 10$).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-5A_complexity.png}
-    \caption{Coste computacional de MT-5A}
-    \label{fig:MT-5A_plot}
-\end{figure}
+\plotcomplexity{MT-5A}

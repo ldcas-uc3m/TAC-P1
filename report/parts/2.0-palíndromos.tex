@@ -30,12 +30,7 @@ El algoritmo de resolución es el siguiente:
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-0A}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{MT-0A.png}
-    \caption{Implementación en JFLAP de MT-0A}
-    \label{fig:MT-0A}
-\end{figure}
+\plotimplementation[0.7]{MT-0A}
 
 
 \subsubsection*{Peor caso}
@@ -114,12 +109,8 @@ Al conocer $T_{\mathrm{0A}}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0A_plot} (asumiendo $n_0 = 10$).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-0A_complexity.png}
-    \caption{Coste computacional de MT-0A}
-    \label{fig:MT-0A_plot}
-\end{figure}
+\plotcomplexity{MT-0A}
+
 
 
 %----------
@@ -143,12 +134,8 @@ El algoritmo de resolución es el siguiente:
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-0B}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MT-0B.png}
-    \caption{Implementación en JFLAP de MT-0B}
-    \label{fig:MT-0B}
-\end{figure}
+\plotimplementation[0.8]{MT-0B}
+
 
 \subsubsection*{Peor caso}
 El peor caso vuelve a ser un palíndromo par, puesto que tiene que comprobar toda la cadena.
@@ -225,12 +212,8 @@ Al conocer $T_{\mathrm{0B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0B_plot} (asumiendo $n_0 = 10$).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-0B_complexity.png}
-    \caption{Coste computacional de MT-0B}
-    \label{fig:MT-0B_plot}
-\end{figure}
+\plotcomplexity{MT-0B}
+
 
 
 %----------
@@ -250,12 +233,8 @@ El algoritmo de resolución es el siguiente:
 
 El diseño de la máquina queda representado en la Figura \ref{fig:MT-0C}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{MT-0C.png}
-    \caption{Implementación en JFLAP de MT-0C}
-    \label{fig:MT-0C}
-\end{figure}
+\plotimplementation{MT-0C}
+
 
 \subsubsection*{Peor caso}
 El peor caso vuelve a ser un palíndromo par, puesto que tiene que comprobar toda la cadena, y en caso de que no sea un palíndromo acaba antes.
@@ -318,9 +297,4 @@ Al conocer $T_{\mathrm{0B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 
 Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0C_plot} (asumiendo $n_0 = 10$).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{plot_MT-0C_complexity.png}
-    \caption{Coste computacional de MT-0C}
-    \label{fig:MT-0C_plot}
-\end{figure}
+\plotcomplexity{MT-0C}
