@@ -2,6 +2,8 @@
 
 % \plotcomplexity{machine}
 \newcommand{\plotcomplexity}[1] {
+    Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:#1_plot} (asumiendo $n_0 = 10$).
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{plot_#1_complexity.png}
@@ -13,6 +15,8 @@
 
 % \plotimplementation[width]{machine}
 \newcommand{\plotimplementation}[2][0.6] {
+    El diseño de la máquina queda representado en la Figura \ref{fig:#2}.
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=#1\textwidth]{#2.png}

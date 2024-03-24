@@ -28,8 +28,6 @@ El algoritmo de resolución es el siguiente:
     \end{enumerate}
 \end{itemize}
 
-El diseño de la máquina queda representado en la Figura \ref{fig:MT-1A}.
-
 \plotimplementation{MT-1A}
 
 
@@ -95,8 +93,6 @@ Al conocer $T_{\mathrm{1A}}(n)$, podemos afirmar que $g(n) = n^2$. Si asumimos $
 \end{equation}
 
 
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-1A_plot} (asumiendo $n_0 = 10$).
-
 \plotcomplexity{MT-1A}
 
 
@@ -132,8 +128,6 @@ El algoritmo de resolución es el siguiente:
 De esta forma al finalizar la ejecución, la primera cinta contiene el resultado de la suma de ambos números y la segunda cinta queda vacía. \\
 
 Se ha aplicado una optimización respecto al algortimo original, por el cual una vez se ha copiado el primer número en la segunda cinta, tras eliminarse el \$ de la primera cinta, se empiezan a pasar el número de la segunda cinta a la primera desde la izquierda, en vez de copiarlo desde la derecha ya que que en este caso concreto no influye el orden de los digitos.\\
-
-El diseño de la máquina queda representado en la Figura \ref{fig:MT-1B}.
 
 \plotimplementation[0.5]{MT-1B}
 
@@ -198,7 +192,5 @@ Al conocer $T_{\mathrm{1B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 \begin{equation}
     O_{\mathrm{1A}}(n) = 2n
 \end{equation}
-
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-1B_plot} (asumiendo $n_0 = 10$).
 
 \plotcomplexity{MT-1B}

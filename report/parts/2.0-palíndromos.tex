@@ -28,7 +28,6 @@ El algoritmo de resolución es el siguiente:
     \end{enumerate}
 \end{itemize}
 
-El diseño de la máquina queda representado en la Figura \ref{fig:MT-0A}.
 
 \plotimplementation[0.7]{MT-0A}
 
@@ -107,8 +106,6 @@ Al conocer $T_{\mathrm{0A}}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac
     O_{\mathrm{0A}}(n) = \frac{131}{50} n^2
 \end{equation}
 
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0A_plot} (asumiendo $n_0 = 10$).
-
 \plotcomplexity{MT-0A}
 
 
@@ -132,7 +129,6 @@ El algoritmo de resolución es el siguiente:
     \item Poner un \texttt{1} (son palíndromos) y \textbf{parar}.
 \end{enumerate}
 
-El diseño de la máquina queda representado en la Figura \ref{fig:MT-0B}.
 
 \plotimplementation[0.8]{MT-0B}
 
@@ -209,9 +205,6 @@ Al conocer $T_{\mathrm{0B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
     O_{\mathrm{0B}}(n) = \frac{33}{10} n
 \end{equation}
 
-
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0B_plot} (asumiendo $n_0 = 10$).
-
 \plotcomplexity{MT-0B}
 
 
@@ -230,8 +223,6 @@ El algoritmo de resolución es el siguiente:
     \item Cotejar ambas cintas, leyendo la cinta 1 en reverso y avanzando la cinta 0, y borrando ambas cintas a su paso. En el momento en el que no coincidan los elementos de ambas cintas, acaba sin llegar a un estado final, por lo que la palabra no es aceptada.
     \item Poner un 1 en la cinta 0 y \textbf{parar}.
 \end{enumerate}
-
-El diseño de la máquina queda representado en la Figura \ref{fig:MT-0C}.
 
 \plotimplementation{MT-0C}
 
@@ -294,7 +285,5 @@ Al conocer $T_{\mathrm{0B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 \begin{equation}
     O_{\mathrm{0C}}(n) = \frac{12}{10} n
 \end{equation}
-
-Se puede observar la cota en comparación con el coste computacional en la Figura \ref{fig:MT-0C_plot} (asumiendo $n_0 = 10$).
 
 \plotcomplexity{MT-0C}
