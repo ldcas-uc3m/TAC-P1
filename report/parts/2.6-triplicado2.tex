@@ -1,0 +1,303 @@
+\section{Palabras de estructura triplicada (II)}
+Dado el alfabeto $\Sigma = \{a,b\}$ y la palabra $x \in \Sigma$, $\exists w \mid x = w \cdot w' \cdot w''$ ($w=w'=w''$).
+
+%----------
+% MT2T-6A
+%----------
+
+\subsection{MT Multicinta Determinista}
+
+\subsubsection*{Diseño propuesto}
+El algoritmo de resolución es el siguiente:
+
+\begin{enumerate}
+    \item Leer \texttt{a} o \texttt{b} en la cinta 0 tres veces, y poner un \texttt{1} en la cinta 1.
+    \item Si no es el final de la cinta, volver al paso anterior. En caso afirmativo, tendremos en la cinta 1 el tamaño de la palabra $w = n/3$, en base uno.
+    \item Copiar $w''$ a la cinta 1. Por cada \texttt{1} en la cinta 1:
+    \begin{enumerate}[1.]
+        \item Copiar la letra de la cinta 0 a la cinta 1, y borrarla de la cinta 0, sobreescribiendo los \texttt{1} y moviendo a la izquierda ambas cintas.
+    \end{enumerate}
+    \item Poner el cabezal 1 al final de $w$.
+    \item Comprobar $w'$. Por cada letra de la cinta 1:
+    \begin{enumerate}[1.]
+        \item Validar que las letras de ambas cintas son iguales, moviendo la cinta 0 a la izquierda, borrando las letras, y la cinta 1 a la derecha.
+    \end{enumerate}
+    \item Poner el cabezal 1 al final de $w$.
+    \item Comprobar $w$. Por cada letra de la cinta 1:
+    \begin{enumerate}[1.]
+        \item Validar que las letras de ambas cintas son iguales moviendo la cinta 0 a la izquierda, y la cinta 1 a la derecha, borrando ambas cintas.
+    \end{enumerate}
+    \item Poner un \texttt{1} en la cinta 0 y \textbf{parar}.
+\end{enumerate}
+
+\plotimplementation[0.9]{MT2T-6A}
+
+
+\subsubsection*{Peor caso}
+El peor caso es cuando es una palabra de la gramática ($w \cdot w' \cdot w''$), puesto que tiene que comprobarla entera. La estructura de $w$ es irrelevante, puesto que las transiciones no dependen de cómo esté formada.
+
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT2T-6A.csv}.}:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        \texttt{aaa}                &  3  & 14 \\
+        \texttt{aaaaaa}             &  6  & 22 \\
+        \texttt{aaaaaaaaa}          &  9  & 30 \\
+        \texttt{aaaaaaaaaaaa}       & 12  & 38 \\
+    \end{tabular}
+\end{table}
+
+
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        $n$    & \textbf{3}  & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
+        $T(n)$ & \textbf{14} & \textbf{22} & \textbf{30} & \textbf{38} \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &   & 8 & 8 & 8 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
+    \end{tabular}
+\end{table}
+
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 3,\ T(3) = 14 \rightarrow 3a + b = 14 \\
+        n = 6,\ T(6) = 22 \rightarrow 6a + b = 22
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=\frac{8}{3}$ y $b=6$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{2T-6A}}(n) = \frac{8}{3}n + 6
+\end{equation}
+
+
+\subsubsection*{Cota asintótica}
+Al conocer $T_{\mathrm{6A}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{49}{15}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+\begin{equation}
+    O_{\mathrm{2T-6A}}(n) = \frac{49}{15} n
+\end{equation}
+
+\plotcomplexity{MT2T-6A}
+
+
+\subsubsection*{Inclusión de una tercera cinta} \label{sec:MT3T-6A}
+El diseño se basa en el uso de una MT de dos cintas, pero la inclusión de una tercera cinta proporcionaría beneficios.
+
+Se puede utilizar la tercera cinta para copiar $w$ en dos cintas en vez de una, y así evitándonos recorrer $w$ una de las veces para recolocar el cabezal.
+
+\plotimplementation{MT3T-6A}
+
+Realizamos la evaluación empírica\footnote{Los datos se pueden encontrar en \texttt{data/MT3T-6A.csv}.}:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        \texttt{aaa}                &  3  & 12 \\
+        \texttt{aaaaaa}             &  6  & 19 \\
+        \texttt{aaaaaaaaa}          &  9  & 26 \\
+        \texttt{aaaaaaaaaaaa}       & 12  & 33 \\
+    \end{tabular}
+\end{table}
+
+Calculamos el coste computacional mediante Diferencias Finitas:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        $n$    & \textbf{3}  & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
+        $T(n)$ & \textbf{12} & \textbf{19} & \textbf{26} & \textbf{33} \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &   & 7 & 7 & 7 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
+    \end{tabular}
+\end{table}
+
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 3,\ T(3) = 12 \rightarrow 3a + b = 12 \\
+        n = 6,\ T(6) = 19 \rightarrow 6a + b = 19
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=\frac{7}{3}$ y $b=5$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{3T-6A}}(n) = \frac{7}{3}n + 5
+\end{equation}
+
+Podemos comparar ambas máquinas gráficamente (con $n_0 = 3$) en la Figura \ref{fig:MT-6A}, observando que la de tres cintas tiene un coste menor:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plot_MT-6A_comparison.png}
+    \caption{Comparación del coste computacional entre MT2T-6A y MT3T-6A}
+    \label{fig:MT-6A}
+\end{figure}
+
+
+
+%----------
+% MT-6B
+%----------
+
+\subsection{MT Multicinta No Determinista}
+
+\subsubsection*{Diseño propuesto}
+El algoritmo de resolución es el siguiente:
+
+\begin{enumerate}
+    \item Copiar $w$ a la cinta 1, dejando el cabezal 0 al principio de $w'$ y el cabezal 1 al final de $w$. Dado que es una máquina no determinista, asumiremos a cada paso que hemos copiado toda la palabra.
+    \item Comprobar $w'$. Por cada letra de la cinta 1:
+    \begin{enumerate}[1.]
+        \item Validar que las letras de ambas cintas son iguales, moviendo ambas cintas a la derecha, borrando las letras de la cinta 0.
+    \end{enumerate}
+    \item Poner el cabezal 1 al principio de $w$.
+    \item Comprobar $w''$. Por cada letra de la cinta 1:
+    \begin{enumerate}[1.]
+        \item Validar que las letras de ambas cintas son iguales, moviendo ambas cintas a la derecha, borrando las letras de la cinta 0.
+    \end{enumerate}
+    \item Poner un \texttt{1} en la cinta 0 y \textbf{parar}.
+\end{enumerate}
+
+\plotimplementation[0.9]{MT2T-6B}
+
+
+\subsubsection*{Peor caso}
+Al igual que en la determinista, el peor caso es cuando es una palabra de la gramática ($w \cdot w' \cdot w''$), independientemente de la estructura.
+
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT2T-6B.csv}.}:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        $n$    & \textbf{3} & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
+        $T(n)$ & \textbf{9} & \textbf{14} & \textbf{19} & \textbf{24} \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &   & 5 & 5 & 5 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
+    \end{tabular}
+\end{table}
+
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 3,\ T(3) = 9 \rightarrow 3a + b = 9 \\
+        n = 6,\ T(6) = 14 \rightarrow 6a + b = 14
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=\frac{5}{3}$ y $b=4$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{2T-6B}}(n) = \frac{5}{3}n + 4
+\end{equation}
+
+
+\subsubsection*{Cota asintótica}
+Al conocer $T_{\mathrm{2T-6B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{31}{15}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+\begin{equation}
+    O_{\mathrm{2T-6B}}(n) = \frac{31}{15} n
+\end{equation}
+
+\plotcomplexity{MT2T-6B}
+
+
+\subsubsection*{Inclusión de una tercera cinta}
+El diseño se basa en el uso de una MT de dos cintas, pero la inclusión de una tercera cinta proporcionaría beneficios, por los mismos motivos que en el apartado 
+
+Se podría utilizar la tercera cinta para copiar $w$ a dos cintas en vez de una, y así evitándonos recorrer $w$ una de las veces para recolocar el cabezal.
+
+\plotimplementation[0.9]{MT3T-6B}
+
+Realizamos la evaluación empírica\footnote{Los datos se pueden encontrar en \texttt{data/MT3T-6B.csv}.}:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        \texttt{aaa}                &  3  &  7 \\
+        \texttt{aaaaaa}             &  6  & 11 \\
+        \texttt{aaaaaaaaa}          &  9  & 15 \\
+        \texttt{aaaaaaaaaaaa}       & 12  & 19 \\
+    \end{tabular}
+\end{table}
+
+Calculamos el coste computacional mediante Diferencias Finitas:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        $n$    & \textbf{3} & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
+        $T(n)$ & \textbf{7} & \textbf{11} & \textbf{15} & \textbf{19} \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &   & 4 & 4 & 4 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
+    \end{tabular}
+\end{table}
+
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+\begin{subequations}
+    \begin{gather}
+        n = 3,\ T(3) = 7 \rightarrow 3a + b = 7 \\
+        n = 6,\ T(6) = 11 \rightarrow 6a + b = 11
+    \end{gather}
+\end{subequations}
+
+Resolviendo, $a=\frac{5}{3}$ y $b=3$, por lo que:
+
+\begin{equation}
+    T_{\mathrm{3T-6B}}(n) = \frac{4}{3}n + 3
+\end{equation}
+
+
+Podemos comparar ambas máquinas gráficamente (con $n_0 = 3$) en la Figura \ref{fig:MT-6B}, observando que la de tres cintas tiene un coste menor:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plot_MT-6B_comparison.png}
+    \caption{Comparación del coste computacional entre MT2T-6N y MT3T-6N}
+    \label{fig:MT-6B}
+\end{figure}
+
+
+\subsection*{Comparación}
+Se pueden comparar todas las máquinas que resuelven este problema en la Figura \ref{fig:MT-6}:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plot_MT-6_comparison.png}
+    \caption{Comparación del coste computacional entre MT2T-6N y MT3T-6N}
+    \label{fig:MT-6}
+\end{figure}

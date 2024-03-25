@@ -62,6 +62,8 @@ def convert(file_path: str | io.TextIOWrapper | pathlib.Path, machine_name: str)
         if st.getElementsByTagName("final").length > 0:
             final.append(name)
 
+    # TODO: state <label>
+
     out += f"name: {machine_name}\n"
     out += f"init: {','.join(initial)}\n"
     out += f"accept: {','.join(final)}\n"

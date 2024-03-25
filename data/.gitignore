@@ -3,3 +3,5 @@
 # don't ignore bc they have to be done by hand
 !MT-0C.csv
 !MT-5B.csv
+!MT2T-6B.csv
+!MT3T-6B.csv

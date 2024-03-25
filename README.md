@@ -119,7 +119,7 @@ Por ejemplo, `aaa`, `ababab`.
 
 La cinta inicial contendrá `#x#`. La cinta final contendrá `#1#` en caso de aceptar.
 
-Realizad las mismas tareas que en el [ejercicio anterior](#5-palabras-de-estructura-triplicada-i) ([`src/MT-6A.jff`](src/MT-6A.jff), [`src/MT-6B.jff`](src/MT-6B.jff)).
+Realizad las mismas tareas que en el [ejercicio anterior](#5-palabras-de-estructura-triplicada-i) ([`src/MT2T-6A.jff`](src/MT2T-6A.jff), [`src/MT2T-6B.jff`](src/MT2T-6B.jff), [`src/MT3T-6A.jff`](src/MT3T-6A.jff), [`src/MT3T-6B.jff`](src/MT3T-6B.jff)).
 
 
 ### 7. Diseño de una MTND para determinar `prime(n)`

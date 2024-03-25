@@ -4,6 +4,7 @@ import json
 import platform
 import logging
 from typing import Callable
+from itertools import product
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -108,6 +109,8 @@ def plot_df(
     else:
         fig.show()
 
+    plt.close()
+
 
 def plot_functions(
     funcs: dict[str, Callable[[np.ndarray], np.ndarray]],
@@ -150,6 +153,7 @@ def plot_functions(
     else:
         fig.show()
 
+    plt.close()
 
 
 
@@ -165,7 +169,9 @@ if __name__ == "__main__":
         REPO_ROOT / "src/MT-1A.jff",
         REPO_ROOT / "src/MT-1B.jff",
         REPO_ROOT / "src/MT-2A.jff",
-        REPO_ROOT / "src/MT-5A.jff"
+        REPO_ROOT / "src/MT-5A.jff",
+        REPO_ROOT / "src/MT2T-6A.jff",
+        REPO_ROOT / "src/MT3T-6A.jff"
     ]
 
     for machine_file in jff_files:
@@ -189,24 +195,28 @@ if __name__ == "__main__":
                     "bbaabbaabb",
                     "bbbbbaabbbbb"
                 ]
+                ntapes = 2 if machine_name.endswith("B") else 1
 
             case "MT-1A":
                 inputs = [f"${'1'*i}" for i in range(1,6)]
+                ntapes = 1
 
             case "MT-1B":
                 inputs = [f"{'1'*i}$1" for i in range(1,6)]
+                ntapes = 2
 
             case "MT-2A":
                 inputs = [f"${'1'*i}" for i in range(1,7)]
+                ntapes = 1
 
-            case "MT-5A":
+            case "MT-5A" | "MT2T-6A" | "MT3T-6A":
                 inputs = ["a"*3*i for i in range(1, 5)]
+                ntapes = 3 if "3" in machine_name else 2
 
             case _:
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
                 continue
 
-        ntapes = 2 if machine_name.endswith("B") else 1
 
         logger.info(f"Performing tests for {machine_name}...")
         df = tests(tm_file, inputs, ntapes=ntapes)
@@ -224,36 +234,52 @@ if __name__ == "__main__":
 
     COMPLEXITY_FUNCTIONS = {
         'MT-0A': {
-            "T(n)": lambda n : 2*n**2 + 6*n + 2,
-            "O(n)": lambda n : (131/50)*n**2
+            'T(n)': lambda n : 2*n**2 + 6*n + 2,
+            'O(n)': lambda n : (131/50)*n**2
         },
         'MT-0B': {
-            "T(n)": lambda n : 3*n + 3,
-            "O(n)": lambda n : (33/10)*n
+            'T(n)': lambda n : 3*n + 3,
+            'O(n)': lambda n : (33/10)*n
         },
         'MT-0C': {
-            "T(n)": lambda n : n + 2,
-            "O(n)": lambda n : (12/10)*n
+            'T(n)': lambda n : n + 2,
+            'O(n)': lambda n : (12/10)*n
         },
         'MT-1A': {
-            "T(n)": lambda n : 2*n**2 + 5*n + 4,
-            "O(n)": lambda n : (127/50)*n**2
+            'T(n)': lambda n : 2*n**2 + 5*n + 4,
+            'O(n)': lambda n : (127/50)*n**2
         },
-        'MT-1B':{
-            "T(n)": lambda n : 2*n - 2,
-            "O(n)": lambda n : 2*n
+        'MT-1B': {
+            'T(n)': lambda n : 2*n - 2,
+            'O(n)': lambda n : 2*n
         },
-        'MT-2A':{
-            "T(n)": lambda n : 16*n**2 - 55*n + 63,
-            "O(n)": lambda n : (1663/100)*n**2
+        'MT-2A': {
+            'T(n)': lambda n : 16*n**2 - 55*n + 63,
+            'O(n)': lambda n : (1663/100)*n**2
         },
-        'MT-5A':{
-            "T(n)": lambda n : 2*n + 4,
-            "O(n)": lambda n : (12/5)*n
+        'MT-5A': {
+            'T(n)': lambda n : 2*n + 4,
+            'O(n)': lambda n : (12/5)*n
         },
-        'MT-5B':{
-            "T(n)": lambda n : n + 2,
-            "O(n)": lambda n : (6/5)*n
+        'MT-5B': {
+            'T(n)': lambda n : n + 2,
+            'O(n)': lambda n : (6/5)*n
+        },
+        'MT2T-6A': {
+            'T(n)': lambda n : (8/3)*n + 6,
+            'O(n)': lambda n : (49/15)*n
+        },
+        'MT3T-6A': {
+            'T(n)': lambda n : (7/3)*n + 5,
+            'O(n)': lambda n : (17/6)*n
+        },
+        'MT2T-6B': {
+            'T(n)': lambda n : (5/3)*n + 5,
+            'O(n)': lambda n : (31/15)*n
+        },
+        'MT3T-6B': {
+            'T(n)': lambda n : (4/3)*n + 3,
+            'O(n)': lambda n : (49/30)*n
         }
     }
 
@@ -261,10 +287,24 @@ if __name__ == "__main__":
         plot_functions(funcs, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
 
 
+    # comparing T(n) between machines
+    machine_comparisons: dict[str, list[list[str]]] = {
+        **{f"MT-6{x}": [f"MT{n}T-6{x}" for n in (2, 3)] for x in ("A", "B")},  # MT-6A & MT-6B, 2T vs 3T
+        "MT-6": [f"MT{n}T-6{x}" for n, x in product([2, 3], ["A", "B"])]  # all MT-6
+    }
+
+    for name, machines in machine_comparisons.items():
+        plot_functions(
+            {machine: COMPLEXITY_FUNCTIONS[machine]['T(n)'] for machine in machines},
+            save_file=IMAGE_FOLDER / f"plot_{name}_comparison.png",
+            n0=3,
+            n_max=40
+        )
+
     # plot all
     plot_functions(
         {name: functions['T(n)'] for name, functions in COMPLEXITY_FUNCTIONS.items()},
-        save_file=IMAGE_FOLDER / f"plot_all_complexity.png",
+        save_file=IMAGE_FOLDER / "plot_all_complexity.png",
         n_max=40
     )
 

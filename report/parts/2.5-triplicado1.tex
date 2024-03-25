@@ -1,4 +1,5 @@
 \section{Palabras de estructura triplicada (I)}
+Dado el alfabeto $\Sigma = \{a,b\}$ y la palabra $x \in \Sigma$, $\exists w \mid x = w \cdot w^{-1} \cdot w'$ ($w=w'$).
 
 %----------
 % MT-5A
@@ -27,14 +28,7 @@ El algoritmo de resolución es el siguiente:
     \item Poner un \texttt{1} en la cinta 0 y \textbf{parar}.
 \end{enumerate}
 
-\plotimplementation[0.8]{MT-5A}
-
-
-El diseño se basa en el uso de una MT de dos cintas, dado que la inclusión de una tercera cinta no proporcionaría ningún beneficio.
-
-En este problema no sólo hay que localizar $w$ (en este caso, dividimos la entrada entre tres y cogemos el último elemento), sino que hay que validar $w$ y $w^{-1}$.\\
-Con dos cintas lo comprobamos secuencialmente, y la idea sería comprobar $w^{-1}$ en la cinta 0 mientras comprobamos $w$ en la cinta 2.
-Podríamos copiar la entrada también a la tercera cinta, pero no habría forma de dejar el cabezal de la tercera cinta apuntando al principio de la entrada (al principio de $w$) sin realizar pasos extras, puesto que nuestro algoritmo realiza una pasada para calcular la longitud de $w$ y la pasada de vuelta para comprobar las palabras.
+\plotimplementation[0.9]{MT-5A}
 
 
 \subsubsection*{Peor caso}
@@ -54,6 +48,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         \texttt{aaaaaaaaaaaa}       & 12  & 28 \\
     \end{tabular}
 \end{table}
+
 
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
@@ -98,6 +93,14 @@ Al conocer $T_{\mathrm{5A}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 \plotcomplexity{MT-5A}
 
 
+\subsubsection*{Inclusión de una tercera cinta}
+El diseño se basa en el uso de una MT de dos cintas, dado que la inclusión de una tercera cinta no proporcionaría ningún beneficio.
+
+En este problema no sólo hay que localizar $w$ (en este caso, dividimos la entrada entre tres y cogemos el último elemento), sino que hay que validar $w$ y $w^{-1}$.\\
+Con dos cintas lo comprobamos secuencialmente, y la idea sería comprobar $w^{-1}$ en la cinta 0 mientras comprobamos $w$ en la cinta 2.
+Podríamos copiar la entrada también a la tercera cinta, pero no habría forma de dejar el cabezal de la tercera cinta apuntando al principio de la entrada (al principio de $w$) sin realizar pasos extras, puesto que nuestro algoritmo realiza una pasada para calcular la longitud de $w$ y la pasada de vuelta para comprobar las palabras.
+
+
 
 %----------
 % MT-5B
@@ -112,7 +115,7 @@ El algoritmo de resolución es el siguiente:
     \item Copiar $w$ a la cinta 1, dejando el cabezal 0 al principio de $w^{-1}$ y el cabezal 1 al final de $w$. Dado que es una máquina no determinista, asumiremos a cada paso que hemos copiado toda la palabra.
     \item Comprobar $w^{-1}$. Por cada letra de la cinta 1:
     \begin{enumerate}[1.]
-        \item Validar que las letras de ambas cintas son iguales, mover la cinta10 a la izquierda, borrando las letras, y la cinta 0 a la derecha.
+        \item Validar que las letras de ambas cintas son iguales, mover la cinta 1 a la izquierda, borrando las letras, y la cinta 0 a la derecha.
     \end{enumerate}
     \item Comprobar $w$. Por cada letra de la cinta 1:
     \begin{enumerate}[1.]
@@ -123,10 +126,10 @@ El algoritmo de resolución es el siguiente:
 
 \plotimplementation[0.8]{MT-5B}
 
-El diseño se basa en el uso de una MT de dos cintas, dado que la inclusión de una tercera cinta no proporcionaría ningún beneficio, por un motivo similar al de la máquina no determinista: hacemos una única pasada de la entrada.
 
 \subsubsection*{Peor caso}
-Al igual que en la no determinista, el peor caso es cuando es una palabra de la gramática ($w \cdot w^{-1} \cdot w$).
+Al igual que en la determinista, el peor caso es cuando es una palabra de la gramática ($w \cdot w^{-1} \cdot w'$), independientemente de la estructura.
+
 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-5B.csv}.}:
@@ -143,6 +146,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
     \end{tabular}
 \end{table}
 
+
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
@@ -156,7 +160,6 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $A(n) = T(n) - T(n-2)$ &   & 3 & 3 & 3 \\ \hline
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
-    \label{tab:5B}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
@@ -166,7 +169,7 @@ Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenido
 \begin{subequations}
     \begin{gather}
         n = 3,\ T(3) = 5 \rightarrow 3a + b = 5 \\
-        n = 6,\ T(4) = 8 \rightarrow 6a + b = 8
+        n = 6,\ T(6) = 8 \rightarrow 6a + b = 8
     \end{gather}
 \end{subequations}
 
@@ -184,3 +187,7 @@ Al conocer $T_{\mathrm{5B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_
 \end{equation}
 
 \plotcomplexity{MT-5B}
+
+
+\subsubsection*{Inclusión de una tercera cinta}
+El diseño se basa en el uso de una MT de dos cintas, dado que la inclusión de una tercera cinta no proporcionaría ningún beneficio, por un motivo similar al de la máquina determinista: hacemos una única pasada de la entrada.
