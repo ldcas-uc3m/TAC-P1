@@ -169,6 +169,7 @@ if __name__ == "__main__":
         REPO_ROOT / "src/MT-1A.jff",
         REPO_ROOT / "src/MT-1B.jff",
         REPO_ROOT / "src/MT-2A.jff",
+        REPO_ROOT / "src/MT-2B.jff",
         REPO_ROOT / "src/MT-5A.jff",
         REPO_ROOT / "src/MT2T-6A.jff",
         REPO_ROOT / "src/MT3T-6A.jff"
@@ -206,8 +207,17 @@ if __name__ == "__main__":
                 ntapes = 2
 
             case "MT-2A":
-                inputs = [f"${'1'*i}" for i in range(1,7)]
+                inputs = [f"1${'1'*i}" for i in range(1,7)]
                 ntapes = 1
+
+            case "MT-2B":
+                inputs = [
+                    "1$1",
+                    "1$11",
+                    "1$111",
+                    "1$1111",
+                    "1$11111",
+                ]
 
             case "MT-5A" | "MT2T-6A" | "MT3T-6A":
                 inputs = ["a"*3*i for i in range(1, 5)]
