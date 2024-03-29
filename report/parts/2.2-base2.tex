@@ -11,27 +11,27 @@ El algoritmo de resolución es el siguiente:
 
 \begin{itemize}
     \item Ciclo:
-    \begin{enumerate}[1.]
+    \begin{enumerate}
         \item Comienzo desde la izquierda, desplazamiento hasta el extremo derecho.
         \item Si el último elemento es un 1:
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borrarlo.
             \item Volver al extremo izquierdo.
             \item Añadir un 1 en la primera posición.
         \end{enumerate}
         \item Si el último elemento es un 0:
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borrarlo y sustituirlo por un 1.
             \item Volver hacia la izquierda.
             \item Si se encuentra un 1 
-            \begin{enumerate}[1.] 
+            \begin{enumerate}
                 \item sustituirlo por un 0
             \end{enumerate}
             \item Si se encuentra un 0
-            \begin{enumerate}[1.]
+            \begin{enumerate}
                 \item sustituirlo por un 1
                 \item Si se encuntra un \$
-                \begin{enumerate}[1.]
+                \begin{enumerate}
                     \item Avanzar hasta el extremo derecho
                     \item Volver hacia la izquierda eliminando todos los elementos hasta el \$ incluido
                     \item \textbf{Parar}.
@@ -84,8 +84,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \end{tabular}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
-
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
 
 
 %----------
@@ -97,44 +96,44 @@ Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no so
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hsat que a l derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales \\
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales \\
 
 El algoritmo de resolución es el siguiente:
 
 \begin{itemize}
     \item Ciclo:
-    \begin{enumerate}[1.]
+    \begin{enumerate}
         \item Avance de derecha a izquierda copiando la palabra a la segunda cinta y borrandolo de la primera hasta llegar al final
         \item Comienza a moverse de izquierda a derecha
         \item Si el ultimo elemento es un 0
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borra los 0 de la segunda cinta y pone en la primera un 1, hatsa encontrar un 1
             \item Cuando encuentra el primer 1, lo borra de la segunda cinta y pone un 0 en la primera
             \item Sigue avanzando copiando los elemntos de la segunda cinta a la primera hasta llegar al \$
         \end{enumerate}
         \item Si el ultimo elemento es un 1   
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borra el primer 1 de la segunda cinta y pone un 0 en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
         \end{enumerate} 
         \item Si el último elemento es un \$
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borra el \$ de la segunda cinta sin poner nada en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al final
             \item \textbf{Parar}.
         \end{enumerate} 
         \item Si encuntra el \$ en la segunda cinta, lo copia a la primera cianta y lo borra de la segunda.
         \item Si el siguiente elemento es un 0
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borra el 0 de la segunda cinta y pon en la primera un 1
-            \item Copia el resto de elemnto a la primera cinta elimianndolos de la segunda
-        \end{enumerate}[1.]
+            \item Copia el resto de elemento a la primera cinta elimianndolos de la segunda
+        \end{enumerate}
         \item Si el siguiente elemento es un 1
-        \begin{enumerate}[1.]
+        \begin{enumerate}
             \item Borra los 1 de la segunda cinta y pone 0
             \item Cuando llega a un 0 o al final, lo borra de la segunda cinta y pone un 1 en la primera
-            \item Borra los elemntos de la segunda cinta y los copia en la primera
-        \end{enumerate}[1.]
+            \item Borra los elementos de la segunda cinta y los copia en la primera
+        \end{enumerate}
     \end{enumerate}
 \end{itemize}
 
@@ -177,4 +176,4 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \end{tabular}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\

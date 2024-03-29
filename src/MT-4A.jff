@@ -13,33 +13,33 @@
 			<y>101.0</y>
 		</state>
 		<state id="2" name="q2">
-			<x>398.0</x>
-			<y>-49.0</y>
+			<x>425.0</x>
+			<y>-52.0</y>
 		</state>
 		<state id="3" name="q3">
 			<x>557.0</x>
 			<y>172.0</y>
 		</state>
 		<state id="4" name="q4">
-			<x>913.0</x>
-			<y>-42.0</y>
+			<x>868.0</x>
+			<y>-37.0</y>
 		</state>
 		<state id="5" name="q5">
-			<x>618.0</x>
-			<y>-160.0</y>
+			<x>623.0</x>
+			<y>-124.0</y>
 		</state>
 		<state id="6" name="q6">
-			<x>197.0</x>
-			<y>240.0</y>
+			<x>193.0</x>
+			<y>218.0</y>
 		</state>
 		<state id="7" name="q7">
-			<x>68.0</x>
-			<y>251.0</y>
+			<x>48.0</x>
+			<y>166.0</y>
 			<final/>
 		</state>
 		<state id="8" name="q8">
-			<x>823.0</x>
-			<y>140.0</y>
+			<x>688.0</x>
+			<y>98.0</y>
 		</state>
 		<!--The list of transitions.-->
 		<transition>
