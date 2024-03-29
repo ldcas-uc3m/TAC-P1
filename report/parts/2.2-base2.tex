@@ -32,8 +32,8 @@ El algoritmo de resolución es el siguiente:
                 \item sustituirlo por un 1
                 \item Si se encuntra un \$
                 \begin{enumerate}[1.]
-                    \item Avanzar hatsa el extremo derecho
-                    \item Volver hacia la izquierda eliminando todo los elementos hasta el \$ incluido
+                    \item Avanzar hasta el extremo derecho
+                    \item Volver hacia la izquierda eliminando todos los elementos hasta el \$ incluido
                     \item \textbf{Parar}.
                 \end{enumerate}
             \end{enumerate}
@@ -47,7 +47,7 @@ El algoritmo de resolución es el siguiente:
 
 
 \subsubsection*{Peor caso}
-Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán.\\
+Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán.\\
 Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se reuerirán.
 
 \subsubsection*{Evaluación empírica}

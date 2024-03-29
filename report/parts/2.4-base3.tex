@@ -1,10 +1,87 @@
 \section{Suma de enteros en base tres}
 
 %----------
-% MT-2A
+% MT-4A
 %----------
 
-\subsection{MT Determinista de 1 cinta}
+\subsection{MT Determinista de 2 cintas}
 
 \subsubsection*{Diseño propuesto}
 El algoritmo de resolución es el siguiente
+
+\begin{itemize}
+    \item Ciclo:
+    \begin{enumerate}[1.]
+        \item Comienzo desde la izquierda, desplazamiento hasta el extremo derecho.
+        \item Si el último elemento es un 1:
+        \begin{enumerate}[1.]
+            \item Borrarlo.
+            \item Volver al extremo izquierdo.
+            \item Añadir un 1 en la primera posición.
+        \end{enumerate}
+        \item Si el último elemento es un 0:
+        \begin{enumerate}[1.]
+            \item Borrarlo y sustituirlo por un 1.
+            \item Volver hacia la izquierda.
+            \item Si se encuentra un 1 
+            \begin{enumerate}[1.] 
+                \item sustituirlo por un 0
+            \end{enumerate}
+            \item Si se encuentra un 0
+            \begin{enumerate}[1.]
+                \item sustituirlo por un 1
+                \item Si se encuntra un \$
+                \begin{enumerate}[1.]
+                    \item Avanzar hatsa el extremo derecho
+                    \item Volver hacia la izquierda eliminando todo los elementos hasta el \$ incluido
+                    \item \textbf{Parar}.
+                \end{enumerate}
+            \end{enumerate}
+            \item \textbf{Parar}.
+        \end{enumerate}
+    \end{enumerate}
+\end{itemize}
+
+\plotimplementation{MT-4A}
+
+
+\subsubsection*{Peor caso}
+Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de digitos con valor 2 más ciclos se requerirán.\\
+Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se requerirán.
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 2 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-4A.csv}.}:
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccc}
+        Entrada & $n_d$ & Pasos \\
+        \hline
+        2\$2                     & 3  & 30   \\
+        2\$22                    & 4  & 118   \\
+        2\$222                   & 5  & 446  \\
+        2\$2222                  & 6  & 1638  \\
+        2\$22222                 & 7  & 5854  \\
+    \end{tabular}
+\end{table}
+
+
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|}
+        \hline
+        $n$ & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7}\\ \hline
+        $T(n)$ & \textbf{30} & \textbf{118} & \textbf{446} & \textbf{1638} & \textbf{5854}      \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &    & 88 & 328 & 1192 & 4216 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &    &   & 240 & 864 & 3024 \\ \hline
+        $C(n) = B(n) - B(n-2)$ &    &   &    & 624 & 2160 \\ \hline
+    \end{tabular}
+\end{table}
+
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
