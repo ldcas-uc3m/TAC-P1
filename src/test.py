@@ -170,6 +170,7 @@ if __name__ == "__main__":
         REPO_ROOT / "src/MT-1B.jff",
         REPO_ROOT / "src/MT-2A.jff",
         REPO_ROOT / "src/MT-2B.jff",
+        REPO_ROOT / "src/MT-4A.jff",
         REPO_ROOT / "src/MT-5A.jff",
         REPO_ROOT / "src/MT2T-6A.jff",
         REPO_ROOT / "src/MT3T-6A.jff"
@@ -217,6 +218,19 @@ if __name__ == "__main__":
                     "1$111",
                     "1$1111",
                     "1$11111",
+                ]
+
+            case "MT-4A":
+                inputs = [
+                    "12$21",
+                    "21$12",
+                    "22$22",
+                    "101$111",
+                    "111$101",
+                    "222$1001",
+                    "1001$222",
+                    "2222$1111",
+                    "1111$2222"
                 ]
 
             case "MT-5A" | "MT2T-6A" | "MT3T-6A":
