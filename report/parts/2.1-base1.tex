@@ -118,14 +118,15 @@ El algoritmo de resolución es el siguiente:
         \item Si se encuentra un \$ en la cinta 0:
         \begin{enumerate}[1.]
             \item Borrarlo de la cinta 0.
-            \item No añadir nada en la cinta 1 y no avanzar en dicha cinta.
-            \item Retroceder hacia la izquierda en ambas cintas.
-            \item Por cada 1 en la cinta 1 borrarlo y añadir un 1 en la cinta 0
+            \item No añadir nada en la cinta 1 y retroceder una posisción.
+            \item Avanzar hacia la derecha en la cinta 0 hasata llegar al final y mantenerse sin moverse en la cinta 1.
+            \item Por cada 1 en la cinta 1 borrarlo y desplazarse hacia la izquierda en dicha cinta, añadir un 1 en la cinta 0 y avanzar a la derecha
             \item Cuando la cinta 1 queda vacia, \textbf{parar}.
         \end{enumerate}
     \end{enumerate}
 \end{itemize}
 De esta forma al finalizar la ejecución, la primera cinta contiene el resultado de la suma de ambos números y la segunda cinta queda vacía. \\
+
 
 Se ha aplicado una optimización respecto al algortimo original, por el cual una vez se ha copiado el primer número en la segunda cinta, tras eliminarse el \$ de la primera cinta, se empiezan a pasar el número de la segunda cinta a la primera desde la izquierda, en vez de copiarlo desde la derecha ya que que en este caso concreto no influye el orden de los digitos.\\
 
@@ -144,11 +145,11 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ la longitu
     \begin{tabular}{lcc}
         Entrada                    & $n$ & Pasos \\
         \hline
-        1\$1                       & 3  &  4  \\
-        11\$1                      & 4  &  6  \\
-        111\$1                     & 5  &  8  \\
-        1111\$1                    & 6  &  10  \\
-        11111\$1                   & 7  &  12  \\
+        1\$                       & 3  &  4  \\
+        11\$                      & 4  &  6  \\
+        111\$                     & 5  &  8  \\
+        1111\$                    & 6  &  10  \\
+        11111\$                   & 7  &  12  \\
     \end{tabular}
 \end{table}
 

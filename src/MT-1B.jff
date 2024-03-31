@@ -6,7 +6,6 @@
 		<state id="0" name="q0">
 			<x>77.0</x>
 			<y>98.0</y>
-			<initial/>
 		</state>
 		<state id="1" name="q1">
 			<x>244.0</x>
@@ -17,7 +16,51 @@
 			<y>98.0</y>
 			<final/>
 		</state>
+		<state id="3" name="q3">
+			<x>81.0</x>
+			<y>211.0</y>
+			<initial/>
+		</state>
+		<state id="4" name="q4">
+			<x>279.0</x>
+			<y>208.0</y>
+		</state>
+		<state id="7" name="q7">
+			<x>451.0</x>
+			<y>210.0</y>
+			<final/>
+		</state>
 		<!--The list of transitions.-->
+		<transition>
+			<from>4</from>
+			<to>4</to>
+			<read tape="1">1</read>
+			<write tape="1">1</write>
+			<move tape="1">R</move>
+			<read tape="2">1</read>
+			<write tape="2">1</write>
+			<move tape="2">S</move>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>4</to>
+			<read tape="1">1</read>
+			<write tape="1">1</write>
+			<move tape="1">R</move>
+			<read tape="2"/>
+			<write tape="2"/>
+			<move tape="2">S</move>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read tape="1">$</read>
+			<write tape="1"/>
+			<move tape="1">S</move>
+			<read tape="2"/>
+			<write tape="2"/>
+			<move tape="2">L</move>
+		</transition>
 		<transition>
 			<from>0</from>
 			<to>0</to>
@@ -39,6 +82,36 @@
 			<move tape="2">L</move>
 		</transition>
 		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read tape="1">1</read>
+			<write tape="1"/>
+			<move tape="1">R</move>
+			<read tape="2"/>
+			<write tape="2">1</write>
+			<move tape="2">R</move>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read tape="1">$</read>
+			<write tape="1"/>
+			<move tape="1">R</move>
+			<read tape="2"/>
+			<write tape="2"/>
+			<move tape="2">L</move>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>7</to>
+			<read tape="1"/>
+			<write tape="1"/>
+			<move tape="1">L</move>
+			<read tape="2"/>
+			<write tape="2"/>
+			<move tape="2">R</move>
+		</transition>
+		<transition>
 			<from>1</from>
 			<to>2</to>
 			<read tape="1"/>
@@ -49,12 +122,12 @@
 			<move tape="2">R</move>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read tape="1">$</read>
-			<write tape="1"/>
-			<move tape="1">S</move>
-			<read tape="2"/>
+			<from>4</from>
+			<to>4</to>
+			<read tape="1"/>
+			<write tape="1">1</write>
+			<move tape="1">R</move>
+			<read tape="2">1</read>
 			<write tape="2"/>
 			<move tape="2">L</move>
 		</transition>

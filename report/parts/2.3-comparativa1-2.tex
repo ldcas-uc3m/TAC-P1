@@ -1,1 +1,46 @@
 \section{Comparativa ejercicios 1 y 2}
+
+
+Para cada algoritmo, es decir el sumador en base uno y el sumador en base dos, con una única cinta se han introducido diferentes valores a fin de comapra la eficiencia, con el número de pasos requieridos para llevar acabo la suma de ambos números. Para cada caso se han introducido los números en el formato que para cada algoritmo es el peor caso\\
+
+\subsubsection*{Eficiencia algoritmos MT 1 cinta}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccccc}
+        Operación & Entrada base 1 (MT-1A) & Pasos & Entrada base 2 (MT-2A) & Pasos \\
+        \hline
+        1+1       & 1\$1                                  & 15    & 1\$1        & 21  \\
+        2+3       & 11\$111                               & 53    & 10\$11      & 47  \\
+        4+5       & 1111\$11111                           & 127   & 100\$101    & 83  \\
+        6+10      & 111111\$1111111111                    & 386   & 110\$1010   & 172 \\
+        14+21     & 11111111111111\$111111111111111111111 & 1607  & 1110\$10101 & 372 \\
+    \end{tabular}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{plot_comparative1&2_1tape}
+    \caption{Comparativa costes MT-1A y MT-2A}
+\end{figure}
+
+\subsubsection*{Eficiencia algoritmos MT 2 cintas} 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccccc}
+        Operación & Entrada base 1 (MT-1B) & Pasos & Entrada base 2 (MT-2B)& Pasos \\
+        \hline
+        1+1       & 1\$1                                  & 5    & 1\$1        & 17  \\
+        2+3       & 111\$11                               & 10   & 10\$11      & 50  \\
+        4+5       & 11111\$1111                           & 16   & 100\$101    & 93  \\
+        6+10      & 1111111111\$111111                    & 28   & 110\$1010   & 204 \\
+        14+21     & 111111111111111111111\$11111111111111 & 58   & 1110\$10101 & 507 \\
+    \end{tabular}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{plot_comparative1&2_2tape}
+    \caption{Comparativa costes MT-1B y MT-2B}
+\end{figure}

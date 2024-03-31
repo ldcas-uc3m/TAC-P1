@@ -81,6 +81,43 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
 # PLOT FUNCTIONS
 # ==============
 
+
+def plot_two_df(
+    df1: pd.DataFrame,
+    df2: pd.DataFrame,
+    x_column: str,
+    y_column: str,
+    save_file: str | None = None
+):
+    """
+    Plots a DataFrame.
+
+    :param df: DataFrame to plot.
+    :param x_column: Column from `df` to represent on the X axis.
+    :param y_column: Column from `df` to represent on the Y axis.
+    :param save_file: File to save the image to. If `None`, shows the plot.
+    """
+
+    # Crear el gráfico
+    fig, ax = plt.subplots()
+    ax.plot(df1[x_column], df1[y_column], marker='o', color='blue', label='Base 1')
+    ax.plot(df2[x_column], df2[y_column], marker='o', color='red', label='Base 2')
+
+    # Agregar etiquetas
+    ax.set_xlabel(x_column)
+    ax.set_ylabel(y_column)
+
+    ax.legend(loc='lower right')
+
+    if save_file:
+        fig.savefig(save_file)
+    else:
+        fig.show()
+
+    plt.close()
+
+
+
 def plot_df(
     df: pd.DataFrame,
     x_column: str,
@@ -200,25 +237,51 @@ if __name__ == "__main__":
                 ntapes = 2 if machine_name.endswith("B") else 1
 
             case "MT-1A":
-                inputs = [f"${'1'*i}" for i in range(1,6)]
+                inputs1 = [f"${'1'*i}" for i in range(1,6)]
+                inputs2 = [
+                    "1$1",
+                    "11$111",
+                    "1111$11111",
+                    "111111$1111111111",
+                    "11111111111111$111111111111111111111" 
+                    ]
+                inputs = inputs1+inputs2
                 ntapes = 1
 
             case "MT-1B":
-                inputs = [f"{'1'*i}$1" for i in range(1,6)]
+                inputs1 = [f"{'1'*i}$" for i in range(1,6)]
+                inputs2 = [
+                    "1$1",
+                    "111$11",
+                    "11111$1111",
+                    "1111111111$111111",
+                    "111111111111111111111$11111111111111" 
+                    ]
+                inputs = inputs1+inputs2
                 ntapes = 2
 
             case "MT-2A":
-                inputs = [f"1${'1'*i}" for i in range(1,7)]
+                inputs1 = [f"1${'1'*i}" for i in range(1,7)]
+                inputs2 = [
+                    "1$1",
+                    "10$11",
+                    "100$101",
+                    "110$1010",
+                    "1110$10101"
+                ] 
+                inputs = inputs1+inputs2
                 ntapes = 1
 
             case "MT-2B":
-                inputs = [
+                inputs1 = [f"1${'1'*i}" for i in range(1,7)]
+                inputs2 = [
                     "1$1",
-                    "1$11",
-                    "1$111",
-                    "1$1111",
-                    "1$11111",
-                ]
+                    "10$11",
+                    "100$101",
+                    "110$1010",
+                    "1110$10101"
+                ] 
+                inputs = inputs1+inputs2
 
             case "MT-4A":
                 inputs = [
@@ -248,6 +311,17 @@ if __name__ == "__main__":
 
         # plot results
         plot_df(df, 'n', 'steps', IMAGE_FOLDER / f"plot_{machine_name}_results.png")
+
+
+    # plot comparison 1 VS 2, one tape
+    df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
+    plot_two_df(df1, df2, 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
+
+     # plot comparison 1 VS 2, two tape
+    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
+    plot_two_df(df1, df2, 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
 
 
     # plot complexity
