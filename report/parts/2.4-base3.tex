@@ -17,57 +17,51 @@ El algoritmo de resolución es el siguiente
     \begin{enumerate}
         \item Avance de derecha a izquierda copiando la palabra a la segunda cinta y borrandolo de la primera hasta llegar al final
         \item Comienza a moverse de izquierda a derecha
-        \item Si el ultimo elemento es un 0
-        \begin{enumerate}
-            \item Borra los 0 de la segunda cinta y pone en la primera un 2, hasta encontrar un 1 o un 2
-            \item Si encuentra un 1
-            \begin{enumerate}
-                \item Lo borra de la segunda cinta y pone un 0 en la primera
-            \end{enumerate}
-            \item Si encuentra un 2
-            \begin{enumerate}
-                \item Lo borra de la segunda cinta y pone un 1 en la primera
-            \end{enumerate}
-            \item Sigue avanzando copiando los elemntos de la segunda cinta a la primera hasta llegar al \$
+        \item Si el ultimo elemento es un \texttt{0}:
+        \begin{enumerate}[1.]
+            \item Borra los 0 de la segunda cinta y pone en la primera un \texttt{2}, hasta encontrar un \texttt{1} o un \texttt{2}
+            \item Si encuentra un 1, Lo borra de la segunda cinta y pone un \texttt{0} en la primera
         \end{enumerate}
-        \item Si el ultimo elemento es un 1   
-        \begin{enumerate}
-            \item Borra el primer 1 de la segunda cinta y pone un 0 en la primera cinta
+        \item Si encuentra un \texttt{2}, lo borra de la segunda cinta y pone un \texttt{1} en la primera.
+        \item Sigue avanzando copiando los elemntos de la segunda cinta a la primera hasta llegar al \$
+        \item Si el ultimo elemento es un \texttt{1}
+        \begin{enumerate}[1.]
+            \item Borra el primer \texttt{1} de la segunda cinta y pone un \texttt{0} en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
         \end{enumerate} 
-        \item Si el ultimo elemento es un 2   
-        \begin{enumerate}
+        \item Si el ultimo elemento es un \texttt{2}:
+        \begin{enumerate}[1.]
             \item Borra el primer 2 de la segunda cinta y pone un 1 en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
         \end{enumerate} 
-        \item Si el último elemento es un \$
-        \begin{enumerate}
+        \item Si el último elemento es un \$:
+        \begin{enumerate}[1.]
             \item Borra el \$ de la segunda cinta sin poner nada en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al final
             \item \textbf{Parar}.
-        \end{enumerate} 
+        \end{enumerate}
         \item Si encuentra el \$ en la segunda cinta, lo copia a la primera cianta y lo borra de la segunda.
-        \item Si el siguiente elemento es un 0
-        \begin{enumerate}
-            \item Borra el 0 de la segunda cinta y pone en la primera un 1
-            \item Copia el resto de elemento a la primera cinta eliminandolos de la segunda
+        \item Si el siguiente elemento es un \texttt{0}:
+        \begin{enumerate}[1.]
+            \item Borra el \texttt{0} de la segunda cinta y pone en la primera un \texttt{1}
+            \item Copia el resto de elemento a la primera cinta eliminándolos de la segunda
         \end{enumerate}
-        \item Si el siguiente elemento es un 1
+        \item Si el siguiente elemento es un \texttt{1}:
         \begin{enumerate}
-            \item Borra el 1 de la segunda cinta y pone en la primera un 2
-            \item Copia el resto de elemento a la primera cinta eliminandolos de la segunda
+            \item Borra el \texttt{1} de la segunda cinta y pone en la primera un \texttt{2}
+            \item Copia el resto de elemento a la primera cinta eliminándolos de la segunda
         \end{enumerate}
-        \item Si el siguiente elemento es un 2
-        \begin{enumerate}
-            \item Borra los 2 de la segunda cinta y pone 0
-            \item Cuando llega a un 0 o al final, lo borra de la segunda cinta y pone un 1 en la primera
-            \item Borra los elemntos de la segunda cinta y los copia en la primera
+        \item Si el siguiente elemento es un \texttt{2}:
+        \begin{enumerate}[1.]
+            \item Borra los \texttt{2} de la segunda cinta y pone \texttt{0}
+            \item Cuando llega a un \texttt{0} o al final, lo borra de la segunda cinta y pone un 1 en la primera
+            \item Borra los elementos de la segunda cinta y los copia en la primera cinta
         \end{enumerate}
     \end{enumerate}
 \end{itemize}
 
 
-\plotimplementation{MT-4A}
+\plotimplementation[0.8]{MT-4A}
 
 
 \subsubsection*{Peor caso}
@@ -77,8 +71,7 @@ Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 2 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-4A.csv}.}:
 
-
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabular}{lccc}
         Entrada & $n_d$ & Pasos \\
@@ -95,8 +88,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
-
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|}
         \hline
