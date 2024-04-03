@@ -1,9 +1,11 @@
 \section{Comparativa ejercicios 1 y 2}
 
 
-Para cada algoritmo, es decir el sumador en base uno y el sumador en base dos, con una única cinta se han introducido diferentes valores a fin de comapra la eficiencia, con el número de pasos requieridos para llevar acabo la suma de ambos números. Para cada caso se han introducido los números en el formato que para cada algoritmo es el peor caso\\
+
 
 \subsubsection*{Eficiencia algoritmos MT 1 cinta}
+
+Para cada algoritmo, es decir el sumador en base uno y el sumador en base dos, con una única cinta se han introducido diferentes valores a fin de comparar la eficiencia, con el número de pasos requieridos para llevar acabo la suma de ambos números. Para cada caso se han introducido los números en el formato que para cada algoritmo es el peor caso\\
 
 \begin{table}[h]
     \centering
@@ -24,7 +26,13 @@ Para cada algoritmo, es decir el sumador en base uno y el sumador en base dos, c
     \caption{Comparativa costes MT-1A y MT-2A}
 \end{figure}
 
+Se observa que mientras n es un número bajo ambos algoritmos tienen costes similares, pero a medida que n va incrmentandose la diferencia de costes aumenta en mayor proporción para el algoritmo que suma en base uno.\\
+Esto se debe a que dicho algoritmo en cada ciclo debe desplazarse desde el inicio de la cadena donde se restará un 1, hasta el final para añadir otro 1, y al ser en base uno a mayor sea el número, el tamaño de la cadena incrmentará en mayor medida.Mientras que en base dos aunque los números sean mayores el tamaño de la cadena aumenta en una proporción menor.\\
+Esto también es observabale comparando las complejidades, donde para el algortimo de suma en base uno dicha complejidad es cuadrática y queda definida por un polinomio de grado dos, mientras que para el algortimo de suma en base dos no posible definir la complejidad a través de un polinomio pues el coste aumenta de forma similar a una expresión exponencial. 
+
 \subsubsection*{Eficiencia algoritmos MT 2 cintas} 
+
+Al igual que en el apartado previo, para cada algortimo tanto la suma en base uno como en base dos, en este caso empleando un automata de dos cintas, se han llevado acabo una serie de pruebas con las mismas palabras que en las pruebas realizadas con los automatas de una cinta, a fin de poder comparar la eficiencia en terminos de coste, Para cada caso se han introducido los números en el formato que para cada algoritmo es el peor caso\\
 
 \begin{table}[h]
     \centering
@@ -44,3 +52,6 @@ Para cada algoritmo, es decir el sumador en base uno y el sumador en base dos, c
     \includegraphics[width=0.7\textwidth]{plot_comparative1&2_2tape}
     \caption{Comparativa costes MT-1B y MT-2B}
 \end{figure}
+
+Se observa que desde un inicio, ya los costes en terminos de pasos requeridos aumentan significativamente más en el algoritmo de suma en base dos, haciendose cada vez más notable a medida que n aumenta.\\ Esto se debe a que el algortimo de base uno tranfiere todos los unos a la derecha del \$ a la segunda cinta para luego copiarlos a al final de la primera cinta, mientras que el algortimo de base dos debe ir desplazandose de izquierda a derecha suamndo uno al numero a la derecha del \$, y restandoselo al de la izquierda, lo que requiere varios ciclos de avanzar y retroceder.\\
+Esto se corrobora observando las expresiones de la complejidad, donde para el algoritmo de base uno se puede expresar con un polinomio de grado uno, pues tiene una complejidad lineal. Mientras que para el algoritmo de base dos no es posible extarer un polinomio, ya que tiene una tendencia exponencial.
