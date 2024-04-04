@@ -33,59 +33,52 @@ Por lo tanto, el peor caso sería un número no primo con el mayor divisor posib
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-7A.csv}.}:
 
-% \begin{table}[h]
-%     \centering
-%     \begin{tabular}{lcc}
-%         Entrada & $n$ & Pasos \\
-%         \hline
-%         \texttt{aaa}                &  3  & 14 \\
-%         \texttt{aaaaaa}             &  6  & 22 \\
-%         \texttt{aaaaaaaaa}          &  9  & 30 \\
-%         \texttt{aaaaaaaaaaaa}       & 12  & 38 \\
-%     \end{tabular}
-% \end{table}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        \texttt{1111}              &  4  & 9  \\
+        \texttt{111111}            &  6  & 12 \\
+        \texttt{11111111}          &  8  & 15 \\
+    \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-7A}
+\end{table}
 
 
 \subsubsection*{Coste computacional}
 Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
-% \begin{table}[H]
-%     \centering
-%     \begin{tabular}{|l|c|c|c|c|}
-%         \hline
-%         $n$    & \textbf{3}  & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
-%         $T(n)$ & \textbf{14} & \textbf{22} & \textbf{30} & \textbf{38} \\ \hline
-%         \hline
-%         $A(n) = T(n) - T(n-2)$ &   & 8 & 8 & 8 \\ \hline
-%         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
-%     \end{tabular}
-% \end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        $n$    & \textbf{4}  & \textbf{6}  & \textbf{8}  \\ \hline
+        $T(n)$ & \textbf{9}  & \textbf{12} & \textbf{15} \\ \hline
+        \hline
+        $A(n) = T(n) - T(n-2)$ &   & 3 & 3 \\ \hline
+        $B(n) = A(n) - A(n-2)$ &   &   & 0 \\ \hline
+    \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-7A}
+\end{table}
 
-% Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
 
-% Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
-% \begin{subequations}
-%     \begin{gather}
-%         n = 3,\ T(3) = 14 \rightarrow 3a + b = 14 \\
-%         n = 6,\ T(6) = 22 \rightarrow 6a + b = 22
-%     \end{gather}
-% \end{subequations}
-
-% Resolviendo, $a=\frac{8}{3}$ y $b=6$, por lo que:
-
-% \begin{equation}
-%     T_{\mathrm{2T-6A}}(n) = \frac{8}{3}n + 6
-% \end{equation}
+\begin{subequations}
+    \begin{gather}
+        n = 4,\ T(4) = 9  \rightarrow 4a + b = 9 \\
+        n = 6,\ T(6) = 12 \rightarrow 6a + b = 12
+    \end{gather}
+\end{subequations}
 
 
-\subsubsection*{Cota asintótica}
-% Al conocer $T_{\mathrm{7A}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{49}{15}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
-% \begin{equation}
-%     O_{\mathrm{7A}}(n) = \frac{49}{15} n
-% \end{equation}
+Resolviendo, $a=\frac{3}{2}$ y $b=3$, por lo que:
 
-% \plotcomplexity{MT-7A}
+\begin{equation}
+    T(n) = \frac{3}{2}n + 3
+\end{equation}
 
 
 %----------
@@ -134,59 +127,47 @@ El peor caso del algoritmo sigue siendo un número primo, pero como en este caso
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-7B.csv}.}:
 
-% \begin{table}[h]
-%     \centering
-%     \begin{tabular}{lcc}
-%         Entrada & $n$ & Pasos \\
-%         \hline
-%         \texttt{aaa}                &  3  & 14 \\
-%         \texttt{aaaaaa}             &  6  & 22 \\
-%         \texttt{aaaaaaaaa}          &  9  & 30 \\
-%         \texttt{aaaaaaaaaaaa}       & 12  & 38 \\
-%     \end{tabular}
-% \end{table}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        Entrada & $n$ & Pasos \\
+        \hline
+        \texttt{11}            &  2  & 6   \\
+        \texttt{111}           &  3  & 18  \\
+        \texttt{11111}         &  5  & 55  \\
+        \texttt{1111111}       &  7  & 109 \\
+        \texttt{11111111111}   & 11  & 266 \\
+    \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-7B}
+\end{table}
 
 
 \subsubsection*{Coste computacional}
-Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
 
-% \begin{table}[H]
-%     \centering
-%     \begin{tabular}{|l|c|c|c|c|}
-%         \hline
-%         $n$    & \textbf{3}  & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
-%         $T(n)$ & \textbf{14} & \textbf{22} & \textbf{30} & \textbf{38} \\ \hline
-%         \hline
-%         $A(n) = T(n) - T(n-2)$ &   & 8 & 8 & 8 \\ \hline
-%         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
-%     \end{tabular}
-% \end{table}
+En este caso no resulta posible aplicar el método de diferencias finitas para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de n=2 con n=3 aumenta en menor proporción que para el siguiente caso, diferencia entre n=3 y n=5, ya que el propio tamaño de n en el primer caso aumenta en una unidad y en el segundo caso aumenta en dos unidades.
 
-% Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+Se aproxima la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos. Se comprueba que el comportamiento es similar aunque no exacto, ya que no es posible aplicar el método de diferencias finitas.
 
-% Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+\begin{subequations}
+    \begin{gather}
+        n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
+        n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
+        n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
+    \end{gather}
+\end{subequations}
 
-% \begin{subequations}
-%     \begin{gather}
-%         n = 3,\ T(3) = 14 \rightarrow 3a + b = 14 \\
-%         n = 6,\ T(6) = 22 \rightarrow 6a + b = 22
-%     \end{gather}
-% \end{subequations}
+Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
 
-% Resolviendo, $a=\frac{8}{3}$ y $b=6$, por lo que:
+\begin{equation}
+    T(n) = \frac{13}{6}n^2 + \frac{7}{6}n + 4
+\end{equation}
 
-% \begin{equation}
-%     T_{\mathrm{2T-6A}}(n) = \frac{8}{3}n + 6
-% \end{equation}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{plot_MT-7B_complexity.png}
+    \caption{ Coste computacional de MT-7B}
+\end{figure}
 
-
-\subsubsection*{Cota asintótica}
-% Al conocer $T_{\mathrm{7B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{49}{15}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
-% \begin{equation}
-%     O_{\mathrm{7B}}(n) = \frac{49}{15} n
-% \end{equation}
-
-% \plotcomplexity{MT-7B}
 
 
 

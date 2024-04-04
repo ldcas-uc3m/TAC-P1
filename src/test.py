@@ -197,6 +197,51 @@ def plot_functions(
 
 
 
+def plot_df_function(
+    func: Callable[[np.ndarray], np.ndarray],
+    df: pd.DataFrame,
+    x_column: str,
+    y_column: str,
+    save_file: str | Path | None = None
+):
+    """
+    Plots functions refering to the complexity of turing machines (in terms of n and number of steps).
+
+    :param funcs: Map of function name and function (`{"f(n)": f_n, ...}`).
+    :param n0: Initial value of n.
+    :param n_max: Maximum value of n to plot.
+    :param save_file: File to save the image to. If `None`, shows the plot.
+    """
+
+    n0 = df[x_column].iloc[0]
+    nmax = df[x_column].iloc[-1]
+
+
+    fig, ax = plt.subplots()
+
+    x = np.linspace(n0, nmax, nmax - n0)
+
+    # function
+    ax.plot(x, func(x), label="O(n)", color="red")
+
+    # dataframe
+    ax.plot(df[x_column], df[y_column], label="T(n)", marker='o', color='blue')
+
+    # Agregar etiquetas
+    ax.set_xlabel(x_column)
+    ax.set_ylabel(y_column)
+
+    ax.legend()
+
+    if save_file:
+        fig.savefig(save_file)
+    else:
+        fig.show()
+
+    plt.close()
+
+
+
 if __name__ == "__main__":
     if not TURING_EXEC.exists():
         exit(f"TM simulator executable not found at {TURING_EXEC}. Have you run make?")
@@ -212,7 +257,8 @@ if __name__ == "__main__":
         TM_FOLDER / "MT-4A.jff",
         TM_FOLDER / "MT-5A.jff",
         TM_FOLDER / "MT2T-6A.jff",
-        TM_FOLDER / "MT3T-6A.jff"
+        TM_FOLDER / "MT3T-6A.jff",
+        TM_FOLDER / "MT-7B.jff"
     ]
 
     for machine_file in jff_files:
@@ -304,6 +350,16 @@ if __name__ == "__main__":
                 inputs = ["a"*3*i for i in range(1, 5)]
                 ntapes = 3 if "3" in machine_name else 2
 
+            case "MT-7B":
+                inputs = [
+                    "11",
+                    "111",
+                    "11111",
+                    "1111111",
+                    "11111111111"
+                ]
+                ntapes = 2
+
             case _:
                 logger.warning(f"There are no predefined inputs for {machine_name}!")
                 continue
@@ -323,23 +379,26 @@ if __name__ == "__main__":
     # plot comparison 1 VS 2, one tape
     df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 1', 'Base 2', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
+    plot_two_df(df1, df2,'Base 1', 'Base 2', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
 
     # plot comparison 1 VS 2, two tape
     df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2, 'Base 1', 'Base 2','steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
+    plot_two_df(df1, df2, 'Base 1', 'Base 2', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
 
-     # plot comparison 1 VS 3, two tape
+    # plot comparison 1 VS 3, two tape
     df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 1', 'Base 3', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&3_2tape.png")
+    plot_two_df(df1, df2,'Base 1', 'Base 3', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&3_2tape.png")
 
-     # plot comparison 2 VS 3, two tape
+    # plot comparison 2 VS 3, two tape
     df1 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 2', 'Base 3', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative2&3_2tape.png")
+    plot_two_df(df1, df2,'Base 2', 'Base 3', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative2&3_2tape.png")
 
+    # plot function for 7B and empirical results
+    df = pd.DataFrame({'steps': [6, 18, 55, 109, 266], 'n': [2, 3, 5, 7, 11]})
+    plot_df_function(lambda n: (13/6)*n**2 + (7/6)*n -5, df, 'n', 'steps', IMAGE_FOLDER / f"plot_MT-7B_complexity.png")
 
     # plot complexity
     logger.info("Plotting complexity functions...")
