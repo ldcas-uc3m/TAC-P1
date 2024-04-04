@@ -84,7 +84,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \end{tabular}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
 
 
 %----------
@@ -96,7 +96,7 @@ Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no so
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales \\
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
 
 El algoritmo de resolución es el siguiente:
 
@@ -141,7 +141,7 @@ El algoritmo de resolución es el siguiente:
 
 
 \subsubsection*{Peor caso}
-Dado que la maquina funciona copiando de la primera cinta a la segunda para luego escribir en la primera cinta pero restando a al derecha y sumando a la izquierda una unidad en cada ciclo, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuantos mayor sea el número de la derecha, es decir a más 1 a la derecha del \$ más ciclos se requerirán.\\
+Dado que la maquina funciona copiando de la primera cinta a la segunda para luego escribir en la primera cinta pero restando a al derecha y sumando a la izquierda una unidad en cada ciclo, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuantos mayor sea el número de la derecha, es decir a más 1 a la derecha del \$ más ciclos se requerirán.\medskip
 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 1 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-2B.csv}.}:

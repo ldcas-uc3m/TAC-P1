@@ -72,7 +72,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \label{tab:0A}
 \end{table}
 
-Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\\
+Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\medskip
 
 Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
@@ -92,14 +92,14 @@ Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
 
 
 \subsubsection*{Cota asintótica}
-La cota asintótica queda defida como:
-% TODO: search bibliography
+La cota asintótica queda defida\parencite[ver][Definition 7.2 (p. 277)]{SipserMichael2013Ittt} como:
+
 \begin{equation}
     O(n) = k \cdot g(n) \geq T(n)
     \label{eq:On}
 \end{equation}
 
-Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n^2$.\\
+Donde $g(n)$ representa el orden de la cota superior, en este caso $g(n) = n^2$.\medskip
 
 Al conocer $T_{\mathrm{0A}}(n)$, si asumimos $n_0 = 10$, obtenemos $k \geq \frac{131}{50}$, por lo que la cota asintótica para esta máquina es:
 \begin{equation}
@@ -171,7 +171,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \label{tab:0B}
 \end{table}
 
-Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
@@ -262,7 +262,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \label{tab:0C}
 \end{table}
 
-Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 

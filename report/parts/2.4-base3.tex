@@ -8,7 +8,7 @@
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales \\
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
 
 El algoritmo de resolución es el siguiente
 
@@ -101,7 +101,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \end{tabular}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
 
 
 \subsubsection*{Evaluación respecto a los apartados 1 y 2}
@@ -110,14 +110,23 @@ Se ha llevado acabo una serie de tests con diferentes operaciones empleando los 
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{c|lc|lc|lc}
-        Operación & Entrada base 1 & Pasos & Entrada base 2 & Pasos & Entrada base 3 & Pasos \\
+    \begin{tabular}{c|lc}
+        Operación & Entrada base 1 & Pasos \\
         \hline
-        $1+1$       & 1\$1                                  & 5    & 1\$1        & 17  & 1\$1     & 15  \\
-        $2+3$       & 111\$11                               & 10   & 10\$11      & 50  & 2\$10    & 43  \\
-        $4+5$       & 11111\$1111                           & 16   & 100\$101    & 93  & 11\$12   & 75  \\
-        $6+10$      & 1111111111\$111111                    & 28   & 110\$1010   & 204 & 20\$101  & 162 \\
-        $14+21$     & 111111111111111111111\$11111111111111 & 58   & 1110\$10101 & 507 & 112\$210 & 384 \\
+        $1+1$       & 1\$1                                  & 5 \\
+        $2+3$       & 111\$11                               & 10  \\
+        $4+5$       & 11111\$1111                           & 16  \\
+        $6+10$      & 1111111111\$111111                    & 28 \\
+        $14+21$     & 111111111111111111111\$11111111111111 & 58\\
+    \end{tabular}
+    \begin{tabular}{c|lc|lc}
+        Operación & Entrada base 2 & Pasos & Entrada base 3 & Pasos \\
+        \hline
+        $1+1$       &  1\$1        & 17  & 1\$1     & 15  \\
+        $2+3$       &  10\$11      & 50  & 2\$10    & 43  \\
+        $4+5$       &  100\$101    & 93  & 11\$12   & 75  \\
+        $6+10$      &  110\$1010   & 204 & 20\$101  & 162 \\
+        $14+21$     &  1110\$10101 & 507 & 112\$210 & 384 \\
     \end{tabular}
 \end{table}
 
