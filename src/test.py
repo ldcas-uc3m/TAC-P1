@@ -85,6 +85,8 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
 def plot_two_df(
     df1: pd.DataFrame,
     df2: pd.DataFrame,
+    name1:str,
+    name2:str, 
     x_column: str,
     y_column: str,
     save_file: str | None = None
@@ -100,8 +102,8 @@ def plot_two_df(
 
     # Crear el gráfico
     fig, ax = plt.subplots()
-    ax.plot(df1[x_column], df1[y_column], marker='o', color='blue', label='Base 1')
-    ax.plot(df2[x_column], df2[y_column], marker='o', color='red', label='Base 2')
+    ax.plot(df1[x_column], df1[y_column], marker='o', color='blue', label=name1)
+    ax.plot(df2[x_column], df2[y_column], marker='o', color='red', label=name2)
 
     # Agregar etiquetas
     ax.set_xlabel(x_column)
@@ -290,7 +292,12 @@ if __name__ == "__main__":
                     "2$222",
                     "2$2222",
                     "2$22222",
-                    "2$222222"
+                    "2$222222",
+                    "1$1",
+                    "2$10",
+                    "11$12",
+                    "20$101",
+                    "112$210"
                 ]
 
             case "MT-5A" | "MT2T-6A" | "MT3T-6A":
@@ -316,12 +323,22 @@ if __name__ == "__main__":
     # plot comparison 1 VS 2, one tape
     df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2, 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
+    plot_two_df(df1, df2,'Base 1', 'Base 2', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
 
-     # plot comparison 1 VS 2, two tape
+    # plot comparison 1 VS 2, two tape
     df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2, 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
+    plot_two_df(df1, df2, 'Base 1', 'Base 2','steps', 'n', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
+
+     # plot comparison 1 VS 3, two tape
+    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
+    plot_two_df(df1, df2,'Base 1', 'Base 3', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative1&3_2tape.png")
+
+     # plot comparison 2 VS 3, two tape
+    df1 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
+    plot_two_df(df1, df2,'Base 2', 'Base 3', 'steps', 'n', IMAGE_FOLDER / f"plot_comparative2&3_2tape.png")
 
 
     # plot complexity

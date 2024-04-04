@@ -102,3 +102,39 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
 \end{table}
 
 Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
+
+
+\subsubsection*{Evaluación respecto a los apartados 1 y 2}
+
+Se ha llevado acabo una serie de tests con diferentes operaciones empleando los tres algoritmos con máquinas de dos cintas, en todos los casos las operaciones se han planteado con el formato de peor caso para poder llevar a cabo un acomparación más rigurosa. 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|lc|lc|lc}
+        Operación & Entrada base 1 & Pasos & Entrada base 2 & Pasos & Entrada base 3 & Pasos \\
+        \hline
+        $1+1$       & 1\$1                                  & 5    & 1\$1        & 17  & 1\$1     & 15  \\
+        $2+3$       & 111\$11                               & 10   & 10\$11      & 50  & 2\$10    & 43  \\
+        $4+5$       & 11111\$1111                           & 16   & 100\$101    & 93  & 11\$12   & 75  \\
+        $6+10$      & 1111111111\$111111                    & 28   & 110\$1010   & 204 & 20\$101  & 162 \\
+        $14+21$     & 111111111111111111111\$11111111111111 & 58   & 1110\$10101 & 507 & 112\$210 & 384 \\
+    \end{tabular}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plot_comparative1&3_2tape}
+    \caption{ Comparativa apartados 1 y 3}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plot_comparative2&3_2tape}
+    \caption{ Comparativa apartados 2 y 3}
+    \end{minipage}
+\end{figure}
+
+Se observa que en terminos de coste el algortimo de base dos y base tres son basante próximos, pues en ambos casos para realizar una misma operación el tamaño de palabra y el funcionamiento de el algoritmo son similares, teniendo una complejidad que no es posible expresar como una expresión polinómica al tener un comportamiento con tendencia exponencial.\\
+En contraposición el algortimo en base uno, muestra tener un coste notablemente inferior al de base tres, pues su expresión de complejidad queda definida por un polinomio de grado uno, se trata de un crecimiento lineal frente al exponencial del algortimo de base tres.
