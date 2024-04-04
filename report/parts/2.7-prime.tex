@@ -4,13 +4,13 @@
 % MT-7A
 %----------
 
-\subsection{\texttt{noprime}}
+\subsection{\texttt{noprime}} \label{MT-7A}
 
 \subsubsection*{Diseño propuesto}
 El algoritmo de resolución es el siguiente:
 
 \begin{enumerate}
-    \item Copiar un \texttt{1} de la cinta 0 a la cinta 1, borrando la cinta 0. Esto se hace ya que el número $1$ es primo y divisor de todos los números, para así empezar a verificar divisores a partir del número $2$.
+    \item Copiar un \texttt{1} de la cinta 0 a la cinta 1, borrando la cinta 0. Este paso se realiza ya que el número $1$ es primo y divisor de todos los números, para así empezar a verificar divisores a partir del número $2$.
     \item Copiar el posible divisor $m$ a la cinta 1, borrando la cinta 0 y dejando el cabezal 1 al final de $m$. Dado que es una máquina no determinista, esto generará máquinas $\forall m \leq n$.
     \item Comprobar si $m$ es divisor de $n$, es decir, si $\exists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando si se llega al final de la cinta 0 a la vez que se llega al final/principio de la cinta 1.\\
     Hasta que las dos cintas están vacías:
@@ -26,6 +26,8 @@ El algoritmo de resolución es el siguiente:
 
 
 \subsubsection*{Peor caso}
+El peor caso de este algoritmo sería un número primo, ya que tendría que comprobar todos los números $m < n$ hasta darse cuenta que es un número primo. Sin embargo, al estar estos casos que no pertenecen al lenguaje que reconoce la MT, no consideramos que sean casos válidos.\\
+Por lo tanto, el peor caso sería un número no primo con el mayor divisor posible, es decir, sea $q \in \mathbb{P}$, $n = q + 1$, o el número siguiente a un número primo.
 
 
 \subsubsection*{Evaluación empírica}
@@ -86,3 +88,106 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
 % \plotcomplexity{MT-7A}
 
 
+%----------
+% MT-7B
+%----------
+
+\subsection{\texttt{prime}}
+
+\subsubsection*{Diseño propuesto}
+Una máquina de Turing no determinista, por definición, ``acepta una
+entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la configuración inicial con $w$ como entrada hasta una configuración con un estado de aceptación''.\\  % TODO: Hopcroft p.289 reference
+Si vemos una máquina no determinista como una serie de procesos (máquinas de Turing) independientes que son generados cada vez que se da una transición no determinista, que \textit{cualquiera} de esos procesos acabe en aceptación indica que el lenguaje es aceptado, mientras que que \textit{ninguno} lo haga indica que el lenguaje no es aceptado. A la hora de crear una máquina no determinista (MTND) que determine si un número es primo o no, es sencillo hacer como en el apartado \ref{MT-7A} y que la máquina reconozca números no primos, ya que hallar cualquier divisor indica que $n$ no es primo, aceptando el lenguaje.\medskip
+
+Sin embargo, para crear una MTND que reconozca números primos, se tendría que comprobar que \textit{ningún} número fuera divisor, es decir, que todos los 'procesos' acaben en rechazo para así aceptar el lenguaje. Esto plantea un problema, que es la intercomunicación entre procesos. Para que, digamos, un 'proceso maestro' determine si $n$ es primo los 'subprocesos' deberían notificárselo de alguna forma.\\
+Esto, teniendo en cuenta nuestro modelo de MTND, no es posible; no hay ningún tipo de comunicación entre procesos.\medskip
+
+Por este motivo hemos visto imposible realizar una MTND como la que se ha pedido, así que hemos optado por hacer la versión determinista de ésta máquina, basada en la MT-7A, para posteriormente compararla con la ella.\bigskip
+
+El algoritmo de resolución es el siguiente:
+\begin{itemize}
+    \item Ciclo:
+    \begin{enumerate}
+        \item Copiar un \texttt{1} de la cinta 0 a la cinta 1. Esto se hace ya que el número $1$ es primo y divisor de todos los números, para así empezar a verificar divisores a partir del número $2$.
+        \begin{enumerate}
+            \item Copiar el posible divisor $m+1$ a la cinta 1, borrando la cinta 0 y dejando el cabezal 1 al final de $m$.
+            \item Si se ha llegado al final de la cinta 0, es $m=n$, por lo que $n$ es primo. Limpiar ambas cintas y \textbf{parar}.
+            \item Comprobar si $m$ es divisor de $n$, es decir, si $\exists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando si se llega al final de la cinta 0 a la vez que se llega al final/principio de la cinta 1.\\
+            Hasta llegar al final de la cinta 0:
+            \begin{enumerate}[1.]
+                \item Avanzar la cinta 0, y retroceder la cinta 1, mientras se lean \texttt{1}.
+                \item Al llegar al principio de la cinta 1, avanzar ambas cintas, mientras se lean \texttt{1}.
+                \item Al llegar al final de la cinta 1, volver a empezar.
+            \end{enumerate}
+            \item Rebobinar ambas cintas, y avanzarlas $m$ veces.
+        \end{enumerate}
+    \end{enumerate}
+\end{itemize}
+
+\plotimplementation[1]{MT-7B}
+
+
+\subsubsection*{Peor caso}
+El peor caso del algoritmo sigue siendo un número primo, pero como en este caso sí es parte del lenguaje, sí podemos usarlo como peor caso.
+
+
+\subsubsection*{Evaluación empírica}
+Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la palabra, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-7B.csv}.}:
+
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{lcc}
+%         Entrada & $n$ & Pasos \\
+%         \hline
+%         \texttt{aaa}                &  3  & 14 \\
+%         \texttt{aaaaaa}             &  6  & 22 \\
+%         \texttt{aaaaaaaaa}          &  9  & 30 \\
+%         \texttt{aaaaaaaaaaaa}       & 12  & 38 \\
+%     \end{tabular}
+% \end{table}
+
+
+\subsubsection*{Coste computacional}
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+
+% \begin{table}[H]
+%     \centering
+%     \begin{tabular}{|l|c|c|c|c|}
+%         \hline
+%         $n$    & \textbf{3}  & \textbf{6}  & \textbf{9}  & \textbf{12} \\ \hline
+%         $T(n)$ & \textbf{14} & \textbf{22} & \textbf{30} & \textbf{38} \\ \hline
+%         \hline
+%         $A(n) = T(n) - T(n-2)$ &   & 8 & 8 & 8 \\ \hline
+%         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
+%     \end{tabular}
+% \end{table}
+
+% Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+
+% Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+
+% \begin{subequations}
+%     \begin{gather}
+%         n = 3,\ T(3) = 14 \rightarrow 3a + b = 14 \\
+%         n = 6,\ T(6) = 22 \rightarrow 6a + b = 22
+%     \end{gather}
+% \end{subequations}
+
+% Resolviendo, $a=\frac{8}{3}$ y $b=6$, por lo que:
+
+% \begin{equation}
+%     T_{\mathrm{2T-6A}}(n) = \frac{8}{3}n + 6
+% \end{equation}
+
+
+\subsubsection*{Cota asintótica}
+% Al conocer $T_{\mathrm{7B}}(n)$, podemos afirmar que $g(n) = n$. Si asumimos $n_0 = 10$, obtenemos $k \geq \frac{49}{15}$, por lo que la cota asintótica (definida en la ecuación \ref{eq:On}) para esta máquina es:
+% \begin{equation}
+%     O_{\mathrm{7B}}(n) = \frac{49}{15} n
+% \end{equation}
+
+% \plotcomplexity{MT-7B}
+
+
+
+\subsection{Comparación de MT-7A y MT-7B}
