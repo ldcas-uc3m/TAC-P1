@@ -64,6 +64,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         1\$1111                  & 6  & 238  \\
         1\$11111                 & 7  & 529  \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-2A}
 \end{table}
 
 
@@ -82,6 +83,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &   & 32 & 72 & 160 \\ \hline
         $C(n) = B(n) - B(n-2)$ &    &   &    & 40 & 88 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-2A}
 \end{table}
 
 Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
@@ -157,6 +159,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         1\$1111                  & 6  & 296  \\
         1\$11111                 & 7  & 713  \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-2B}
 \end{table}
 
 \subsubsection*{Coste computacional}
@@ -174,6 +177,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &   & 44 & 104 & 240 \\ \hline
         $C(n) = B(n) - B(n-2)$ &    &   &    & 60 & 136 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-2B}
 \end{table}
 
 Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\

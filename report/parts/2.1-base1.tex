@@ -49,6 +49,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el número
         \$1111                  & 4  & 56  \\
         \$11111                 & 5  & 79  \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-1A}
 \end{table}
 
 
@@ -66,6 +67,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &    &  4 &  4 &  4\\ \hline
         $C(n) = B(n) - B(n-2)$ &    &    &    &  0 &  0 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-1A}
 \end{table}
 
 Se obsrerva que las diferencias finitas segundas son constantes y nulas las terceras, por lo que podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\medskip
@@ -151,6 +153,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ la longitu
         1111\$                    & 6  &  10  \\
         11111\$                   & 7  &  12  \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-1B}
 \end{table}
 
 
@@ -167,6 +170,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $A(n) = T(n) - T(n-2)$ &    & 2 & 2 & 2 & 2 \\ \hline
         $B(n) = A(n) - A(n-2)$ &    &   & 0 & 0 & 0 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-1B}
 \end{table}
 
 Se obsrerva que las diferencias finitas primeras son constantes y nulas las segundas, por lo que podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip

@@ -82,6 +82,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         2\$2222                  & 6  & 1638  \\
         2\$22222                 & 7  & 5854  \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-4A}
 \end{table}
 
 
@@ -99,6 +100,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &   & 240 & 864 & 3024 \\ \hline
         $C(n) = B(n) - B(n-2)$ &    &   &    & 624 & 2160 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT-4A}
 \end{table}
 
 Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
@@ -128,6 +130,7 @@ Se ha llevado acabo una serie de tests con diferentes operaciones empleando los 
         $6+10$      &  110\$1010   & 204 & 20\$101  & 162 \\
         $14+21$     &  1110\$10101 & 507 & 112\$210 & 384 \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-1B, MT-2B y MT-4A}
 \end{table}
 
 \begin{figure}[h]

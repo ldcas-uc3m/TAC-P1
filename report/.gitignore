@@ -12,6 +12,8 @@
 *.markdown.lua
 *.luabridge.lua
 *.toc
+*.lof
+*.lot
 *.err
 *.bbl-SAVE-ERROR
 

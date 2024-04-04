@@ -52,6 +52,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         \texttt{bbaabbaabb}     & 10 & 66 \\
         \texttt{bbbbbaabbbbb}   & 12 & 91
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-0A}
 \end{table}
 
 
@@ -70,6 +71,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $C(n) = B(n) - B(n-2)$ &    &    &    &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
     \label{tab:0A}
+    \caption{Aplicación de Diferencias Finitas a MT-0A}
 \end{table}
 
 Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemos aproximar $T(n)$ con un polinomio de segundo orden, es decir, $T(n) = an^2 + bn + c$.\medskip
@@ -152,6 +154,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         \texttt{bbaabbaabb}     & 10 & 33 \\
         \texttt{bbbbbaabbbbb}   & 12 & 39
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-0B}
 \end{table}
 
 
@@ -169,6 +172,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &    &    & 0 &  0 &  0 &  0 &  0 \\ \hline
     \end{tabular}
     \label{tab:0B}
+    \caption{Aplicación de Diferencias Finitas a MT-0B}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
@@ -244,6 +248,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         \texttt{abaaba}         & 6  & 8 \\
         \texttt{aaabbaaa}       & 8  & 10 \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT-0C}
 \end{table}
 
 \subsubsection*{Coste computacional}
@@ -260,6 +265,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
     \label{tab:0C}
+    \caption{Aplicación de Diferencias Finitas a MT-0C}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip

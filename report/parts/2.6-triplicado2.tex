@@ -50,6 +50,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         \texttt{aaaaaaaaa}          &  9  & 30 \\
         \texttt{aaaaaaaaaaaa}       & 12  & 38 \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT2T-6A}
 \end{table}
 
 
@@ -66,6 +67,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
         $A(n) = T(n) - T(n-2)$ &   & 8 & 8 & 8 \\ \hline
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT2T-6A}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
@@ -114,6 +116,7 @@ Realizamos la evaluación empírica\footnote{Los datos se pueden encontrar en \t
         \texttt{aaaaaaaaa}          &  9  & 26 \\
         \texttt{aaaaaaaaaaaa}       & 12  & 33 \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT3T-6A}
 \end{table}
 
 Calculamos el coste computacional mediante Diferencias Finitas:
@@ -128,6 +131,7 @@ Calculamos el coste computacional mediante Diferencias Finitas:
         $A(n) = T(n) - T(n-2)$ &   & 7 & 7 & 7 \\ \hline
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT3T-6A}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
@@ -201,6 +205,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
         $A(n) = T(n) - T(n-2)$ &   & 5 & 5 & 5 \\ \hline
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT2T-6B}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
@@ -249,6 +254,7 @@ Realizamos la evaluación empírica\footnote{Los datos se pueden encontrar en \t
         \texttt{aaaaaaaaa}          &  9  & 15 \\
         \texttt{aaaaaaaaaaaa}       & 12  & 19 \\
     \end{tabular}
+    \caption{Tamaño de palabra y número de pasos realizados para MT3T-6B}
 \end{table}
 
 Calculamos el coste computacional mediante Diferencias Finitas:
@@ -263,6 +269,7 @@ Calculamos el coste computacional mediante Diferencias Finitas:
         $A(n) = T(n) - T(n-2)$ &   & 4 & 4 & 4 \\ \hline
         $B(n) = A(n) - A(n-2)$ &   &   & 0 & 0 \\ \hline
     \end{tabular}
+    \caption{Aplicación de Diferencias Finitas a MT3T-6B}
 \end{table}
 
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
