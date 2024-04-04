@@ -13,6 +13,7 @@
 *.luabridge.lua
 *.toc
 *.err
+*.bbl-SAVE-ERROR
 
 svg-inkscape/
 _markdown_report/
