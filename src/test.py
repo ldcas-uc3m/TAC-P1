@@ -26,6 +26,7 @@ REPO_ROOT = Path(__file__).parent.parent
 TURING_EXEC: Path = REPO_ROOT / f"turing-machine-simulator/turing{'.exe' if platform.system() == 'Windows' else ''}"
 DATA_FOLDER = REPO_ROOT / "data/"
 IMAGE_FOLDER = REPO_ROOT / "report/img/"
+TM_FOLDER = REPO_ROOT / "src/tm/"
 
 
 
@@ -202,17 +203,16 @@ if __name__ == "__main__":
 
 
     jff_files = [
-        REPO_ROOT / "src/MT-0A.jff",
-        REPO_ROOT / "src/MT-0B.jff",
-        # REPO_ROOT / "src/MT-0C.jff",  # non-deterministic, cannot test
-        REPO_ROOT / "src/MT-1A.jff",
-        REPO_ROOT / "src/MT-1B.jff",
-        REPO_ROOT / "src/MT-2A.jff",
-        REPO_ROOT / "src/MT-2B.jff",
-        REPO_ROOT / "src/MT-4A.jff",
-        REPO_ROOT / "src/MT-5A.jff",
-        REPO_ROOT / "src/MT2T-6A.jff",
-        REPO_ROOT / "src/MT3T-6A.jff"
+        TM_FOLDER / "MT-0A.jff",
+        TM_FOLDER / "MT-0B.jff",
+        TM_FOLDER / "MT-1A.jff",
+        TM_FOLDER / "MT-1B.jff",
+        TM_FOLDER / "MT-2A.jff",
+        TM_FOLDER / "MT-2B.jff",
+        TM_FOLDER / "MT-4A.jff",
+        TM_FOLDER / "MT-5A.jff",
+        TM_FOLDER / "MT2T-6A.jff",
+        TM_FOLDER / "MT3T-6A.jff"
     ]
 
     for machine_file in jff_files:
