@@ -11,9 +11,19 @@
 
 \addbibresource{references.bib}  % bibliography file
 
+% allow for multiple footcites on same word
+\usepackage{fnpct}
+
+\AdaptNote\footcite{oo+m}[footnote]{%
+  \setfnpct{dont-mess-around}%
+  \IfNoValueTF{#1}%
+    {#NOTE{#3}}%
+    {\IfNoValueTF{#2}{#NOTE[#1]{#3}}{#NOTE[#1][#2]{#3}}}%
+}
+
+
 % config
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}  % subsections using letters
-
 
 \author{
   Ignacio Arnaiz Tierraseca -- 100428997\\

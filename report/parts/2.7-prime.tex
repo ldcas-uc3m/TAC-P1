@@ -89,7 +89,8 @@ Resolviendo, $a=\frac{3}{2}$ y $b=3$, por lo que:
 
 \subsubsection*{Diseño propuesto}
 Una máquina de Turing no determinista, por definición, ``acepta una
-entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la configuración inicial con $w$ como entrada hasta una configuración con un estado de aceptación'' \parencite[ver][pg. 289]{HopcroftJohnE.2008Ialt}.\\
+entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la configuración inicial con $w$ como entrada hasta una configuración con un estado de aceptación''
+\footcite[ver][pg. 289]{HopcroftJohnE.2008Ialt}.\\
 Si vemos una máquina no determinista como una serie de procesos (máquinas de Turing) independientes que son generados cada vez que se da una transición no determinista, que \textit{cualquiera} de esos procesos acabe en aceptación indica que el lenguaje es aceptado, mientras que que \textit{ninguno} lo haga indica que el lenguaje no es aceptado. A la hora de crear una máquina no determinista (MTND) que determine si un número es primo o no, es sencillo hacer como en el apartado \ref{MT-7A} y que la máquina reconozca números no primos, ya que hallar cualquier divisor indica que $n$ no es primo, aceptando el lenguaje.\medskip
 
 Sin embargo, para crear una MTND que reconozca números primos, se tendría que comprobar que \textit{ningún} número fuera divisor, es decir, que todos los 'procesos' acaben en rechazo para así aceptar el lenguaje. Esto plantea un problema, que es la intercomunicación entre procesos. Para que, digamos, un 'proceso maestro' determine si $n$ es primo los 'subprocesos' deberían notificárselo de alguna forma.\\
