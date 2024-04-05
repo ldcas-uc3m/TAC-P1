@@ -38,33 +38,21 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
     \begin{tabular}{lcc}
         Entrada & $n$ & Pasos \\
         \hline
-        \texttt{1111}              &  4  & 9  \\
-        \texttt{111111}            &  6  & 12 \\
-        \texttt{11111111}          &  8  & 15 \\
+        \texttt{1111}              &  4   & 9  \\
+        \texttt{111111}            &  6   & 12 \\
+        \texttt{11111111}          &  8   & 15 \\
+        \texttt{11111111}          &  12  & 20 \\
+        \texttt{11111111}          &  14  & 24 \\
     \end{tabular}
     \caption{Tamaño de palabra y número de pasos realizados para MT-7A}
 \end{table}
 
 
 \subsubsection*{Coste computacional}
-Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas\footref{dfref}, basándonos en los datos de la evaluación empírica:
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|l|c|c|c|c|c|}
-        \hline
-        $n$    & \textbf{4}  & \textbf{6}  & \textbf{8}  \\ \hline
-        $T(n)$ & \textbf{9}  & \textbf{12} & \textbf{15} \\ \hline
-        \hline
-        $A(n) = T(n) - T(n-2)$ &   & 3 & 3 \\ \hline
-        $B(n) = A(n) - A(n-2)$ &   &   & 0 \\ \hline
-    \end{tabular}
-    \caption{Aplicación de Diferencias Finitas a MT-7A}
-\end{table}
+En este caso no resulta posible aplicar el método de Diferencias Finitas\footcite[ver][pgs. 1-42: \textit{Chapter 1. Difference Tables and Polynomial Fits}]{cuoco2005mathematical} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=6$ y $n=8$, dos unidades, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=8$ y $n=12$, cuatro unidades.\medskip
 
-Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
-
-Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
+Las diferencias finitas no son costantes, pero podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 \begin{subequations}
     \begin{gather*}
@@ -77,9 +65,15 @@ Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenido
 Resolviendo, $a=\frac{3}{2}$ y $b=3$, por lo que:
 
 \begin{equation}
-    T_{\mathrm{7B}}(n) = \frac{3}{2}n + 3
+    O_{\mathrm{7B}}(n) = \frac{3}{2}n + 3
 \end{equation}
 
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{plot_MT-7A_complexity.svg}
+    \caption{Coste computacional de MT-7A}
+\end{figure}
 
 
 %----------
@@ -145,15 +139,15 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 
 
 \subsubsection*{Coste computacional}
-En este caso no resulta posible aplicar el método de Diferencias Finitas\footref{dfref} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=2$ y $n=3$, una unidad, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=3$ y $n=5$, dos unidades.\medskip
+En este caso no resulta posible aplicar el método de Diferencias Finitas\footcite[ver][pgs. 1-42: \textit{Chapter 1. Difference Tables and Polynomial Fits}]{cuoco2005mathematical} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=2$ y $n=3$, una unidad, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=3$ y $n=5$, dos unidades.\medskip
 
 Dado que el algoritmo tiene un bucle principal en el que se va a recorrer $n$ al menos una vez, se puede aproximar la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos.
 
 \begin{subequations}
     \begin{gather*}
-        n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
-        n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
-        n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
+        n = 2,\ T(2) = 6  \rightarrow 8d + 4a  + 2b + c = 6 \\
+        n = 3,\ T(3) = 18 \rightarrow 28d + 9a  + 3b + c = 18 \\
+        n = 5,\ T(5) = 55 \rightarrow 125d + 25a + 5b + c = 55\\
     \end{gather*}
 \end{subequations}
 
@@ -166,16 +160,19 @@ Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $c=-5$, por lo que:
 \begin{figure}[H]
     \centering
     \includesvg[scale=0.7]{plot_MT-7B_complexity.svg}
-    \caption{ Coste computacional de MT-7B}
+    \caption{Coste computacional de MT-7B}
 \end{figure}
 
-Es una buena aproximación, pero observamos que no es exacta.
+Es una buena aproximación, pero observamos que no es exacta. Podríamos seguir aproximando con un polinomio de grado tres o, debido a que sólo hemos hecho cinco pruebas, de hasta grado cuatro, lo cual es cierto que aumentaría la aproximación, sin llegar nunca a ser exacta. Dejamos, para el lector curioso, la aproximación de grado cuatro:
+\begin{equation}
+    T_{\mathrm{7B}}' = - \frac{1}{3440}n^4 - \frac{271}{92880}n^3 + \frac{205637}{92880}n^2 + \frac{93631}{92880}n - \frac{44993}{9288}
+\end{equation}
 
 
 
 \subsection{Comparación de MT-7A y MT-7B}
 
-Se puede comparar ambas y comprobar que mientras que NOPRIME(N) es lineal, PRIME(N) es cuadrática.
+Se puede comparar ambas y comprobar que mientras que NOPRIME(N) es lineal, PRIME(N) no lo es, principalmente debido a que NOPRIME es no determinista.
 
 \begin{figure}[H]
     \centering

@@ -2,7 +2,7 @@
 # Bash script to zip the whole project in order to make it deriverable
 # please make sure zip and texlive are installed
 
-OUTFILE="../MT03_3_Arnaiz_Casais.zip"
+OUTFILE="../MT_3_Arnaiz_Casais.zip"
 
 [ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
 

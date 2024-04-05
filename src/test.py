@@ -131,6 +131,7 @@ def plot_functions(
     funcs: dict[str, Callable[[np.ndarray], np.ndarray]],
     n0: int = 10,
     n_max: int = 100,
+    granularity: int = 1,
     save_file: str | Path | None = None
 ):
     """
@@ -139,12 +140,13 @@ def plot_functions(
     :param funcs: Map of function name and function (`{"f(n)": f_n, ...}`).
     :param n0: Initial value of n.
     :param n_max: Maximum value of n to plot.
+    :param granularity: Granularity of the plot. Default (`1`) means plot `nmax - n0` random points
     :param save_file: File to save the image to. If `None`, shows the plot.
     """
 
     fig, ax = plt.subplots()
 
-    x = np.linspace(n0, n_max, n_max - n0)
+    x = np.linspace(n0, n_max, granularity * (n_max - n0))
 
     for name, fn in funcs.items():
         ax.plot(x, fn(x), label=name)
@@ -183,8 +185,8 @@ def plot_complexity(
     Plots the complexity of a function, relating real data and theoretical (in terms of n and number of steps).
 
     :param funcs: Map of function name and function (`{"f(n)": f_n, ...}`).
-    :param n0: Initial value of n.
-    :param n_max: Maximum value of n to plot.
+    :param x_column: Column from DF to represent on the X axis.
+    :param y_column: Column from DF to represent on the Y axis.
     :param save_file: File to save the image to. If `None`, shows the plot.
     """
 
@@ -197,7 +199,7 @@ def plot_complexity(
     x = np.linspace(n0, nmax, nmax - n0)
 
     # function
-    ax.plot(x, func(x), label="O(n)", color="red")
+    ax.plot(x, func(x), label="T(n) (aprox.)", color="red")
 
     # dataframe
     ax.plot(data[x_column], data[y_column], label="T(n)", marker='o', color='blue')
@@ -351,30 +353,6 @@ if __name__ == "__main__":
         plot_dataframes({machine_name: df}, 'n', 'steps', IMAGE_FOLDER / f"plot_{machine_name}_results.svg")
 
 
-    # plot comparison 1 VS 2, one tape
-    df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
-    df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
-    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_1tape.svg")
-
-    # plot comparison 1 VS 2, two tape
-    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
-    df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
-    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_2tape.svg")
-
-    # plot comparison 1 VS 3, two tape
-    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
-    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_dataframes({'Base 2': df1, 'Base 3': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&3_2tape.svg")
-
-    # plot comparison 2 VS 3, two tape
-    df1 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
-    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_dataframes({'Base 2': df1, 'Base 3': df2} , 'n', 'steps', IMAGE_FOLDER / f"plot_comparative2&3_2tape.svg")
-
-    # plot function for 7B and empirical results
-    df = pd.DataFrame({'steps': [6, 18, 55, 109, 266], 'n': [2, 3, 5, 7, 11]})
-    plot_complexity(lambda n: (13/6)*n**2 + (7/6)*n -5, df, 'n', 'steps', IMAGE_FOLDER / f"plot_MT-7B_complexity.svg")
-
     # plot complexity
     logger.info("Plotting complexity functions...")
 
@@ -436,7 +414,39 @@ if __name__ == "__main__":
     }
 
     for machine_name, funcs in COMPLEXITY_FUNCTIONS.items():
-        plot_functions(funcs, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.svg")
+        if len(funcs) == 1:  # plot T(n) vs empirical results
+            plot_complexity(
+                COMPLEXITY_FUNCTIONS[machine_name]['T(n)'],
+                pd.read_csv(DATA_FOLDER/f"{machine_name}.csv"),
+                x_column='n',
+                y_column='steps',
+                save_file=IMAGE_FOLDER/f"plot_{machine_name}_complexity.svg"
+            )
+        else:  # plot T(n) vs O(n)
+            plot_functions(funcs, save_file=IMAGE_FOLDER/f"plot_{machine_name}_complexity.svg")
+
+
+    logger.info("Plotting comparisons...")
+
+    # plot comparison 1 VS 2, one tape
+    df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
+    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_1tape.svg")
+
+    # plot comparison 1 VS 2, two tape
+    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
+    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_2tape.svg")
+
+    # plot comparison 1 VS 3, two tape
+    df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
+    plot_dataframes({'Base 2': df1, 'Base 3': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&3_2tape.svg")
+
+    # plot comparison 2 VS 3, two tape
+    df1 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
+    df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
+    plot_dataframes({'Base 2': df1, 'Base 3': df2} , 'n', 'steps', IMAGE_FOLDER / f"plot_comparative2&3_2tape.svg")
 
 
     # comparing T(n) between machines
@@ -456,8 +466,10 @@ if __name__ == "__main__":
 
     # plot all
     plot_functions(
-        {name: functions['T(n)'] for name, functions in COMPLEXITY_FUNCTIONS.items()},
+        {name: functions['T(n)'] for name, functions in COMPLEXITY_FUNCTIONS.items() if "T(n)" in functions},
         save_file=IMAGE_FOLDER / "plot_all_complexity.svg",
-        n_max=40
+        n0=1,
+        granularity=10,
+        n_max=6
     )
 
