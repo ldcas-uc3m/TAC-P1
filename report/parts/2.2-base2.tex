@@ -14,24 +14,21 @@ El algoritmo de resolución es el siguiente:
     \begin{enumerate}
         \item Comienzo desde la izquierda, desplazamiento hasta el extremo derecho.
         \item Si el último elemento es un 1:
-        \begin{enumerate}
+        \begin{enumerate}[1.]
             \item Borrarlo.
             \item Volver al extremo izquierdo.
             \item Añadir un 1 en la primera posición.
         \end{enumerate}
         \item Si el último elemento es un 0:
-        \begin{enumerate}
+        \begin{enumerate}[1.]
             \item Borrarlo y sustituirlo por un 1.
             \item Volver hacia la izquierda.
-            \item Si se encuentra un 1 
-            \begin{enumerate}
-                \item sustituirlo por un 0
-            \end{enumerate}
+            \item Si se encuentra un 1, sustituirlo por un 0
             \item Si se encuentra un 0
-            \begin{enumerate}
+            \begin{enumerate}[1.]
                 \item sustituirlo por un 1
                 \item Si se encuntra un \$
-                \begin{enumerate}
+                \begin{enumerate}[1.]
                     \item Avanzar hasta el extremo derecho
                     \item Volver hacia la izquierda eliminando todos los elementos hasta el \$ incluido
                     \item \textbf{Parar}.

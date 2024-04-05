@@ -77,8 +77,9 @@ Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenido
 Resolviendo, $a=\frac{3}{2}$ y $b=3$, por lo que:
 
 \begin{equation}
-    T(n) = \frac{3}{2}n + 3
+    T_{\mathrm{7B}}(n) = \frac{3}{2}n + 3
 \end{equation}
+
 
 
 %----------
@@ -146,34 +147,38 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 \subsubsection*{Coste computacional}
 En este caso no resulta posible aplicar el método de Diferencias Finitas\footref{dfref} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=2$ y $n=3$, una unidad, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=3$ y $n=5$, dos unidades.\medskip
 
-Sin embargo, podemos analizar el algoritmo para así sacar su coste computacional.\medskip
+Dado que el algoritmo tiene un bucle principal en el que se va a recorrer $n$ al menos una vez, se puede aproximar la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos.
 
+\begin{subequations}
+    \begin{gather*}
+        n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
+        n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
+        n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
+    \end{gather*}
+\end{subequations}
 
+Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $c=-5$, por lo que:
 
-% Se aproxima la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos. Se comprueba que el comportamiento es similar aunque no exacto, ya que no es posible aplicar el método de diferencias finitas.
+\begin{equation}
+    T_{\mathrm{7B}} = \frac{13}{6}n^2 + \frac{7}{6}n - 5
+\end{equation}
 
-% \begin{subequations}
-%     \begin{gather*}
-%         n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
-%         n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
-%         n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
-%     \end{gather*}
-% \end{subequations}
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{plot_MT-7B_complexity.svg}
+    \caption{ Coste computacional de MT-7B}
+\end{figure}
 
-% Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
-
-% \begin{equation}
-%     T(n) = \frac{13}{6}n^2 + \frac{7}{6}n + 4
-% \end{equation}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.7]{plot_MT-7B_complexity.png}
-%     \caption{ Coste computacional de MT-7B}
-% \end{figure}
-
-
+Es una buena aproximación, pero observamos que no es exacta.
 
 
 
 \subsection{Comparación de MT-7A y MT-7B}
+
+Se puede comparar ambas y comprobar que mientras que NOPRIME(N) es lineal, PRIME(N) es cuadrática.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{plot_MT-7_comparison.svg}
+    \caption{ Coste computacional de MT-7B}
+\end{figure}

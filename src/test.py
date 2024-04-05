@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 import platform
 import logging
-from typing import Callable
+from typing import Callable, Iterable
 from itertools import product
 
 import numpy as np
@@ -83,28 +83,34 @@ def tests(file: Path, inputs: list[str], ntapes: int = 0) -> pd.DataFrame:
 # ==============
 
 
-def plot_two_df(
-    df1: pd.DataFrame,
-    df2: pd.DataFrame,
-    name1:str,
-    name2:str, 
+def plot_dataframes(
+    dfs: dict[str, pd.DataFrame],
     x_column: str,
     y_column: str,
     save_file: str | None = None
 ):
     """
-    Plots a DataFrame.
+    Plots dataframes.
 
-    :param df: DataFrame to plot.
-    :param x_column: Column from `df` to represent on the X axis.
-    :param y_column: Column from `df` to represent on the Y axis.
+    :param df: Map of DF name and DF.
+    :param x_column: Column from DF to represent on the X axis.
+    :param y_column: Column from DF to represent on the Y axis.
     :param save_file: File to save the image to. If `None`, shows the plot.
     """
 
     # Crear el gráfico
     fig, ax = plt.subplots()
-    ax.plot(df1[x_column], df1[y_column], marker='o', color='blue', label=name1)
-    ax.plot(df2[x_column], df2[y_column], marker='o', color='red', label=name2)
+
+    for name, df in dfs.items():
+        ax.plot(df[x_column], df[y_column], marker='o', label=name)
+
+    # automatic colors
+    if len(dfs) <= len(mcolors.BASE_COLORS):
+        pallete = mcolors.BASE_COLORS
+    else:
+        pallete = mcolors.XKCD_COLORS
+
+    ax.set_prop_cycle(color=pallete)
 
     # Agregar etiquetas
     ax.set_xlabel(x_column)
@@ -119,37 +125,6 @@ def plot_two_df(
 
     plt.close()
 
-
-
-def plot_df(
-    df: pd.DataFrame,
-    x_column: str,
-    y_column: str,
-    save_file: str | None = None
-):
-    """
-    Plots a DataFrame.
-
-    :param df: DataFrame to plot.
-    :param x_column: Column from `df` to represent on the X axis.
-    :param y_column: Column from `df` to represent on the Y axis.
-    :param save_file: File to save the image to. If `None`, shows the plot.
-    """
-
-    # Crear el gráfico
-    fig, ax = plt.subplots()
-    ax.plot(df[x_column], df[y_column], marker='o', color='blue')
-
-    # Agregar etiquetas
-    ax.set_xlabel(x_column)
-    ax.set_ylabel(y_column)
-
-    if save_file:
-        fig.savefig(save_file)
-    else:
-        fig.show()
-
-    plt.close()
 
 
 def plot_functions(
@@ -197,15 +172,15 @@ def plot_functions(
 
 
 
-def plot_df_function(
+def plot_complexity(
     func: Callable[[np.ndarray], np.ndarray],
-    df: pd.DataFrame,
+    data: pd.DataFrame,
     x_column: str,
     y_column: str,
     save_file: str | Path | None = None
 ):
     """
-    Plots functions refering to the complexity of turing machines (in terms of n and number of steps).
+    Plots the complexity of a function, relating real data and theoretical (in terms of n and number of steps).
 
     :param funcs: Map of function name and function (`{"f(n)": f_n, ...}`).
     :param n0: Initial value of n.
@@ -213,8 +188,8 @@ def plot_df_function(
     :param save_file: File to save the image to. If `None`, shows the plot.
     """
 
-    n0 = df[x_column].iloc[0]
-    nmax = df[x_column].iloc[-1]
+    n0 = data[x_column].iloc[0]
+    nmax = data[x_column].iloc[-1]
 
 
     fig, ax = plt.subplots()
@@ -225,7 +200,7 @@ def plot_df_function(
     ax.plot(x, func(x), label="O(n)", color="red")
 
     # dataframe
-    ax.plot(df[x_column], df[y_column], label="T(n)", marker='o', color='blue')
+    ax.plot(data[x_column], data[y_column], label="T(n)", marker='o', color='blue')
 
     # Agregar etiquetas
     ax.set_xlabel(x_column)
@@ -373,32 +348,32 @@ if __name__ == "__main__":
         df.to_csv(DATA_FOLDER / f'{machine_name}.csv', index=False)
 
         # plot results
-        plot_df(df, 'n', 'steps', IMAGE_FOLDER / f"plot_{machine_name}_results.png")
+        plot_dataframes({machine_name: df}, 'n', 'steps', IMAGE_FOLDER / f"plot_{machine_name}_results.svg")
 
 
     # plot comparison 1 VS 2, one tape
     df1 = pd.DataFrame({'steps': [15, 53, 127, 386, 1607], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [21, 47, 83, 172, 372], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 1', 'Base 2', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_1tape.png")
+    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_1tape.svg")
 
     # plot comparison 1 VS 2, two tape
     df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2, 'Base 1', 'Base 2', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_2tape.png")
+    plot_dataframes({'Base 1': df1, 'Base 2': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&2_2tape.svg")
 
     # plot comparison 1 VS 3, two tape
     df1 = pd.DataFrame({'steps': [5, 10, 16, 28, 58], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 1', 'Base 3', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&3_2tape.png")
+    plot_dataframes({'Base 2': df1, 'Base 3': df2}, 'n', 'steps', IMAGE_FOLDER / f"plot_comparative1&3_2tape.svg")
 
     # plot comparison 2 VS 3, two tape
     df1 = pd.DataFrame({'steps': [17, 50, 93, 204, 507], 'n': [2, 5, 9, 16, 35]})
     df2 = pd.DataFrame({'steps': [15, 43, 75, 162, 384], 'n': [2, 5, 9, 16, 35]})
-    plot_two_df(df1, df2,'Base 2', 'Base 3', 'n', 'steps', IMAGE_FOLDER / f"plot_comparative2&3_2tape.png")
+    plot_dataframes({'Base 2': df1, 'Base 3': df2} , 'n', 'steps', IMAGE_FOLDER / f"plot_comparative2&3_2tape.svg")
 
     # plot function for 7B and empirical results
     df = pd.DataFrame({'steps': [6, 18, 55, 109, 266], 'n': [2, 3, 5, 7, 11]})
-    plot_df_function(lambda n: (13/6)*n**2 + (7/6)*n -5, df, 'n', 'steps', IMAGE_FOLDER / f"plot_MT-7B_complexity.png")
+    plot_complexity(lambda n: (13/6)*n**2 + (7/6)*n -5, df, 'n', 'steps', IMAGE_FOLDER / f"plot_MT-7B_complexity.svg")
 
     # plot complexity
     logger.info("Plotting complexity functions...")
@@ -451,23 +426,30 @@ if __name__ == "__main__":
         'MT3T-6B': {
             'T(n)': lambda n : (4/3)*n + 3,
             'O(n)': lambda n : (49/30)*n
+        },
+        'MT-7A': {
+            'T(n)': lambda n : (3/2)*n + 3
+        },
+        'MT-7B': {
+            'T(n)': lambda n : (13/6)*n**2 + (7/6)*n -5
         }
     }
 
     for machine_name, funcs in COMPLEXITY_FUNCTIONS.items():
-        plot_functions(funcs, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.png")
+        plot_functions(funcs, save_file=IMAGE_FOLDER / f"plot_{machine_name}_complexity.svg")
 
 
     # comparing T(n) between machines
     machine_comparisons: dict[str, list[list[str]]] = {
         **{f"MT-6{x}": [f"MT{n}T-6{x}" for n in (2, 3)] for x in ("A", "B")},  # MT-6A & MT-6B, 2T vs 3T
-        "MT-6": [f"MT{n}T-6{x}" for n, x in product([2, 3], ["A", "B"])]  # all MT-6
+        "MT-6": [f"MT{n}T-6{x}" for n, x in product([2, 3], ["A", "B"])],  # all MT-6
+        'MT-7': ['MT-7A', 'MT-7B']
     }
 
     for name, machines in machine_comparisons.items():
         plot_functions(
             {machine: COMPLEXITY_FUNCTIONS[machine]['T(n)'] for machine in machines},
-            save_file=IMAGE_FOLDER / f"plot_{name}_comparison.png",
+            save_file=IMAGE_FOLDER / f"plot_{name}_comparison.svg",
             n0=3,
             n_max=40
         )
@@ -475,7 +457,7 @@ if __name__ == "__main__":
     # plot all
     plot_functions(
         {name: functions['T(n)'] for name, functions in COMPLEXITY_FUNCTIONS.items()},
-        save_file=IMAGE_FOLDER / "plot_all_complexity.png",
+        save_file=IMAGE_FOLDER / "plot_all_complexity.svg",
         n_max=40
     )
 
