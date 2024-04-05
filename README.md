@@ -146,19 +146,17 @@ No se recomienda en ningún caso diseñar la versión determinista de la MTND.
 ### Running inside JFLAP
 1. Check you have Java 8 or higher installed, with `java --version`.  
 If you don't, download and install Java Runtime Enviroment with JDK 8+, either the official one or [OpenJDK](https://openjdk.org/).
-1. Download [JFLAP](https://www.jflap.org/) 7.1:
+2. Download [JFLAP](https://www.jflap.org/) 7.1:
    ```bash
    wget https://www.jflap.org/jflaptmp/july27-18/JFLAP7.1.jar
    ```
-
-You can run JFLAP with:
-```bash
-java -jar JFLAP7.1.jar
-```
-You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `java -Dsun.java2d.uiScale=2.0 -jar JFLAP7.1.jar`.
-
-
-<!-- TODO: exec -->
+3. Run JFLAP with:
+   ```bash
+   java -jar JFLAP7.1.jar
+   ```
+   You can fix scaling errors with the `-Dsun.java2d.uiScale` parameter, e.g.: `java -Dsun.java2d.uiScale=2.0 -jar JFLAP7.1.jar`.
+4. Select `File` $\rightarrow$ `Open...` and the desired file (`.jff` file inside [`src/tm/`](src/tm/)) to open it. Remember to open it as a `Standard Turing Machine`.
+5. Use `Input` $\rightarrow$ `Step...` to execute step by step, or `Input` $\rightarrow$ `Fast Run...` for a full run.
 
 
 ### Running the Python tests

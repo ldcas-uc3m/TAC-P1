@@ -1,0 +1,53 @@
+\section{Instalación y ejecución}
+
+\subsection*{Ejecutar en JFLAP\supercite{jflap}}
+\begin{enumerate}
+  \item Comprueba que tienes Java 8 o superior instalado, ejecutando \texttt{java --version}. Si no lo tienes, descarga e instala Java Runtime Enviroment con JDK 8+, tanto el Java SE\footurl{https://www.oracle.com/java/technologies/java-se-glance.html} como OpenJDK\footurl{https://openjdk.org/}.
+  \item Descarga e instala JFLAP 7.1\footurl{https://www.jflap.org/}:
+  \begin{verbatim}
+wget https://www.jflap.org/jflaptmp/july27-18/JFLAP7.1.jar
+  \end{verbatim}
+  \item Ejecuta JFLAP con:
+  \begin{verbatim}
+java -jar JFLAP7.1.jar
+  \end{verbatim}
+  Puedes arreglar errores de escalado con el parámetro \texttt{-Dsun.java2d.uiScale}, e.g. \texttt{java -Dsun.java2d.uiScale=2.0 -jar JFLAP7.1.jar}
+  \item Selecciona \texttt{File} $\rightarrow$ \texttt{Open...} y el archivo deseado (archivo \texttt{.jff} dentro de la carpeta \texttt{src/tm/}) para abrirlo. Ábrelo como una \texttt{Standard Turing Machine}.
+  \item Usa \texttt{Input} $\rightarrow$ \texttt{Step...} para ejecutar paso a paso o \texttt{Input} $\rightarrow$ \texttt{Fast Run...} para ejecutar completo.
+\end{enumerate}
+
+
+\subsection*{Ejecución de los tests en Python}
+Requiere Python\footurl{https://www.python.org/} 3.10+.
+\begin{enumerate}
+  \item Crea un \textit{virtual enviroment} en la carpeta \texttt{.venv/}:
+  \begin{verbatim}
+    python3 -m venv ./.venv
+  \end{verbatim}
+  \item Activa el entorno:
+  \begin{itemize}
+    \item Linux:
+    \begin{verbatim}
+source .venv/bin/activate
+    \end{verbatim}
+    \item Windows (PowerShell):
+    \begin{verbatim}
+& .\.venv\Scripts\Activate.ps1
+    \end{verbatim}
+  \end{itemize}
+  \item Instala las dependencias:
+  \begin{verbatim}
+pip install -r requirements.txt
+  \end{verbatim}
+  \item Compila el Turing Machine Simulator\supercite{tmsimulator} con GNU/Make\footurl{https://www.gnu.org/software/make/}:
+  \begin{verbatim}
+cd turing-machine-simulator
+make
+cd ..
+  \end{verbatim}
+  Si estás en Windows, te recomendamos instalar WSL2\footurl{https://learn.microsoft.com/es-es/windows/wsl/install}, o con GCC a través de MinGW-W6\footurl{https://www.mingw-w64.org/} (puedes encontrar binarios ya compilados en \url{https://github.com/niXman/mingw-builds-binaries}), compilando mediante el comando \texttt{gcc} que puedes encontrar dentro de \texttt{turing-machine-simulator/Makefile}.
+  \item Ejecuta el \textit{script} con:
+  \begin{verbatim}
+python3 src/test.py
+  \end{verbatim}
+\end{enumerate}

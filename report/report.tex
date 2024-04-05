@@ -1,6 +1,8 @@
 \documentclass[es]{uc3mreport}
 
 
+\usepackage[title,titletoc]{appendix}
+
 \usepackage{mymacros}
 
 
@@ -56,7 +58,8 @@
 
   \makebibliography
 
-  % \import{parts/}{appendix.tex}
-
+  \begin{appendices}
+    \import{parts/}{a-manual.tex}
+  \end{appendices}
 
 \end{document}
