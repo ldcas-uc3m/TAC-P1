@@ -47,7 +47,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 
 
 \subsubsection*{Coste computacional}
-Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas, basándonos en los datos de la evaluación empírica:
+Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finitas\footref{dfref}, basándonos en los datos de la evaluación empírica:
 
 \begin{table}[H]
     \centering
@@ -143,30 +143,33 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 
 
 \subsubsection*{Coste computacional}
+En este caso no resulta posible aplicar el método de Diferencias Finitas\footref{dfref} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=2$ y $n=3$, una unidad, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=3$ y $n=5$, dos unidades.\medskip
 
-En este caso no resulta posible aplicar el método de diferencias finitas para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de n=2 con n=3 aumenta en menor proporción que para el siguiente caso, diferencia entre n=3 y n=5, ya que el propio tamaño de n en el primer caso aumenta en una unidad y en el segundo caso aumenta en dos unidades.
+Sin embargo, podemos analizar el algoritmo para así sacar su coste computacional.\medskip
 
-Se aproxima la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos. Se comprueba que el comportamiento es similar aunque no exacto, ya que no es posible aplicar el método de diferencias finitas.
 
-\begin{subequations}
-    \begin{gather*}
-        n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
-        n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
-        n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
-    \end{gather*}
-\end{subequations}
 
-Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
+% Se aproxima la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos. Se comprueba que el comportamiento es similar aunque no exacto, ya que no es posible aplicar el método de diferencias finitas.
 
-\begin{equation}
-    T(n) = \frac{13}{6}n^2 + \frac{7}{6}n + 4
-\end{equation}
+% \begin{subequations}
+%     \begin{gather*}
+%         n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
+%         n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
+%         n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
+%     \end{gather*}
+% \end{subequations}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.7]{plot_MT-7B_complexity.png}
-    \caption{ Coste computacional de MT-7B}
-\end{figure}
+% Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
+
+% \begin{equation}
+%     T(n) = \frac{13}{6}n^2 + \frac{7}{6}n + 4
+% \end{equation}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale=0.7]{plot_MT-7B_complexity.png}
+%     \caption{ Coste computacional de MT-7B}
+% \end{figure}
 
 
 
