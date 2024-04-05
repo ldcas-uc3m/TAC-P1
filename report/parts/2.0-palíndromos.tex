@@ -78,13 +78,11 @@ Al ser constantes las diferencias finitas segundas, y nulas las terceras, podemo
 
 Para obtener los valores de $a$, $b$, y $c$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
-\begin{subequations}
-    \begin{gather}
-        n = 0,\ T(0) = 1 \rightarrow c = 1 \\
-        n = 2,\ T(2) = 6 \rightarrow 4a + 2b + c = 6 \\
-        n = 4,\ T(4) = 15 \rightarrow 16a + 4b + c = 6
-    \end{gather}
-\end{subequations}
+\begin{gather*}
+    n = 0,\ T(0) = 1 \rightarrow c = 1 \\
+    n = 2,\ T(2) = 6 \rightarrow 4a + 2b + c = 6 \\
+    n = 4,\ T(4) = 15 \rightarrow 16a + 4b + c = 6
+\end{gather*}
 
 Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
 
@@ -94,7 +92,7 @@ Resolviendo, $a=\frac{1}{2}$ y $b=\frac{3}{2}$, por lo que:
 
 
 \subsubsection*{Cota asintótica}
-La cota asintótica queda defida\parencite[ver][Definition 7.2 (p. 277)]{SipserMichael2013Ittt} como:
+La cota asintótica queda definida \parencite[ver][Definition 7.2, pg. 277]{SipserMichael2013Ittt} como:
 
 \begin{equation}
     O(n) = k \cdot g(n) \geq T(n)
@@ -180,10 +178,10 @@ Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemo
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
 \begin{subequations}
-    \begin{gather}
+    \begin{gather*}
         n = 0,\ T(0) = 3 \rightarrow b = 3 \\
         n = 2,\ T(2) = 9 \rightarrow 2a + b = 9
-    \end{gather}
+    \end{gather*}
 \end{subequations}
 
 Resolviendo, $a=b=3$, por lo que:
@@ -273,10 +271,10 @@ Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemo
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
 \begin{subequations}
-    \begin{gather}
+    \begin{gather*}
         n = 2,\ T(2) = 4 \rightarrow 2a + b = 4 \\
         n = 4,\ T(4) = 6 \rightarrow 4a + b = 6
-    \end{gather}
+    \end{gather*}
 \end{subequations}
 
 Resolviendo, $a = 1$ y $b=2$, por lo que:

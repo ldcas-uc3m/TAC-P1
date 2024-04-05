@@ -1,10 +1,10 @@
-\section{Diseño de una MTND para determinar \texttt{prime(n)}}
+\section{Diseño de una MTND para determinar PRIME(N)}
 
 %----------
 % MT-7A
 %----------
 
-\subsection{\texttt{noprime}} \label{MT-7A}
+\subsection{NOPRIME(N)} \label{MT-7A}
 
 \subsubsection*{Diseño propuesto}
 El algoritmo de resolución es el siguiente:
@@ -12,7 +12,7 @@ El algoritmo de resolución es el siguiente:
 \begin{enumerate}
     \item Copiar un \texttt{1} de la cinta 0 a la cinta 1, borrando la cinta 0. Este paso se realiza ya que el número $1$ es primo y divisor de todos los números, para así empezar a verificar divisores a partir del número $2$.
     \item Copiar el posible divisor $m$ a la cinta 1, borrando la cinta 0 y dejando el cabezal 1 al final de $m$. Dado que es una máquina no determinista, esto generará máquinas $\forall m \leq n$.
-    \item Comprobar si $m$ es divisor de $n$, es decir, si $\exists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando si se llega al final de la cinta 0 a la vez que se llega al final/principio de la cinta 1.\\
+    \item Comprobar que $m$ es divisor de $n$, es decir, si $\exists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando que se llega al final de la cinta 0 a la vez que se llega al final/principio de la cinta 1.\\
     Hasta que las dos cintas están vacías:
     \begin{enumerate}[1.]
         \item Avanzar la cinta 0, borrándola, y retroceder la cinta 1, mientras se lean \texttt{1}.
@@ -62,15 +62,15 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \caption{Aplicación de Diferencias Finitas a MT-7A}
 \end{table}
 
-Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\\
+Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
 
 \begin{subequations}
-    \begin{gather}
+    \begin{gather*}
         n = 4,\ T(4) = 9  \rightarrow 4a + b = 9 \\
         n = 6,\ T(6) = 12 \rightarrow 6a + b = 12
-    \end{gather}
+    \end{gather*}
 \end{subequations}
 
 
@@ -85,11 +85,11 @@ Resolviendo, $a=\frac{3}{2}$ y $b=3$, por lo que:
 % MT-7B
 %----------
 
-\subsection{\texttt{prime}}
+\subsection{PRIME(N)}
 
 \subsubsection*{Diseño propuesto}
 Una máquina de Turing no determinista, por definición, ``acepta una
-entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la configuración inicial con $w$ como entrada hasta una configuración con un estado de aceptación''.\parencite[][pg. 289]{HopcroftJohnE.2008Ialt}\\
+entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la configuración inicial con $w$ como entrada hasta una configuración con un estado de aceptación'' \parencite[ver][pg. 289]{HopcroftJohnE.2008Ialt}.\\
 Si vemos una máquina no determinista como una serie de procesos (máquinas de Turing) independientes que son generados cada vez que se da una transición no determinista, que \textit{cualquiera} de esos procesos acabe en aceptación indica que el lenguaje es aceptado, mientras que que \textit{ninguno} lo haga indica que el lenguaje no es aceptado. A la hora de crear una máquina no determinista (MTND) que determine si un número es primo o no, es sencillo hacer como en el apartado \ref{MT-7A} y que la máquina reconozca números no primos, ya que hallar cualquier divisor indica que $n$ no es primo, aceptando el lenguaje.\medskip
 
 Sin embargo, para crear una MTND que reconozca números primos, se tendría que comprobar que \textit{ningún} número fuera divisor, es decir, que todos los 'procesos' acaben en rechazo para así aceptar el lenguaje. Esto plantea un problema, que es la intercomunicación entre procesos. Para que, digamos, un 'proceso maestro' determine si $n$ es primo los 'subprocesos' deberían notificárselo de alguna forma.\\
@@ -105,7 +105,7 @@ El algoritmo de resolución es el siguiente:
         \begin{enumerate}
             \item Copiar el posible divisor $m+1$ a la cinta 1, borrando la cinta 0 y dejando el cabezal 1 al final de $m$.
             \item Si se ha llegado al final de la cinta 0, es $m=n$, por lo que $n$ es primo. Limpiar ambas cintas y \textbf{parar}.
-            \item Comprobar si $m$ es divisor de $n$, es decir, si $\exists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando si se llega al final de la cinta 0 a la vez que se llega al final/principio de la cinta 1.\\
+            \item Comprobar que $m$ no es divisor de $n$, es decir, que $\nexists p \mid m\cdot p = n$ ($p \in \mathbb{N}$). Esto se consigue recorriendo la cinta 1 ($m$) $p$ veces a la vez que recorremos la cinta 0 ($n$) y comprobando si se llega al final de la cinta 0 a la vez que \textit{no} se llega al final/principio de la cinta 1.\\
             Hasta llegar al final de la cinta 0:
             \begin{enumerate}[1.]
                 \item Avanzar la cinta 0, y retroceder la cinta 1, mientras se lean \texttt{1}.
@@ -149,11 +149,11 @@ En este caso no resulta posible aplicar el método de diferencias finitas para o
 Se aproxima la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos. Se comprueba que el comportamiento es similar aunque no exacto, ya que no es posible aplicar el método de diferencias finitas.
 
 \begin{subequations}
-    \begin{gather}
+    \begin{gather*}
         n = 2,\ T(2) = 6  \rightarrow 4a  + 2b + c = 6 \\
         n = 3,\ T(3) = 18 \rightarrow 9a  + 3b + c = 18 \\
         n = 5,\ T(5) = 55 \rightarrow 25a + 5b + c = 55
-    \end{gather}
+    \end{gather*}
 \end{subequations}
 
 Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
@@ -162,7 +162,7 @@ Resolviendo, $a=\frac{13}{6}$, $b=\frac{7}{6}$ y $b=-5$, por lo que:
     T(n) = \frac{13}{6}n^2 + \frac{7}{6}n + 4
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{plot_MT-7B_complexity.png}
     \caption{ Coste computacional de MT-7B}

@@ -28,12 +28,12 @@ El algoritmo de resolución es el siguiente
         \begin{enumerate}[1.]
             \item Borra el primer \texttt{1} de la segunda cinta y pone un \texttt{0} en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
-        \end{enumerate} 
+        \end{enumerate}
         \item Si el ultimo elemento es un \texttt{2}:
         \begin{enumerate}[1.]
             \item Borra el primer 2 de la segunda cinta y pone un 1 en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
-        \end{enumerate} 
+        \end{enumerate}
         \item Si el último elemento es un \$:
         \begin{enumerate}[1.]
             \item Borra el \$ de la segunda cinta sin poner nada en la primera cinta
@@ -47,7 +47,7 @@ El algoritmo de resolución es el siguiente
             \item Copia el resto de elemento a la primera cinta eliminándolos de la segunda
         \end{enumerate}
         \item Si el siguiente elemento es un \texttt{1}:
-        \begin{enumerate}
+        \begin{enumerate}[1.]
             \item Borra el \texttt{1} de la segunda cinta y pone en la primera un \texttt{2}
             \item Copia el resto de elemento a la primera cinta eliminándolos de la segunda
         \end{enumerate}
@@ -108,7 +108,7 @@ Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no so
 
 \subsubsection*{Evaluación respecto a los apartados 1 y 2}
 
-Se ha llevado acabo una serie de tests con diferentes operaciones empleando los tres algoritmos con máquinas de dos cintas, en todos los casos las operaciones se han planteado con el formato de peor caso para poder llevar a cabo un acomparación más rigurosa. 
+Se ha llevado acabo una serie de tests con diferentes operaciones empleando los tres algoritmos con máquinas de dos cintas, en todos los casos las operaciones se han planteado con el formato de peor caso para poder llevar a cabo un acomparación más rigurosa.
 
 \begin{table}[h]
     \centering

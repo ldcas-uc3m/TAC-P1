@@ -1,16 +1,14 @@
 \part{Conclusiones}
 
 \section{Desafios}
-Al igual que en la práctica anterior, hemos aprovechado para aprender a automatizar pruebas con Python y a mostrarlas con la librería matplotlib\parencite{matplotlib}. También aprovechamos para empezar a trabajar con herramientas necesarias para realizar nuestro TFG, como son \LaTeX\parencite{latex} para realizar la memoria, y BibLaTeX\parencite{biblatex} para manejar las referencias.\medskip
+Al igual que en la práctica anterior, hemos aprovechado para aprender a automatizar pruebas con Python y a mostrarlas con la librería matplotlib \parencite{matplotlib}. También aprovechamos para empezar a trabajar con herramientas necesarias para realizar nuestro TFG, como son \LaTeX \parencite{latex} para realizar la memoria, y BibLaTeX \parencite{biblatex} para manejar las referencias.\medskip
 
-A la hora de automatizar las pruebas, nos decantamos por crear las máquinas de Turing en JFLAP\parencite{jflap}, convertirlas mediante el \textit{script}\footnote{\texttt{src/jf2tm.py}} proporcionado (modificándolo para nuestros propósitos) al formato del simulador turingmachinesimulator\parencite{turingmachinesimulator}, y simularlas localmente a través de Turing Machine Simulator\parencite{tmsimulator}, un simulador open-source que lee el mismo formato que turingmachinesimulator. También se modificó el código de este simulador para que exportase los resultados en formato JSON\parencite{json} y así poder trabajar con ellos cómodamente en Python. Posteriormente se creó una \href{https://github.com/fcortes/turing-machine-simulator/pull/2}{\textit{pull request}} para contribuír el código.\medskip
+A la hora de automatizar las pruebas, nos decantamos por crear las máquinas de Turing en JFLAP \parencite{jflap}, convertirlas mediante el \textit{script}\footnote{\texttt{src/jf2tm.py}} proporcionado (modificándolo para nuestros propósitos) al formato del simulador turingmachinesimulator \parencite{turingmachinesimulator}, y simularlas localmente a través de Turing Machine Simulator \parencite{tmsimulator}, un simulador open-source que lee el mismo formato que turingmachinesimulator. También se modificó el código de este simulador para que exportase los resultados en formato JSON \parencite{json} y así poder trabajar con ellos cómodamente en Python. Posteriormente se creó una \href{https://github.com/fcortes/turing-machine-simulator/pull/2}{\textit{pull request}} para contribuír el código.\medskip
 
 Más allá de las dificultades técnicas, también tuvimos problemas al diseñar ciertas máquinas, como MT-2A y MT-7B, y al calcular ciertas cotas superiores mediante Diferencias Finitas.
 
 
 \section{Conclusiones Generales}
 
-En terminos generales consideramos que esta práctica ha resultado de gran utilidad para poder poner en práctica los conocimeinto teóricos obtenidos tanto de desarrollo de máquinas de Turing deterministas y no deterministas, permitiendonos familiarizarnos con una herramienta de gran utilidad para ello es como es jflap, así como la evaluación del rendimeinto de algoritmos en terminos de complejidad y coste computacional.
-Estos conocimientos pueden resultar de gran ayuda de cara a futuros proyectos en los que se lleve acabo el desarrollo propio de algoritmos, a fin de poder optimizarlos y analizar posibles mejoras en su implementación.  
-
-\newpage
+En terminos generales consideramos que esta práctica ha resultado de gran utilidad para poder poner en práctica los conocimeinto teóricos obtenidos tanto de desarrollo de máquinas de Turing deterministas y no deterministas, permitiendonos familiarizarnos con una herramienta de gran utilidad para ello es como es JFLAP, así como la evaluación del rendimeinto de algoritmos en terminos de complejidad y coste computacional.
+Estos conocimientos pueden resultar de gran ayuda de cara a futuros proyectos en los que se lleve acabo el desarrollo propio de algoritmos, a fin de poder optimizarlos y analizar posibles mejoras en su implementación.
