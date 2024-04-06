@@ -8,7 +8,7 @@
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repiite hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el número a al derecha del \$ restandole uno y el número a la izquierda del \$ sumandole uno. Este ciclo se repite hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
 
 El algoritmo de resolución es el siguiente
 
@@ -65,9 +65,8 @@ El algoritmo de resolución es el siguiente
 
 
 \subsubsection*{Peor caso}
-Dado que la máquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de digitos con valor 2 más ciclos se requerirán.\\
-Dado que la máquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de digitos con valor 2 más ciclos se requerirán.\\
-Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se requerirán.
+Dado que la máquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los dígitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de dígitos con valor 2 más ciclos se requerirán.\\
+Del mismo modo al restar a la derecha para sumar a la izquierda, a más dígitos en la derecha más ciclos de suma/resta serán requeridos.
 
 
 \subsubsection*{Evaluación empírica}
