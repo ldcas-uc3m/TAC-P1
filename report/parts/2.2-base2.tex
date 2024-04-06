@@ -44,8 +44,8 @@ El algoritmo de resolución es el siguiente:
 
 
 \subsubsection*{Peor caso}
-Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 1 sea mayor, decir a mayor número de dgitos con valor 1 más ciclos se requerirán.\\
-Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se reuerirán.
+Dado que la maquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 1 sea mayor, es decir a mayor número de digitos con valor 1 más ciclos se requerirán.\\
+Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se requerirán.
 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 1 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-2A.csv}.}:
@@ -83,7 +83,7 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \caption{Aplicación de Diferencias Finitas a MT-2A}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantes. Esto se debe a que el funcionamiento de la máquina de Turing incluye recursividad, a pesar de que se han llevado pruebas para tratar de aproximarlo a un polinomio de grado dos o incluso tres, no se ha hallado una aproximación válida, se podría tratar con polinomios de mayor grado pero se requeriría de extraer más datos empíricos y realizar las diferencias finitas, pero aún así no se asegura el poder obtener una aproximación correcta, por lo que no es posible aproximarlo a un polinomio con exactitud. \medskip
 
 
 %----------
@@ -95,7 +95,7 @@ Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no so
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repte hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restándole uno, y el numero a la izquierda del \$ sumandole uno. Este ciclo se repite hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
 
 El algoritmo de resolución es el siguiente:
 
@@ -106,11 +106,11 @@ El algoritmo de resolución es el siguiente:
         \item Comienza a moverse de izquierda a derecha
         \item Si el ultimo elemento es un 0
         \begin{enumerate}
-            \item Borra los 0 de la segunda cinta y pone en la primera un 1, hatsa encontrar un 1
+            \item Borra los 0 de la segunda cinta y pone en la primera un 1, hasta encontrar un 1
             \item Cuando encuentra el primer 1, lo borra de la segunda cinta y pone un 0 en la primera
             \item Sigue avanzando copiando los elemntos de la segunda cinta a la primera hasta llegar al \$
         \end{enumerate}
-        \item Si el ultimo elemento es un 1   
+        \item Si el último elemento es un 1   
         \begin{enumerate}
             \item Borra el primer 1 de la segunda cinta y pone un 0 en la primera cinta
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al \$
@@ -121,11 +121,11 @@ El algoritmo de resolución es el siguiente:
             \item Continua copiando los elementos a la primera cinta y borrandolos de la segunda hasta llegar al final
             \item \textbf{Parar}.
         \end{enumerate} 
-        \item Si encuntra el \$ en la segunda cinta, lo copia a la primera cianta y lo borra de la segunda.
+        \item Si encuentra el \$ en la segunda cinta, lo copia a la primera cianta y lo borra de la segunda.
         \item Si el siguiente elemento es un 0
         \begin{enumerate}
-            \item Borra el 0 de la segunda cinta y pon en la primera un 1
-            \item Copia el resto de elemento a la primera cinta elimianndolos de la segunda
+            \item Borra el 0 de la segunda cinta y pone en la primera un 1
+            \item Copia el resto de elementos a la primera cinta eliminandolos de la segunda
         \end{enumerate}
         \item Si el siguiente elemento es un 1
         \begin{enumerate}
@@ -140,7 +140,7 @@ El algoritmo de resolución es el siguiente:
 
 
 \subsubsection*{Peor caso}
-Dado que la maquina funciona copiando de la primera cinta a la segunda para luego escribir en la primera cinta pero restando a al derecha y sumando a la izquierda una unidad en cada ciclo, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuantos mayor sea el número de la derecha, es decir a más 1 a la derecha del \$ más ciclos se requerirán.\medskip
+Dado que la maquina funciona copiando de la primera cinta a la segunda para luego escribir en la primera cinta pero restando a al derecha y sumando a la izquierda una unidad en cada ciclo, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuanto mayor sea el número de la derecha, es decir a más 1 a la derecha del \$ más ciclos se requerirán.\medskip
 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 1 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-2B.csv}.}:
@@ -177,4 +177,4 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \caption{Aplicación de Diferencias Finitas a MT-2B}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing es recursivo, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\\
+Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantes. Esto se debe a que el funcionamiento de la máquina de Turing incluye recursividad, a pesar de que se han llevado pruebas para tratar de aproximarlo a un polinomio de grado dos o incluso tres, no se ha hallado una aproximación válida, se podría tratar con polinomios de mayor grado pero se requeriría de extraer más datos empíricos y realizar las diferencias finitas, pero aún así no se asegura el poder obtener una aproximación correcta, por lo que no es posible aproximarlo a un polinomio con exactitud. \medskip

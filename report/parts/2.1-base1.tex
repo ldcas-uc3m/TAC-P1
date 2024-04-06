@@ -13,13 +13,13 @@ El algoritmo de resolución es el siguiente:
     \item Ciclo:
     \begin{enumerate}[1.]
         \item Desplazarse hasta el extremo derecho.
-        \item Si el elmento es un 1:
+        \item Si el elemento es un 1:
         \begin{enumerate}[1.]
             \item Borrarlo.
             \item Volver al extremo izquierdo.
             \item Añadir un 1 en la primera posición.
         \end{enumerate}
-        \item Si el elemnto es un \$:
+        \item Si el elemento es un \$:
         \begin{enumerate}[1.]
             \item Borrarlo.
             \item Volver al extremo izquierdo.
@@ -121,7 +121,7 @@ El algoritmo de resolución es el siguiente:
         \begin{enumerate}[1.]
             \item Borrarlo de la cinta 0.
             \item No añadir nada en la cinta 1 y retroceder una posisción.
-            \item Avanzar hacia la derecha en la cinta 0 hasata llegar al final y mantenerse sin moverse en la cinta 1.
+            \item Avanzar hacia la derecha en la cinta 0 hasta llegar al final y mantenerse sin moverse en la cinta 1.
             \item Por cada 1 en la cinta 1 borrarlo y desplazarse hacia la izquierda en dicha cinta, añadir un 1 en la cinta 0 y avanzar a la derecha
             \item Cuando la cinta 1 queda vacia, \textbf{parar}.
         \end{enumerate}
@@ -136,7 +136,7 @@ Se ha aplicado una optimización respecto al algortimo original, por el cual una
 
 
 \subsubsection*{Peor caso}
-En este algoritmo, el pero caso será aquel en el que el primer número, esto es a al izquierda del \$, tenga un mayor numero de digitos. Esto se debe a que para cada digito a la izquierda del \$, este deberá copiarse a la sgunda cinta  para posteioriormente escribirse de nuevo en la primera
+En este algoritmo, el peor caso será aquel en el que el primer número, esto es a al izquierda del \$, tenga un mayor numero de digitos. Esto se debe a que para cada digito a la izquierda del \$, este deberá copiarse a la sgunda cinta  para posteriormente escribirse de nuevo en la primera.
 
 
 \subsubsection*{Evaluación empírica}
