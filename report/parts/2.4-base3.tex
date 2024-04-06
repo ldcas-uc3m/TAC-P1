@@ -8,7 +8,7 @@
 
 \subsubsection*{Diseño propuesto}
 
-En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repite hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
+En el diseño propuesto se copia la palabra de la primera cinta a la segunda, para luego escribir en la primera cinta el numero a al derecha del \$ restandole uno y el numero a la izquierda del \$ sumandole uno. Este ciclo se repiite hasta que a la derecha del \$ no queda nada (cero), lo que significa que se ha terminado pues el número a la izquierda del \$ es la suma de los dos números originales.\medskip
 
 El algoritmo de resolución es el siguiente
 
@@ -66,7 +66,9 @@ El algoritmo de resolución es el siguiente
 
 \subsubsection*{Peor caso}
 Dado que la máquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de digitos con valor 2 más ciclos se requerirán.\\
+Dado que la máquina funciona restando de uno en uno al número de la derecha y sumando en la misma medida al número de de la izquierda, el peor caso será aquel en el que se requieran llevar acabo más acarreo de bits puesto que esto implica modificar el valor de todos los digitos del número al que se le está sumando. Esto ocurrirá cuando para un mismo número de dígitos el número de 2 sea mayor, es decir a mayor número de digitos con valor 2 más ciclos se requerirán.\\
 Del mismo modo al restar a la derecha para sumar a la izquierda, a más digitos en la derecha más ciclos de suma-resta se requerirán.
+
 
 \subsubsection*{Evaluación empírica}
 Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño de la cadena de entrada, compuesta por por 2 a la derecha del \$ ya que se trataría del peor caso, y midiendo el número de pasos realizados para resolver el problema\footnote{Los datos se pueden encontrar en \texttt{data/MT-4A.csv}.}:
@@ -103,11 +105,10 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
     \caption{Aplicación de Diferencias Finitas a MT-4A}
 \end{table}
 
-Se obsrerva que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing incluye recursividad, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
+Se observa que las diferencias finitas primeras, las segundas y terceras, no son nulas ni constantetes. Esto se debe a que el funcionamiento de la máquina de Turing incluye recursividad, lo que hace que no sea lineal, por lo que no es posible aproximarlo a un polinomio con exactitud.\medskip
 
 
 \subsubsection*{Evaluación respecto a los apartados 1 y 2}
-
 Se han llevado acabo una serie de tests con diferentes operaciones empleando los tres algoritmos con máquinas de dos cintas, en todos los casos las operaciones se han planteado con el formato de peor caso para poder llevar a cabo una comparación más rigurosa.
 
 \begin{table}[h]
@@ -148,6 +149,6 @@ Se han llevado acabo una serie de tests con diferentes operaciones empleando los
     \end{minipage}
 \end{figure}
 
-Se observa que en terminos de coste el algortimo de base dos y base tres son basante próximos, pues en ambos casos para realizar una misma operación el tamaño de palabra y el funcionamiento de el algoritmo son similares, teniendo una complejidad que no es posible expresar como una expresión polinómica al tener un comportamiento recursivo.\\
+Se observa que en terminos de coste el algortimo de base dos y base tres son basante próximos, pues en ambos casos para realizar una misma operación el tamaño de palabra y el funcionamiento de el algoritmo son similares, teniendo una complejidad que no es posible expresar como una expresión polinómica al tener un comportamiento recursivo.\medskip
 
 En contraposición el algortimo en base uno, muestra tener un coste notablemente inferior al de base tres, pues su expresión de complejidad queda definida por un polinomio de grado uno, se trata de un crecimiento lineal frente a un crecimiento con tendecia cuadrática del algortimo de base tres.

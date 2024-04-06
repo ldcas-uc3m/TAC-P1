@@ -1,4 +1,5 @@
 *.csv
+img/
 
 # don't ignore bc they have to be done by hand
 !MT-0C.csv

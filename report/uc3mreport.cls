@@ -273,8 +273,9 @@
 \RequirePackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
 
 % usefull macros
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}%
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}%
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 
 
 

@@ -52,8 +52,7 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 
 En este caso no resulta posible aplicar el método de Diferencias Finitas\footcite[ver][pgs. 1-42: \textit{Chapter 1. Difference Tables and Polynomial Fits}]{cuoco2005mathematical} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=6$ y $n=8$, dos unidades, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=8$ y $n=12$, cuatro unidades.\medskip
 
-Las diferencias finitas no son costantes, pero podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
-
+Las diferencias finitas no son costantes, pero podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.
 \begin{subequations}
     \begin{gather*}
         n = 4,\ T(4) = 9  \rightarrow 4a + b = 9 \\
@@ -88,7 +87,7 @@ entrada $w$ si existe cualquier secuencia de movimientos que lleva desde la conf
 \footcite[ver][pg. 289]{HopcroftJohnE.2008Ialt}.\\
 Si vemos una máquina no determinista como una serie de procesos (máquinas de Turing) independientes que son generados cada vez que se da una transición no determinista, que \textit{cualquiera} de esos procesos acabe en aceptación indica que el lenguaje es aceptado, mientras que que \textit{ninguno} lo haga indica que el lenguaje no es aceptado. A la hora de crear una máquina no determinista (MTND) que determine si un número es primo o no, es sencillo hacer como en el apartado \ref{MT-7A} y que la máquina reconozca números no primos, ya que hallar cualquier divisor indica que $n$ no es primo, aceptando el lenguaje.\medskip
 
-Sin embargo, para crear una MTND que reconozca números primos, se tendría que comprobar que \textit{ningún} número fuera divisor, es decir, que todos los 'procesos' acaben en rechazo para así aceptar el lenguaje. Esto plantea un problema, que es la intercomunicación entre procesos. Para que, digamos, un 'proceso maestro' determine si $n$ es primo los 'subprocesos' deberían notificárselo de alguna forma.\\
+Sin embargo, para crear una MTND que reconozca números primos, se tendría que comprobar que \textit{ningún} número fuera divisor, es decir, que todos los `procesos' acaben en rechazo para así aceptar el lenguaje. Esto plantea un problema, que es la intercomunicación entre procesos. Para que, digamos, un 'proceso maestro' determine si $n$ es primo los `subprocesos' deberían notificárselo de alguna forma.\\
 Esto, teniendo en cuenta nuestro modelo de MTND, no es posible; no hay ningún tipo de comunicación entre procesos.\medskip
 
 Por este motivo hemos visto imposible realizar una MTND como la que se ha pedido, así que hemos optado por hacer la versión determinista de ésta máquina, basada en la MT-7A, para posteriormente compararla con la ella.\bigskip
@@ -142,7 +141,6 @@ Realizamos la evaluación empírica en el peor caso, tomando como $n$ el tamaño
 En este caso no resulta posible aplicar el método de Diferencias Finitas\footcite[ver][pgs. 1-42: \textit{Chapter 1. Difference Tables and Polynomial Fits}]{cuoco2005mathematical} para obtener el coste compuacional, ya que para los peores casos, que son los escenarios a evaluar, el tamaño de palaba ($n$) no crece de manera lineal. A simple vista se observa que la diferencia entre el coste de $n=2$ y $n=3$, una unidad, aumenta en menor proporción que para el siguiente caso, la diferencia entre $n=3$ y $n=5$, dos unidades.\medskip
 
 Dado que el algoritmo tiene un bucle principal en el que se va a recorrer $n$ al menos una vez, se puede aproximar la expresión de la complejidad a un comportamiento cuadratico definido por un polinomio de grado dos.
-
 \begin{subequations}
     \begin{gather*}
         n = 2,\ T(2) = 6  \rightarrow 8d + 4a  + 2b + c = 6 \\

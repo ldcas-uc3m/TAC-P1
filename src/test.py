@@ -1,9 +1,10 @@
 import subprocess
 from pathlib import Path
 import json
+import os
 import platform
 import logging
-from typing import Callable, Iterable
+from typing import Callable
 from itertools import product
 
 import numpy as np
@@ -23,10 +24,15 @@ logger.addHandler(handler)
 
 
 REPO_ROOT = Path(__file__).parent.parent
-TURING_EXEC: Path = REPO_ROOT / f"turing-machine-simulator/turing{'.exe' if platform.system() == 'Windows' else ''}"
-DATA_FOLDER = REPO_ROOT / "data/"
-IMAGE_FOLDER = REPO_ROOT / "report/img/"
-TM_FOLDER = REPO_ROOT / "src/tm/"
+TURING_EXEC: Path = REPO_ROOT/f"turing-machine-simulator/turing{'.exe' if platform.system() == 'Windows' else ''}"
+DATA_FOLDER = REPO_ROOT/"data/"
+TM_FOLDER = REPO_ROOT/"src/tm/"
+
+if os.path.exists(REPO_ROOT/"report"):
+    IMAGE_FOLDER = REPO_ROOT/"report/img/"
+else:
+    IMAGE_FOLDER = DATA_FOLDER/"img"
+    os.mkdir(IMAGE_FOLDER)
 
 
 
@@ -116,7 +122,7 @@ def plot_dataframes(
     ax.set_xlabel(x_column)
     ax.set_ylabel(y_column)
 
-    ax.legend(loc='lower right')
+    ax.legend()
 
     if save_file:
         fig.savefig(save_file)

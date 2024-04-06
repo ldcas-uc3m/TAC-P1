@@ -1,4 +1,5 @@
 \section{Palíndromos}
+Dado el lenguaje $\Sigma = \{a, b\}$, definimos el palíndromo $x \mid x \in \Sigma*$, $|x| = 2k$, $k \in \mathbb{Z}^+$, $\exists w \in \Sigma*$, $\abs{w} = k \mid x = w \cdot w^{-1}$
 
 %----------
 % MT-0A
@@ -176,7 +177,6 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
-
 \begin{subequations}
     \begin{gather*}
         n = 0,\ T(0) = 3 \rightarrow b = 3 \\
@@ -269,7 +269,6 @@ Para obtener el coste computacional del algoritmo, aplicaremos Diferencias Finit
 Al ser constantes las diferencias finitas primeras, y nulas las segundas, podemos aproximar $T(n)$ con un polinomio de primer orden, es decir, $T(n) = an + b$.\medskip
 
 Para obtener los valores de $a$ y $b$, usaremos valores de $n$ y $T(n)$ obtenidos en la evaluación empírica:
-
 \begin{subequations}
     \begin{gather*}
         n = 2,\ T(2) = 4 \rightarrow 2a + b = 4 \\
