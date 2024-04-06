@@ -2,6 +2,8 @@
 # Bash script to zip the whole project in order to make it deriverable
 # please make sure zip and texlive are installed
 
+set -e  # exit on error
+
 OUTFILE="../MT_3_Arnaiz_Casais.zip"
 
 [ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
@@ -21,13 +23,13 @@ rm turing-machine-simulator/turing
 
 # compile the report (and save it to root folder)
 echo "Compiling the report..."
-latexmk -cd -shell-escape -pdf report/report.tex 
+latexmk -cd -shell-escape -silent -pdf report/report.tex 
 cp report/report.pdf Memoria_MT_3_Arnaiz_Casais.pdf
 
 
 # zip it (excluding useless stuff)
 echo "Zipping..."
-zip -q -r "$OUTFILE" . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* \*examples/\* .venv/\* *.xml *.tm *.jar build/\* .vscode/\* \*LICENSE
+zip -q -r "$OUTFILE" . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* \*examples/\* .venv/\* *.xml *.tm *.jar build/\* .vscode/\*
 
 # cleanup
 echo "Cleaning up..."
